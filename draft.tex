@@ -1,0 +1,1678 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[lmargin=2.5cm,tmargin=3cm,rmargin=2.5cm,vscale=0.8,nohead]{geometry}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{tikz-network}
+\usepackage{subfig}
+\usepackage{amsmath, amsthm, amsfonts, amssymb}
+\usepackage{bibentry}
+\usepackage[round]{natbib}
+%\usepackage[numbers]{natbib}
+\usepackage{xpatch}
+\usepackage{pgfplots}
+\newcommand{\citeyearonly}[1]{\citeyearpar{#1}}
+
+\usepackage[activeacute,english]{babel}
+%\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{authblk}
+\usepackage[alwaysadjust]{paralist}
+\usepackage{alltt}
+\usepackage{caption}
+\usepackage{array}
+\usepackage[fit]{truncate}
+%\pagestyle{fancy}
+\usepackage{calc}
+%\usepackage{fancyvrb}
+\usepackage{float}
+\usepackage[ansinew]{inputenc}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage[figuresright]{rotating}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage[normalem]{ulem}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usetikzlibrary{positioning, arrows}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{adjustbox}
+
+
+
+\newcommand{\doubleitem}{%
+  \begingroup
+  \stepcounter{enumi}%
+  \edef\tmp{\theenumi, }%
+  \stepcounter{enumi}
+  \edef\tmp{\endgroup\noexpand\item[\tmp\labelenumi]}%
+  \tmp}
+
+\renewcommand{\footnotesize}{\normalsize}
+
+\title{{\bf \Large THESISSSS}
+}
+
+
+
+\author{Emil Mirzayev}
+%\author[2,3]{Zakaria Babutsidze}
+%\affil[1]{University College London}
+%\affil[2]{SKEMA Business School}
+%\affil[3]{Sciences Po Paris}
+%\date{}
+
+%March 28, 2023
+
+\begin{document}
+\spacing{1.5}
+\maketitle
+
+\section{GENERAL INTRODUCTION}
+
+\subsection{Introduction}
+TWO TYPE OF CONTEXT EFFECTS - THE ONES WITHIN THE CHOICE SETS AND ONES WITHOUT. ONES WITHOUT ARE GIVEN BY RECOMMENDER SYSTEMS. ONE WITHIN COMES WITHIN. MY ULTIMATE GOAL IS TO CONTRIBUTE TO CONTEXT EFFECT APPLICATIONS TO RECOMMENDER SYSTEMS.
+
+FIRST I WANT TO CONTRIBUTE TO UNDERSTANDING OF CONTEXT EFFECTS AND THEIR DETECTION IN MULTIDIMENSIONAL MULTIATTRIBUTE CHOICE SETS -> THIS IS THE FIRST PAPER, SIMULATION USING MATHEMATICAL MODEL TO ACCOUNT FOR CONTEXT EFFECTS.
+THEN I WANT TO CONTRIBUTE TO CONTEXT EFFECT DIFFERENTLY, BY ACCOUNTING FOR THEM USING CLUSTERING.
+THEN I WANT TO CONTRIBUTE TO CONTEXT EFFECT BY DISENTANGLING BIG THREE CONTEXTS 
+
+ONE OF THE MAIN GOALS IS TO COME UP WITH ABILITY OF EXTENDING CONTEXT EFFECT APPLICATIONS TO RECOMMENDER SYSTEMS
+ANOTHER GOAL IS TO UNDERSTAND THE CONTEXTUAL EFFECTS ARISING FROM MULTIDIMENSIONAL CHOICE SETS
+ALSO, TO UNDERSTAND HOW 
+
+\subsection{Data and research methodology}
+\subsection{Placeholder}
+
+BLABLABLA
+
+\newpage
+
+\section{Application of mathematical decision making model to observational data} \footnote{This chapter is based on a joint work with my supervisor  Zakaria Babutsidze}
+
+\begin{abstract}
+    
+    Previous computational decision making models developed to account for context effects have only been
+    studied with an experimental data where only one effect was produced at a time. Using data coming from strictly controlled experimental environments
+    hinders the understanding of context effects that occur in real-world choice scenarios where items have multiple dimensions and choice sets have dozens of alternatives. In this chapter
+    I apply a computational model to an observational data which was not done before. The data comes from an air travel industry and is ideal to study context effects in multiattribute, multialternative choice environments. I first find optimal parameters for computational model using differential evolution algorithm. Then, I complement a traditional choice model with its outputs and assess the significance of its contribution. This chapter contributes to context effect and decision making literature by providing further insights on behavior of computational decision making models in real-world choice data.
+    
+\end{abstract}
+
+\newpage
+
+
+\subsection{Introduction}
+
+We make choices all the time. Remember the time when you went to see a movie you have been waiting for some time ago and decided to grab some popcorn before entering. You might have seen something like in the figure \ref{fig:decoyPopcornExample}  although prices may be higher these days. You are puzzled at first, but reminded that the movie about to start, so you better hurry up and choose one. 
+
+The small one feels not enough for a 90 minute marathon. Then, there is a middle one which seems like an okay option,  at first. When you notice that big box you immediately forget about the small one you saw moments ago. You start looking at sizes and prices of middle and large box and think: Well, that's easy. Big box seems like the way to go here, considering their prices are almost equal. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{staticFiles/popcornDecoy.png}
+    \caption{Classic illustration of context effects.}
+    \label{fig:decoyPopcornExample}
+\end{figure}
+
+If this situation is familiar to you, then you have experienced so called context effect which can bu understood as "the composition  and the nature of the choice set, availability of various options in it" \citep{tversky1972elimination, huberPuto83}. For the long time, our understanding of the choice did not extend over the borders of two related principles. First one is, independence of irrelevant alternatives (IIA) which states that when having a choice between two two options $A$ and $B$ if a person prefers $A$ for example, regardless of adding a third option $C$ to this choice set, that person's preference must be unaltered \citep{luce59}. Second one is regularity principle which states that, the choice probability of option $A$ can not increase by introduction of option $C$ \citep{luce59}.
+
+However, research has concluded that the context of the choice set and options in it have substantial effect on how people make choices. This effect has been studied extensively for the past five decades by many economists, marketing scholars and psychologists \footnote{See Dowling et al. \citeyearonly{dowlingEtAl20} and Lichtenstein \citeyearonly{lichtenstein2006construction} for more comprehensive review.} \citep{tverskySimonson93, kahnemanTversky79, simonson89, lichtenstein2006construction, dowlingEtAl20}. Most of the research has focused on three context effects: attraction, compromise and similarity \citep{howes2016contextual}.
+
+To better understand these three context effects, lets think of a hypothetical choice set where options differ along two dimensions: Dimension 1 and Dimension 2. We first start with a choice set consisting of two options: $A$ which has the values 20 and 80; $B$ which has values 80 and 20 that figure \ref{fig:binaryChoiseSet} depicts. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{staticFiles/noEffect.png}
+    \caption{Binary choice set with two options.} % Add your description here
+    \label{fig:binaryChoiseSet} % This labels your figure for reference
+
+\end{figure}
+
+People have heterogeneous preferences and hence when facing a choice set with only these two options they would weigh each dimension roughly equally. The ones who prefer Dimension 1 would choose $B$ whereas $A$ will be chosen by individuals prefering Dimension 2. This can be described as equation \ref{eq:onlyTwoOptions} below.
+
+\begin{equation}\label{eq:onlyTwoOptions}
+    P(A|A,B) = P(B|A,B)
+\end{equation}
+
+Where $P(A|A,B)$ corresponds to the probability of choosing $A$ given choice set $A,B$. Same goes for $P(B|A,B)$.
+
+\textit{Attraction effect}
+
+Now, lets add a third option to this choice set, option $D_A$ to create one variation and $D_B$ to create the second variation of the ternary choice set. Both added options have lower values in both dimensions when compared to $A$ and $B$ respectively. Huber created this type of scenario and has found what he has then called "attraction effect" \citeyearonly{huberEtAl82}. Attraction effect, which is also known in the literature as asymmetric dominance effect is a consistent violation of the regularity principle mentioned earlier. He suggested that when having a choice set consisting of options $A$ and $B$ the relative probability of choosing option $A$ can be increased if one adds a third option with characteristics of $D_A$ to the same choice set \citeyearonly{huberEtAl82}.  
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{staticFiles/attractionEffect.png}
+    \caption{Attraction effect in ternary choice. sOME MORE EXPLANATION} % Add your description here
+    \label{fig:attractionEffect} % This labels your figure for reference
+
+\end{figure}
+
+Figure \ref{fig:attractionEffect} shows those options and their respective values in each dimension. One can observe that option $A$ and $B$ are located in two different ends of the choice space. Option $D_A$ is inferior to option $A$ in both dimensions and $D_B$ is inferior to $B$. With attraction effect in place equation  \ref{eq:onlyTwoOptions} will change into \ref{eq:attractionProbability}.
+
+\begin{equation}\label{eq:attractionProbability}
+    \frac{P(A|A,B,D_A)}{P(B|A,B,D_A)} > \frac{P(A|A,B)}{P(B|A,B)} \And \frac{P(B|A,B,D_B)}{P(A|A,B,D_B)} > \frac{P(B|A,B)}{P(A|A,B)}
+\end{equation}
+
+Huber noted that albeit other explanations are still possible, the addition of $D_A$ to the choice set would shift the preferences of people towards dimension 2 because this is where option $A$ appears advantageous \cite{huberEtAl82, bhatia2013associations}. However, this claim has not received unanimous support in the upcoming studies where preference shifts have been observed \citep{wedell1991distinguishing}.
+
+\textit{Compromise effect}
+
+When the third option we add is option $C$ instead of $D$, preference shift happens differently. $C$ is virtually a middle option between $A$ and $B$ hence it has value of 50 in each dimension. In such case, probabilities of choosing $A$ and $B$ will both decrease in favour of $C$, resulting in \ref{eq:compromiseProbability}:
+
+\begin{align}\label{eq:compromiseProbability}
+    P(A|A,B,C) < P(A|A,B) \And P(B|A,B,C) < P(B|A,B)
+\end{align}
+
+Simonson was the first to describe such an effect \citeyearonly{simonson89}. He associated this with a difficulty to select: when people are not certain which attribute is important they will find a justification to favor a compromise \citep{simonson89}. This argument can explain the reason why an individual may drift towards a middle choice in a three-option choice set. Such compromise emerges as an important factor, acting as a tie-breaker when decision-maker is unsure between the initial two options. 
+
+It is worth noting that, it is also possible to "target" a particular option from binary choice set when adding a third option to create a compromise effect. One can add a target $C$ which makes $A$ a compromise option. In this case, the probability of choosing $A$ among this triple will increase, as it is considered a compromise between the remaining two options. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{staticFiles/compromiseEffect.png}
+    \caption{Compromise effect in ternary choice. ALSO TALK ABOUT MAKING ANY OF THE ORIGINAL POINTS COMPRMISE BY ADDING THIRD OPTION} % Add your description here
+    \label{fig:compromiseEffect} % This labels your figure for reference
+
+\end{figure}
+
+\textit{Similarity effect}
+
+Although Becker et al. \citeyearonly{becker1964measuring} have mentioned it before, the first study of similarity effect is known to be the one by Tversky \citep{tversky1972elimination}. He noted that when facing a binary choice set consisting of $A$ and $B$ individuals will gravitate towards $A$ more than when facing a ternary choice set consisting of ${A, B, S_A}$ depicted in figure \ref{fig:similarityEffect}. He explained it by proposing elimination by aspects theory, which states that one attribute will be chosen as elimination criteria, and all options that do not meet that criteria will be eliminated \citep{tversky1972elimination}. Hence in the choice set ${A, B, S_A}$ if an individual selects dimension 2 as elimination criteria, both $A$ and $S_A$ will be eliminated, leaving $B$ as a choice. On the contrary, if decision maker prefers dimension 1 more, then option 
+$B$ will be eliminated, leaving both $A$ and $S_A$ to share the "victory", hence resulting in equation \ref{eq:similarityProbability}.
+
+\begin{equation}\label{eq:similarityProbability}
+    P(A|A,B,S_A) < P(A|A,B) \And  P(B|A,B,S_B) < P(B|A,B)
+\end{equation}
+
+Similarity effect in choice set ${A, B, S_A}$ will follow similar route. Figure \ref{fig:similarityEffect} depicts both choice sets where similar option to $A$ and $B$ was introduced separately.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{staticFiles/SimilarityEffect.png}
+    \caption{Similarity effect in ternary choice in two scenarios.} % Add your description here
+    \label{fig:similarityEffect} % This labels your figure for reference
+
+\end{figure}
+
+These effects have been extensively studied and demonstrated in various domains, from psychology to marketing \citep{herne1997decoy, soltani2012range, evangelidisEtAl18,  truebloodEtAl13, wuConsguner20, frederickEtAl14}. Some recent studies also concluded that all three effects may occur at the same time \citep{berkowitsch2014rigorously, noguchi2014attraction}. However, recent studies also have discovered boundary conditions for these effects \citep{liew2016appropriacy, spektor2018good, spektor2019similarity}. Familiarity with the choice domain was found to reduce context effects experienced by individuals \citep{kim2005attraction, sheng2005understanding}.  It was also found that, some conditions may force these effects to completely reverse \citep{cataldo2019comparison}. The findings described above make it necessary to call for a model which could explain these effects.
+
+Logit and Probit models have been traditionally used in choice settings \citep{gensch1979multinomial, kim2017probit}. However, those models can not account for context effects, because they only account for the attributes of the focal option, not taking into account the attributes of the other options in the choice set. Tversky has proposed a model of elimination by aspects which could account for similarity effect \citeyearonly{tversky1972elimination}. The foundation of the model is attention switching of individuals between alternatives and attributes and their comparisons. Once receiving attention, attribute value of a given alternative is compared to a pre-determined threshold value by the individual and if failing to meet the threshold, that alternative is eliminated from the decision. The step is then  continued with another attribute until final decision is made. Another model which was proposed by Tversky and Simonson could account for compromise effect \citeyearonly{tverskySimonson93}. That model posited that, alternatives are compared based on a weighted sum of attribute values and a local context comprising of binary comparisons among alternatives. However, these two models could not successfully account for all three effects. Despite their drawbacks, the sequential decision making and attention based mechanisms in these models laid the foundations of many upcoming computational choice models \citep{bhatia2013associations}. 
+
+In the last three decades, researchers have developed many computational models which account for context effects: Multialternative Decision Field Theory (MDFT) \citep{roe2001multialternative}, Leaky competing
+accumulator \citep{usher2001time}, Multiattribute linear ballistic accumulator \citep{trueblood2014multiattribute}, Multialternative Decision by Sampling  \citep{noguchi2018multialternative} and etc.. Some of these models have been extensively tested and studied, while others are relatively new, hence have not received much attention from scholars \citep{truebloodEtAl13}. However, these studies have been performed with experimental data \citep{evans2019response, berkowitsch2014rigorously, trueblood2014multiattribute, busemeyer2019cognitive}. Research has proven that the behavior of individuals in laboratory choice environment is different from real-world choice environment \citep{hogarth1989risk}. Hence, the applicability of such models to field data is an uninvestigated avenue, because no previous study has been done where a computational model was been applied to a real-world observational data. I plan to address this gap by applying Multialternative Decision by Sampling (MDbS) model proposed by Noguchi and Stewart \citeyearonly{noguchi2018multialternative} to a field data from airfare booking domain. This would allow me to assess the applicability level of this model to multialternative and multidimensional field data. 
+
+Also, applying MDbS to observational data would allow me to statistically asses the significance of the contribution of this model's ability to account for context effect. Instead of testing this model against established choice models, I will attempt to complement them with MDbS. To do this, I will use random effect Probit model as a variation of Probit family and augment it with MDbS output. I choose Probit model as it does not explictly assume IIA unlike family of logit models. To validate my results further I will apply the same methodology and analysis to an experimental data.
+
+I have chosen MDbS for two main reasons. Firstly, it is relatively new when compared to other models, hence it has not been further investigated before. Secondly, it is more robust and can account for wider range of context effects (than other models) known to the literature \citep{noguchi2018multialternative}. I will discuss these reasons in more detail in the next section. \textbf{MAYBE MOVE THIS DOWN Although my main focus is on so-called big three context effects, assuming that other context effects do not exist in field data would be erroneous}. 
+
+\subsection{Computational decision making models}
+
+MDbS belongs to the attention based choice models. Before commencing with its underlying mechanisms and assumptions, it is beneficial to discuss other two models which are preceding MDbS and have been studied extensively. After briefly discussing those models I will continue with MDbS, its main assumptions, mechanisms and how it accounts 
+
+\textit{Multialternative Decision Field Theory}
+
+The very first computational model which could account for all three context effects was Multialternative Decision Field Theory (MDFT) developed by Roe et al. \citeyearonly{roe2001multialternative} as an extension of Decision Field Theory \citep{busemeyer1993decision}. It is a dynamic model of decision making that accommodates multialternative preferential choice situations, which was not possible with Decision Field Theory \citep{hotaling2019quantitative}. MDFT assumes that the decision making can be explained in three general mechanisms. First, attention allocation posits that attention switches over time between attributes stochastically. Second, evaluation mechanism posits that attribute value of given option is compared with the average attribute values of other options  which makes sure that each option in the choice set participates in comparison. Third, evidence accumulation mechanism which based on the result of evaluations, gathers evidence in favor of alternatives compared. As soon as gathered evidence hits the externally set relative threshold choice is concluded \citep{busemeyer2002survey}. This means, as soon as the difference between the highest and the second highest evidence values is larger than the relative threshold, choice is made. If this threshold is not met, the decision continues until the pre-set time limit is reached.
+
+MDFT has been confirmed to account for similarity, compromise, and attraction effects in multialternative choice scenarios \citep{roe2001multialternative}. It has previously been tested against such random utility models of choice as logit and Probit and has been concluded to be a better fit to empirical data \citep{berkowitsch2014rigorously}. 
+MDFT has been further adapted to account for preference shifts \citep{mohr2017attraction} and decision making under time restrictions \citep{diederich2003mdft}.
+
+\textit{Multiattribute linear ballistic accumulator}
+
+Multiattribute linear ballistic accumulator (MLBA) is another attention based decision making model first proposed by Trueblood et al. \citeyearonly{trueblood2014multiattribute}. Similar to MDFT it is also a dynamic model which can be explained in three general mechanisms: attention allocation, evaluation of alternatives and evidence accumulation. However, the two models have key differences. Firstly, MDFT emulates the search process of elimination by aspects proposed by Tversky \citeyearonly{tversky1972elimination} assuming decision-makers compare alternatives to each other over time. In contrast, MLBA assumes that individuals make comparisons and accumulate evidence all alternatives indepentently from one-another at the same time and then accumulate evidence \citep{trueblood15fragile}. Also, MDFT assumes that individuals have limited cognitive capacity to process information when comparing items together in contrast to MLBA, which considers individuals with unlimited cognitive capacity. Moreover, unlike MDFT, where decision is made based on relative threshold, in MLBA decision is based of absolute threshold, i.e. as soon as one alternative's evidence reaches the threshold, decision is made in favor of that alternative. Another difference between these two models is the context effects they account for. While MDFT does account for attraction, compromise and similarity effects \citep{hotaling2019quantitative}, MLBA additionally accounts for preference reversals arising from context \citep{trueblood15fragile}. 
+
+
+\subsection{Multialternative decision by sampling}
+
+MDbS has its origins in theory of decision by sampling which assumes that individual preferences arise from binary, ordinal comparisons of alternatives on given attribute values with reference values from the memory \citep{stewart2006decision}. Unlike it, MDbS assumes that the information required for comparison also comes from the choice environment itself \citep{noguchi2018multialternative}. As the other two previous models discussed above, its mechanisms can be explained using three stages. To better understand these stages I will discuss them in detail.
+
+\subsubsection{Mechanisms behind MDbS} \label{subsec:mechanismMDBS}
+
+\textsc{Attention allocation}
+
+According to MDbS, when comparing two tickets between Paris and New-York, the price of a ticket would be compared to the prices of other tickets in the choice set and also to the ones and which an individual has previously seen, but are not in the current choice set. Comparisons are ordinal, meaning that evidence accumulated towards the "winner" at a rate of one irregardless of how large the difference was. 
+
+Previously it was concluded that people tend to compare alternatives which are similar to each other more than dissimilar ones \citep{noguchi2014attraction}. Similarity based attention is one of the main assumptions of MDbS. To better understand this, let $m_{ij}$ and $m_{kj}$ be two attribute values with $i \neq k \in \{1, \ldots, n_a\}$, and $j \in \{1, \ldots, n_d\}$. MDbS defines the similarity of $m_{ij}$ to $m_{kj}$ as
+
+\begin{align}\label{similarityMDBS}
+s_{ij,kj} = \exp \left( - \alpha \left| \frac{m_{ij} - m_{kj}}{m_{kj}} \right| \right) 
+\end{align}
+
+with similarity parameter $\alpha$. Also, generally $s_{ij,kj} \neq s_{kj,ij}.$ Consider also 
+
+\begin{align}\label{sumOfSimilaritiesMDbS}
+    s_{ij} = \sum_{\substack{k \neq l \in \{1, \ldots, n_a\}}} s_{ij,kj}
+\end{align}
+to be the sum of all similarities for attribute $m_{ij}$ to other attributes on the same dimension. Consequently, by dividing this value to the sum of similarities across all other attributes across all dimensions, one can calculate the probability that $m_{ij}$ will be selected for comparison which will be 
+
+\begin{align}\label{probabilityOfComparison}
+    p_{ij} = \frac{s_{ij}}{\sum_{l \in {1, \ldots, n_a}} \sum_{m \in {1, \ldots, n_d}} s_{lm}} .
+\end{align}
+
+\textsc{Evaluation of alternatives}
+
+When evaluating alternatives with each other based on pairwise comparisons MDbS defines the probability of winning a comparison as 
+
+\begin{align}\label{probabilityOneIsFavored}
+    P(m_{ij} \text{ is favored over } m_{kj}) = 
+        \begin{cases}
+        F(\beta_0 (| \frac{m_{ij} - m_{kj}}{m_{kj}} |- \beta_1)) & \text{if } A_i > X_i \\
+        0 & \text{otherwise}
+        \end{cases}
+\end{align}
+
+where $F$ is a logistic sigmoid function and $\beta_0$ and $\beta_1$ corresponde to the advantage value and the probability that this particular advantage value will be enough to be preferred. For example, consider the case where $\beta_0 = 0.1$ and $\beta_1 = 50$. This would mean that the advantage of 10\% would be preferred with 50\% probability. Consequently, if the difference is 20\%, then it will be preferred with 99\% probability. The logistic function brings the notion of "soft" comparison instead of "hard" comparison in which case the small differences would be ignored, while large differences would be extremely preferred \citep{noguchi2018multialternative}.
+
+\textsc{Evidence accumulation}
+
+As mentioned above, in MDbS the evidence accumulation happens at rate of one. For each alternative, and for each comparison, in case of winning that comparison, one evidence point is counted towards that alternative. Hence, the probability that evidence will be increased by one point will be defined as 
+
+\begin{align}\label{probabilityOfEvidenceIncreasing}
+    p_i = \sum_{j \in {1, \ldots, n_d}} p_{ij} \cdot P(m_{ij} \text{ wins a comparison}).
+\end{align}
+
+In order to make a choice, MDbS sets a relative stopping rule $\theta$ following the study of Teodorescu \citeyearonly{teodorescu2013disentangling} which states that when deciding between more than two alternatives decision is made either when then the difference between the highest and the second best evidence is larger than the threshold, or difference between the maximum and mean evidence becomes larger than the threshold. For computational feasibility, MDbS assumes $\theta = 0.1$ which means that, decision is made when the difference between maximum and mean-average evidence reaches $0.1$. Other externally given parameters are $\alpha, \beta_0, \beta_1$. As a last step evidence for each alternative is divided by the sum of evidence for the entire choice set to convert them to choice probabilities.
+
+After discussing main mechanisms behind MDbS, the discussion about how MDbS accounts for attraction, compromise and similarity effects becomes necessary. The next subsection will shed a light on this matter.
+
+\subsubsection{Accounting for big three context effects}
+
+I will begin this section with introducing an example dataset depicted in figure \ref{fig:MDBsContextExample} which I intend to use when explaining how MDbS accounts for a given context effect. Although there are five alternatives in the figure \ref{fig:MDBsContextExample}, only three of them will be discussed at a time. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{staticFiles/contextEffectExampleScatterplot.png}
+    \caption{Example choice set to explain MDbS' account for big three context effects. $A$ and $B$ are considered original two alternatives (binary choice set). $D$ is dominated by $A$ on both dimensions. $C$ acts as compromise between the original two and $S$ is a similar option to $B$. Although these effects would be present in different variations of the choice set (for example one can make $A$ as compromise option), for the simplicity I will concnetrate on this example.} % Add your description here
+    \label{fig:MDBsContextExample} % This labels your figure for reference
+
+\end{figure}
+
+\textit{Accounting for attraction effect}
+
+When adding option $D$ which is dominated by $A$ in both dimensions to binary choice set $A$ $B$ (hereafter binary choice set will be used instead of $A$ and $B$) one creates an attraction effect \citep{huberEtAl82, huberPuto83}. Huber et al. \citeyearonly{huberEtAl82} explained attraction effect via weight shifts for individuals. Addition of $D$ would make people to weigh dimension 2 more. Hence, $A$ and $D$ will have higher "interest" among people, and this is where $A$ wins over $D$.
+
+However, MDbS takes different approach. Adding $D$ will increase option $A$ probabilities of comparison, because how similar it is to $D$ (recall equation \ref{similarityMDBS}). As consequence, the probability of $A$ winning a comparison will be more than the probability of $B$ winning a comparison, because $A$ dominates $D$ in both dimensions while $B$ is only better in one and $A$ and $D$ will be selected more for being  compared to each other. As a result, $A$ will have higher expected evidence accumulated, $B$ will be the runner-up and $D$ will have the lowest evidence accumulated towards it. The value of $\alpha$ will determine how much being similar is translated to being selected for comparison.
+
+\textit{Accounting for compromise effect}
+
+In scenario when option $C$ is added to binary choice set, compromise effect arises \citep{simonson89}. This makes $C$ more likely to be chosen because people become unsure on the importance of attributes, hence experiencing choice difficulty. This results in choosing $C$ as it is easier to justify \citep{simonson89}. 
+
+MDbS approach differs here as well. Recall that the probability of accumulating evidence towards an option is a product of its probability to be selected for comparison and its probability to win that comparison, as described in equation \ref{probabilityOfEvidenceIncreasing}. $C$ is more similar to $A$ and $B$ than $A$ is similar to $B$ (and vice versa). This will increase the probability of $C$ being chosen as comparison. Although $C$ will not win every comparison, merely the fact that it will be chosen more as comparison, will increase its probability to accumulate evidence.
+
+\textit{Accounting for similarity effect}
+
+When Tversky \citeyearonly{tversky1972elimination} explained to similarity effect in a choice set consisting of $A$, $B$ and $S$ he explained it via his famous elimination by aspects theory. When $B$ and $S$ is similar to each other, they will either be eliminated together, or stay together. Hence, having $S$ in the choice set will steal the probability of choice from $B$.
+
+In MDbS this is explained by $\beta_0$ and $\beta_1$ from equation \ref{probabilityOneIsFavored}. Recall that, the reason of having the sigmoid function with arguments $\beta_0$ and $\beta_1$ is to make sure that small differences would be relatively ignored. This is in line with previous literature stating that people tend to ignore small differences between alternatives when making a choice \citep{kalwani1992consumer}. Hence, the small differences between $B$ and $S$ would be ignored, which would be translated to decreased probability of any of them winning over the other when being compared. This will indirectly increase the evidence accumulation for $A$ while resulting in "shared" evidence between $B$ and $S$.
+
+Not only MDbS accounts for big three context effect, it also successfully accounts for other known effects to decision making literature such as: attribute spacing effect \citep{cooke1998multiattribute}, centrality effect \citep{brown2011decision}, background contrast effect \citep{tverskySimonson93}, endowment effect \citep{knetsch1989endowment} and etc \footnote{For the full list of the effects MDbS can account for please refer to Noguchi \citeyearonly{noguchi2018multialternative}}. Overall, authors claim that MDbS can theoretically account for up to 25 context effect variations. 
+
+Considering its ability to account for wider range of context effects MDbS offers a novel and more insightful path for studying multi-dimensional and multi-attribute choice data. It also offers a fine trade-off between the complexity of the model, namely its dynamic attributes which makes it more practical analytically. 
+
+Having discussed the theoretical aspects of MDbS and its account for big three context effects, I know proceed to the discussion of practical aspects of the research: the methodology. In the next section, I delve into the specifics of the research process where I briefly discuss the dataset and provide detailed account of the steps taken in the analysis.
+
+\subsection{Empirical application}
+
+This section will discuss the methodology I have used for this study. After brief discussion of the dataset I will move onto detailed discussion of the steps taken in the analysis. SOME MORE BLABLABLA
+
+\subsubsection{Observational Data}\label{section:observationalDataDescription}
+
+The observational dataset is created by the merger of two sources. The first dataset constitutes of a list of all bookings made in Europe on European routes between December 2013 and June 2014, extracted from the MIDT (Marketing Information Data Tapes) database. Besides all of the booking details (e.g., number of passengers, price), it also contains the timestamp of booking and the identity of the booking office (all offline and online outlets have unique identifiers). The second source of data contains information on all air travel searches performed on one of the most comprehensive air-travel booking services operated by Amadeus S.A.S. This dataset also contains trip specifics as well as the identifier of the office where the search was performed. Most importantly, the latter dataset contains information on all possible alternatives that could have been presented to the traveler at the time of search, but does not contain information on which of the options (if any) has the traveler chosen. Matching these two datasets across office identifier, search/booking time, trip origin and destination, trip dates and the number of passengers results in a merged dataset allows us to identify chosen itineraries within option menus delivered at the search \footnote{  Office ID, trip origin and destination, trip dates and number of passengers are matched exactly. The distance in time between the booking and preceding search is minimized. If, given exactly matched attributes, the booking was not performed within 24 hours after a given search - the search is declared unmatched. If, given exactly matched attributes, no search is found during 24 hours preceding a given booking - the booking is declared unmatched. Unmatched searches and bookings are dropped from the analysis.}.  An important limitation of the data is that there is no way of ensuring that the consumer has actually seen the exhaustive list of alternatives available to him/her at the time of booking. I do know, however, all of the options that they could have seen. Even though this is a drawback for a researcher, this is a standard experience of the practitioner (e.g., recommender system designer). Practitioners designing recommender systems need to create algorithms based on the set of existing alternatives without much visibility on the subset of options a particular user will be interested in, or will eventually see.
+
+The matched dataset (previously used by Mottini and Acuna-Agost \citeyearonly{mottiniAcunaAgost17}; Mirzayev et al. \citeyearonly{mirzayevEtAl21}) consists of 13000 choice sessions with around 1 million choice alternatives in total. Every alternative is a round-trip flight and has a number of attributes including ticket price, date and times of all inbound and outbound flights, number of flights in the itinerary, number of airlines, days before booking and a few more, less important attributes.
+
+Menus (i.e., choice sets) with only one available alternative do not allow the consumer to make choices and are therefore discarded. Data on choices contains at most 100 alternatives for each choice session, even if more choices potentially existed. As a result, our data is truncated from the right. This creates a large number of menus including exactly 100 alternatives, some of which may be incomplete. To deal with this oddity, we simply confine our research to menus having between 2 and 99 alternatives (excluding those with one option since there is no choice involved).  In the end, we are left with a dataset with  6,297 choice sessions with 368,723 alternatives in total.
+
+
+\begin{table}
+    \centering
+    
+    \begin{tabular}{l|cccccc}
+    \hline
+    Variable & Count & Mean & St.Dev. & Min & Max \\
+    \hline
+    Price (in EUR) & 368,723 & 647.12 & 1,105.120 & 59.55 & 16,997 \\
+    Trip duration (in minutes) & 368,723 & 518.98 & 555.04 & 70 & 2,715 \\
+    Number of flights & 368,723 & 2.94 & 0.95 & 2 & 6 \\
+    Number of airlines & 368,723 & 1.25 & 0.45 & 1 & 5 \\
+    Menu size & 368,723 & 58.077 & 30.267 & 2 & 99 \\
+    \hline
+    \end{tabular}
+    \caption{Descriptive statistics of vertical variables in observational data}
+    \label{tab:descriptiveStats}
+\end{table}
+
+These are the attributes that are designated as vertical in the choice process. For the purposes of this chapter, it is  assumed that consumers prefer lower values for each of them (e.g., all consumers prefer lower prices, shorter trips, fewer layovers, and not having to change airlines too frequently). Besides vertical attributes, the data also contains two sets of horizontal attributes, the departure times and the dates of out- and in-bound flights. Those attributes are treated as horizontal as we have no clear way of defining consumer preferences over them. To eliminate potential scale effects, z-score normalization on vertical attributes was performed following  $Z = \frac{{x - \overline{x}}}{{\sigma}}
+$ where $\overline{x}$ is the mean and $\sigma$ is the standard deviation of variable $x$. 
+
+Because of MDbS nature of comparing dimensions with one another, for the purposes of this study, I can not use horizontal attributes in my analysis because they do not follow the standard "greater the better" mathematical approach to comparison. Hence, I bound to utilize solely four vertical attributes in my analysis. Table \ref{tab:descriptiveStats} provides descriptive information about those vertical variables. I have also multiplied all four vertical variables by \-1 to convert them to negative scale because of MDbS nature of comparing absolute values and our assumption that consumers prefer lower values along vertical dimensions.
+
+\subsubsection{Experimental data}
+
+In the course of our study, I also introduce an additional dataset sourced from a controlled experiment conducted by Noguchi \citeyearonly{noguchi2018multialternative}, distinct from the primary observational data. Albeit not as diverse in terms of alternatives, dimensions and choice sets, this experimental data carries significant value, not as a principal analytic focus, but rather as a mean to corroborate my main findings. I will apply the same analytical techniques employed in the observational analysis, and utilize experimental dataset as a robustness check to verify the validity of my results. Henceforth, the role of this data is primarily confirmatory.
+
+This data comes from an experiment conducted by Noguchi \citeyearonly{noguchi2018multialternative} where 503 participants, aged 18 to 75, which took part in Amazon Mechanical Turk resulting in 5295 observations total. Participants faced eight randomly sampled decision scenarios with descriptions that consisted of two and three alternative sets, each ternary choice set containing only one of the attraction, compromise, similarity effects. For ternary choice sets, to create a context effect one alternative was randomly selected as focus and third alternative was generated following three scenarios: a) for attraction effect scenario, third options' both dimensions were reduced by 25\% of the difference between the remaining two options' dimensions; b) for compromise scenario, the third option was generated in a way that it would make the randomly chosen target a compromise; c) in similarity scenario 2\% of the difference was added to one dimension while 2\% was subtracted from another dimension for the third option. The dimensions of alternatives are described in the table \ref{tab:noguchiDescriptions}.
+
+\begin{table}
+\centering
+
+\begin{tabular}{l|lll}
+\hline
+Product & Dimension & Alternative A & Alternative B \\
+\hline
+\multirow{2}{*}{Mouthwash} & Breath & 4.5 hours & 7.2 hours \\
+ & Germs killed & 77\% & 56\% \\[2ex]
+\multirow{2}{*}{Exercise class} & Fee & \$9.49 & \$6.49 \\
+ & Calories & 356 kcal & 259 kcal \\[2ex]
+\multirow{2}{*}{Box of chocolate} & Amount & 26 oz & 33 oz \\
+ & Variety & 9 & 5 \\[2ex]
+\multirow{2}{*}{GPS} & Update & 3.04 Hz & 5.62 Hz \\
+ & Accuracy & 4.97 m & 7.83 m \\[2ex]
+\multirow{2}{*}{Mobile battery} & Price & \$19.93 & \$13.49 \\
+ & Talk time & 14.55 hours & 9.25 hours \\[2ex]
+\multirow{2}{*}{Light bulb} & Life & 1309 hours & 1923 hours \\
+ & Price & \$1.35 & \$2.50 \\[2ex]
+\multirow{2}{*}{Air purifier} & Noise & 64.7 dB & 39.3 dB \\
+ & Efficiency & 325 cfm & 203 cfm \\[2ex]
+\multirow{2}{*}{Strawberry} & Quantity & 407 g & 452 g \\
+ & Price & \$2.58 & \$2.85 \\
+\hline
+\end{tabular}
+\caption{Attribute Values Used in the Experiment. Sourced from Noguchi \citeyearonly{noguchi2018multialternative}}
+\label{tab:noguchiDescriptions}
+\end{table}
+
+\subsubsection{Parameter optimization}
+
+Recall the three dynamic parameters for MDbS, $\alpha, \beta_0, \beta_1$, that were discussed in section \ref{subsec:mechanismMDBS}. They allow MDbS to account for various context effects. Noguchi \citeyearonly{noguchi2018multialternative} demonstrates MDbS performance using fixed set of parameters throughout the paper by using: $\alpha = 3, \beta_0 = 0.1, \beta_1 = 50$. 
+
+Those parameters are essential controls of the behavior of the model and they create the underpinnings of the choice set, impacting the generated choice probabilities. Henceforth, it is fundamental to identify the optimal parameters which will fit the observed data. While identifying the optimal parameters could be ideally purely theory-driven, in reality the theoretical guidance will often fall short. This will leave a plethora of potential parameter values. Hence, this necessitates a systematic search method to explore parameter space and identify optimal parameters that would fit the data the best.
+
+\textit{Parameter space definition}
+
+Before continuing further with method, one must first define the parameter space over which the search process will commence. Recall that there are three parameters to be optimized were $\alpha, \beta_0, \beta_1$. Two of them, $\beta_0$ and $\beta_1$ have theoretical boundaries. 
+
+Attribute range effect which was first investigated by Mellers \citeyearonly{mellers1994trade} which described people's tendency to scale perceived attractiveness of an alternative on given attribute using the entire range of that attribute. Hence, $\beta_0$ in MDbS represents the fraction of the difference between attributes compared to the entire attribute range which is bounded between 0 and 1. On the other hand, $\beta_1$ represents the percentage of preference of that difference for an individual, hence it is also bounded with values between 0 and 100. I have created 99 $\beta_0$ values evenly spaced between 0 and 1 and 99 $beta_1$ values evenly spaced between 0 and 100.
+
+The parameter $\alpha$ on the other hand, does not have theoretical upper bound. However, as it is used to determine which alternatives to compare to each other, it must be greater than 0 because otherwise no alternative will be selected for comparison. I have randomly generated 4,000 samples where alpha ranged between 0.1 and 10. My observations have demonstrated that, the performance of MDbS significantly deteriorates when $\alpha \ge 5$. Hence to balance the need for a flexible model with the requirement for stable performance, an upper bound of 5 has been set for $\alpha$. I have created 49 $\alpha$ values between 0.1 and 5.
+
+Overall, the full parameter space has been created with combinations of all three parameter values reaching 480,249 triples.
+
+\textit{Optimization method}
+
+Parameter optimization is a task of high importance in many scientific and engineering applications, where the goal is to find the optimal values of a set of parameters that best fit a given model or system. There are various methods available for parameter optimization, ranging from differential equation-based methods to brute force and other optimization algorithms. I have chosen differential evolution algorithm proposed by Storn \citeyearonly{storn1997differential} for this purposes. It has several advantages over other algorithms. Firstly, it can be easily implemented. Secondly, it is ideal when parameter space is large \citep{lin2019applying}. Thirdly, it is  especially suitable for non-linear and complex functions \citep{omran2009bare}. 
+
+The way differential evolution works resembles other genetic algorithms. First it creates an initial population $P$ with size of $n$ within a given parameter space $S$ and assesses its fitness using the evaluation metric $F$. Then, it randomly selects three members of $P$ and creates a new member. If it is better than randomly selected one within this triple, it replaces it. This process continues until termination criterion is met, which is either: a) $F$ has reached its global minimum, b) the number of iterations have reached the threshold, or c) $F$ has not improved considerably within pre-defined number of iterations. The pseudocode below describes its workflow:
+
+\begin{algorithm}
+\caption{Simplified Differential Evolution}
+\begin{algorithmic}[1]
+
+\State Initialize population of $P$ from parameter space $S$
+
+\While{not met termination criterion}
+    \For{each individual in $P$}
+        \State \textbf{Mutation:} Select three distinct individuals from population. Compute donor by adding weighted difference of two individuals to the third one.
+        \State \textbf{Crossover:} Create trial individual by mixing parameters of current individual and donor, decided by random draw and crossover rate.
+        \State \textbf{Selection:} Compare trial and current individuals on using $F$. If trial performs better, replace current individual with trial in population.
+    \EndFor
+\EndWhile
+
+\State \Return Best individual from final population as optimal parameters.
+
+\end{algorithmic}
+\end{algorithm}
+
+Differential evolution itself has parameters which must be defined in advance. Population size parameter in the this algorithm defines the number of candidate solutions it considers during each iteration. Those candidates are selected following uniform distribution in the parameter space which achieves evenly distributed candidates. There is a trade-off between high population size leading to finer exploration of parameter space and low population size leading to faster conversion, albeit not optimal. I have set it to 15 to achieve both good exploration and conversion speed. Second parameter the crossover probability controls the extent to which the algorithm combines information from different solutions. Higher value will further diversify the population, encouraging exploration of new regions in parameter space. On the other hand, lower values will lead to more exploitation of the current space. I have set this to 0.5. For other parameters I will use the values which are suggested in the literature \citep{omidi2020differential}.
+
+\textit{Evaluation metric}
+
+After discussing the importance of optimal parameter search and defining the optimization algorithm, the question remaining becomes the evaluation metric of the MDbS. Previous studies which have applied various dynamic choice models to experimental data, have used the mean absolute error of aggregate choice shares for the entire dataset as main metric. Albeit an interesting approach itself, this will not be a feasible approach for me because the experimental data these models have been applied to entailed ternary choice sets, whereas the observational data is not completely ternary. It comprised of choice sets with minimum of 2 and maximum of 99 alternatives. 
+
+Choice set designers and engineers have long used "Top n" accuracy metrics when designing choice sets, or testing the performance of statistical models \citep{ricci2015recommender}. "Top $n$" accuracy metric posits whether or not, true class of the option matches the top $n$ predictions of the model. I will follow and adopt this metric because it is well established in the literature, mirrors the real-world decision making and it fits the contribution of the thesis the best. I will use "Top 1" accuracy which ranges from 0 to 1 as my metric of optimization for an individual choice set. Because choice sets in the data vary significantly in size, I will use average Top 1 accuracy metric weighted by menu size.This will ensure that smaller menus contribute proportional to their sizes. Also, to comply with differential evolution algorithm's aim of minimization, I will multiply this metric by -1. As an additional measure to explore the parameter space thoroughly, I employ multiple-run approach for differential evolution algorithm. Specifically, I will execute it ten times across the entire dataset. This reposition will allow me to further explore the parameter space, mitigating the risk of missing any region that can potentially contain optimal solution.
+
+
+\subsection{Results}
+
+In this section I will present the results of parameter optimization first which later will be accompanied with the results obtained from choice modeling. First the results obtained from analysis on observational data will be discussed. Later, it will be accompanied with a brief discussion of results from experimental data.
+
+\subsubsection{Observational data results}
+
+\textit{Parameter optimization results}
+
+When looking at optimization results on observational data one can immediately see that $\beta_0$ values tend to fluctuate around 0.82 and 0.96 while $\beta_1$ is generally below 10\%.  which indicates that MDbS tends be more strict in terms of defining the winners when comparing, on average preferring 90\% of the "advantage" in given dimension only little shy of 15\% of the time. Also, it appears that $\alpha$ values tend to be preferred in the lower half of the parameter space, meaning only very similar alternatives were chosen for comparison by the model. This behavior is understandable considering that average choice set had 55 alternatives in it. Table \ref{tab:optimizationAmadeusResults} contains the results of parameter optimization through differential evolution algorithm. It is worth noting that, its top 1 accuracy performances albeit higher than random chance, still would fall far behind the pure statistical models, such as MNL based ones. 
+
+At first sight, such model behavior might seem surprising. Recall that the nature of MDbS is in comparing alternatives with each other and collect evidence based on won comparisons. In the choice experiments, usual size of the menu is one and only one of the context effects is generated at given time. In observational data however, the number of alternatives in the menu is much higher. The presence of large number of alternatives potentially introduces other context effects. Also, MDbS is bound to only to dimensions which are mathematically comparable with each other in the sense of bigger better, or smaller better. In the observational dataset there present also horizontal attributes for which only the decision maker can decide in a given scenario whether or not given the same price, flight duration the flight which is at 5:00 in the morning is better from the one that is at 14:00 afternoon.
+
+\begin{table}
+\centering
+\begin{tabular}{ccccc}
+\hline
+Iteration & $\alpha$ & $\beta_0$ & $\beta_1$ & Average top 1 accuracy \\
+\hline
+1 & 0.559 & 0.829 & 55.076 & 0.122 \\
+2 & 1.622 & 0.948 & 6.001 & 0.124 \\
+3 & 1.880 & 0.843 & 6.876 & 0.124 \\
+4 & 0.234 & 0.859 & 7.030 & 0.123 \\
+5 & 1.883 & 0.832 & 6.830 & 0.124 \\
+6 & 1.856 & 0.910 & 8.297 & 0.124 \\
+7 & 0.235 & 0.844 & 58.893 & 0.122 \\
+8 & 2.154 & 0.954 & 8.021 & 0.124 \\
+9 & 2.204 & 0.963 & 8.520 & 0.124 \\
+10 & 2.580 & 0.912 & 8.832 & 0.125 \\
+\hline
+\end{tabular}
+\caption{Optimization results for observational data.}
+\label{tab:optimizationAmadeusResults}
+\end{table}
+
+
+\textit{Choice modeling}
+
+I have estimated two models by using random effect Probit model with standard errors at cluster levels. The first model only included vertical attributes whereas the second model extended the first one through the addition of the output from MDbS model. In both cases, it seems that individuals have strong preferences for faster alternatives with lower prices, and fewer layovers. This supports our initial assumption that individuals prefer lower values of vertical attributes. 
+
+\begin{table}
+    \centering
+
+    \begin{tabular}{lcc}
+    \hline
+     & Model 1 & Model 2 \\
+    \hline
+    Price & -0.309*** & -0.282*** \\
+     & (0.006) & (0.006) \\[1ex]
+    Trip duration & -0.185*** & -0.158*** \\
+     & (0.007) & (0.006) \\[1ex]
+    Number of flights & -0.195*** & -0.178*** \\
+     & (0.007) & (0.007) \\[1ex]
+    Number of airlines & -0.262*** & -0.245*** \\
+     & (0.008) & (0.008) \\[1ex]
+    MDbS output & & 2.085*** \\
+     & & (0.097) \\[1ex]
+    Constant included & Yes & Yes \\[1ex]
+    Menu size as control & Yes & Yes \\[1ex]
+    Number of observations & 368,723 & 368,723 \\[1ex]
+    Akaike information criteria & 48,532.341 & 47,968.61 \\[1ex]
+    Log-likelihood & -24,260.171 & -23,977.305 \\[1ex]
+    \hline
+    \end{tabular}
+    \caption{Outputs of Probit model with random effects for observational data. Standard errors in parentheses. Statistical significance levels: *** $p<0.01$, ** $p<0.05$, * $p<0.1.$}
+    \label{tab:amadeusProbitResults}
+\end{table}
+
+Recall that variable "MDbS output" refers to the probabilities produced by MDbS. Model 2 results show positive and statistical significance effect for the information provided. It shows that MDbS is able to capture additional information about the choice by accounting for context effects. To better understand the significance of this result, figure \ref{fig:marginsAmadeusGraph} shows the average marginal effects of the information provided by computational model. One can immediately observe the downward trend. It is not surprising. As the size of the menu increases, the variety and the magnitude of the context effects increase. This leads to degraded ability of MDbS to identify the "winners" in the choice set, hence reducing their usefulness to choice model. On average, for every 50\% increase in MDbS output the probability of choice has increased by 0.035 percentage points. This effect was as high as 0.12 percentage points for menus containing as small as 5 alternatives. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{staticFiles/marginsAmadeusGraph.png}
+    \caption{Average marginal effects of MDbS output with respect to different menu sizes. Horizontal lines represent 95\% confidence interval boundaries.} % Add your description here
+    \label{fig:marginsAmadeusGraph} % This labels your figure for reference
+
+\end{figure}
+
+\subsubsection{Experimental data results}
+
+At first sight, the results from optimization indicate that the optimal parameters differ across the datasets. Considering the nature for these two datasets, such result is to be expected. While optimal $\alpha$ tends to be higher than the one in observational data, both optimal $\beta_0$ and $\beta_1$ values are lower than their counterparts. Higher $\alpha$ can indicate that for smaller choice sets, MDbS tends to less strict in comparison criteria. While the performance metrics seem higher than for the observational data, menus are considerably smaller. Table \ref{tab:optimizationNoghuchiResults} entails further information.
+
+
+\begin{table}
+    \centering
+    
+    \begin{tabular}{ccccc}
+    \hline
+    Iteration & Alpha & Beta0 & Beta1 & Average top 1 accuracy \\
+    \hline
+    1 & 2.936 & 0.743 & 3.911 & 0.518 \\
+    2 & 2.888 & 0.572 & 4.567 & 0.52 \\
+    3 & 3.342 & 0.61 & 4.93 & 0.517 \\
+    4 & 2.01 & 0.494 & 3.788 & 0.517 \\
+    5 & 2.918 & 0.577 & 4.598 & 0.52 \\
+    6 & 2.925 & 0.715 & 3.967 & 0.518 \\
+    7 & 2.939 & 0.569 & 4.655 & 0.52 \\
+    8 & 2.997 & 0.706 & 4.098 & 0.518 \\
+    9 & 2.01 & 0.494 & 3.788 & 0.517 \\
+    10 & 2.747 & 0.579 & 4.349 & 0.519 \\
+    \hline
+    \end{tabular}
+    \caption{Optimization results for experimental data.}
+    \label{tab:optimizationNoghuchiResults}
+\end{table}
+
+Overall, considering the differing natures of these two datasets, comparing two optimal parameter combinations would not give any useful knowledge. However, this is not the case about the results from the choice modeling. These results follow the ones from observational data and confirms it. As with field data, here, the MDbS output is proven to provide statistically significant information for choice model with coefficient in the positive direction. A 50\% increase in MDbS' "assessment" about the alternative resulted in 0.46 percentage points increase in actual choice probability among the participants. This effect did not differ between choice sets having two or three alternatives.
+
+\begin{table}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{lcc}
+    \hline
+     & Model 1 & Model 2 \\
+    \hline
+    X & 0.006*** & 0.006** \\
+     & ($<0.001$) & ($<0.001$) \\[1ex]
+    Y & $<0.001$ & $<0.001$ \\
+     & ($<0.001$) & ($<0.001$) \\[1ex]
+    MDbS output & & 2.518*** \\
+     & & (0.317) \\[1ex]
+    Constant included & Yes & Yes \\[1ex]
+    Menu size as control & Yes & Yes \\[1ex]
+    Number of observations & 5,295 & 5,295 \\[1ex]
+    Akaike information criteria & 6,987.151 & 6,893.77 \\[1ex]
+    Log-likelihood & -3,489.576 & -3,441.885 \\
+    \hline
+    \end{tabular}
+    \caption{Outputs of Probit model with random effects for experimental data. Standard errors in parentheses. Statistical significance levels: *** $p<0.01$, ** $p<0.05$, * $p<0.1.$}
+    \label{tab:noguchiProbitResults}
+\end{table}
+
+\subsection{Conclusion}
+
+In this study I have applied MDbS to an observational data and showed the consistency of my findings using experimental data. This is the first account of an application of a computational model to real-world choice data of this magnitude. The results indicated that computational models can account for context effects affecting choice behavior not only in experimental settings, but also in field settings.
+
+The results of this study creates implications for online marketplaces. In today's world, these platforms aggregate immense amount of products and services, providing consumers with dozens of choices. To help consumers in their choice, these platforms employ sophisticated algorithms which aim to curate product lists, create recommendations with an ultimate goal of influencing the buying decisions of individuals. By applying mathematical decision making models to choice datasets, these platforms can gain crucial information about the context within the choice sets which might influence choice decisions towards particular alternatives. This information may also be used to create product bundles with heterogeneous context to satisfy the needs of consumers.
+
+This study has limitations. I have only utilized one computational model, namely MDbS. This limits the generalizability of my results. Different models "behave" differently and albeit trying to capture the same effects, applying other decision models and investigating their differences can be an interesting avenue to pursue. Another limitation is that the proposed approach applied only to data stemming from one type of choice setting, namely airfare choice. Application of this approach to other type of multi-dimensional multi-attribute choice data may help to better generalise the results.
+
+Also, the use of MDbS in current study has shown it has ability to potentially capture wide range of context effects, including attraction, compromise and similarity. While these results have yielded valuable insights, the general nature of MDbS and other computational models is their inability to successfully isolate those effects from one another. Main reason for that is that they have been only tested in experiments with one effect present at a time. When the number of alternatives in the dataset increases the potential interplay between options and the existence of other context effects come into play. 
+
+My findings provide a strong foundation which leads to a crucial but also challenging future direction: the development of a methodology which would allow to disentangle this "general" context effect. I will computationally differentiate among three main components, attraction, similarity and compromise in a multidimensional, multialternative choice setting. This goal provides a great motivation for the next chapter of my thesis.
+
+\newpage
+
+\section{Choice modeling with context effects:\\
+Generalization to multi-option and multi-attribute settings
+}  \footnote{This chapter is based on a joint work with my supervisor Zakaria Babutsidze and also William Rand, Nobuyuki Hanaki, Ismael Rafai, Rodrigo Acuna Agost and Thierry Delahaye}
+
+
+\begin{abstract}
+
+    Previous approaches to modeling the effect of context on choices consider neat, compact environments, often in laboratory settings. Such an approach severely limits the study of context effects and, as a consequence, applicability of findings. In this paper, the authors generalize the existing approach in modeling choice with context effects and apply it on large scale observational data. The authors consider three main context effects: the attraction, compromise and similarity effects. The proposed methodology hinges on ex ante calculation of each context effect measure for every alternative in the choice set. This approach minimizes computational complications of estimating the resulting choice model. The proposed approach is applied to two empirical settings: airfare choice using observational data, and daily commute mode choice using data from a stated choice experiment. The presence of attraction and similarity effects in both empirical settings is demonstrated. The authors also document the existence of the reverse compromise effect in airfare choice highlighting the fact that travelers possess rigid rankings among flight attributes and are essentially maximizing their utility in terms of one (or few) attribute(s).
+    
+\end{abstract}
+
+\subsection{Introduction}
+
+The fact that behavioral biases exist in individual decision-making is well established (see Dowling et al. \citeyearonly{dowlingEtAl20} for a recent review of evidence). One type of systematic departure from classic utility maximization approach which seems particularly important is a set of context effects \citep{truebloodEtAl13, kocherEtAl19}. The theory behind these effects posits that the context in which choices are made influences the decision. While the choice context could have a very wide meaning, in this literature it is the availability and the nature of choice alternatives which is referred to as "context" \citep{tversky1972elimination, huberEtAl82, simonson89}.
+
+Context effects have been systematically studied in marketing and psychology \citep{kivetz04, roodrkerkEtAl11, frederickEtAl14, dotsonEtAl18}. However, virtually all such studies have used controlled experiments in neat, compact settings. Namely, the settings where decision-makers are presented with few options and (very) few attributes across which these options differ. In contrast, most actual choices take place in much messier environments. Especially today when much of our search and shopping activity has shifted online. Proliferation of search engines allows each option to easily be compared with many alternatives across many different characteristics. Despite this, we know very little about the prevalence of context effects in these environments. Precise measurements of context effects are not well-defined in multi-option and multi-attribute settings. Defining how to measure these effects is a minimum requirement for proceeding to evaluate the existence of context effects using observational data.
+
+There have been recent attempts in computer science to define some of these effects. Machine learning community has incorporated context effects in discrete choice models applied to observational data \citep{pfannschmidt2019learning, bowerBalzano20}. However, the aim therein is increased prediction accuracy of choice models \citep{tomlinsonBenson21}. As a result, incorporation of context effects takes the form of generalizing choice models to allow for departure from the strict rationality assumptions \footnote{Recent examples of this approach are Linear Context Logit by Tomlinson and Benson \citeyearonly{tomlinsonBenson21} and Contextual Multinomial Logit by Yusefi Maragheh et al. \citeyearonly{yousefi2020choice}}.  These proposed generalizations of estimated functional forms usually do not distinguish across various different types of context effects. Additionally, these approaches often run into computational difficulties, i.e., the estimation process is NP-hard \citep{yousefi2020choice}.
+
+In this paper, I propose measures of different context effects in multi-option and multi-dimensional settings. Following Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}, I consider three context effects – attraction, compromise and similarity effects. Attraction effect refers to the increase in attractiveness of a set of option as a result of adding an alternative to the choice set, compromise effect refers to the inclination of consumers to prefer options that represent a compromise across extreme sets of alternatives, while similarity effect refers to the drop in choice likelihood for an alternative once another, similar, alternative has been added to the choice set. Each of the measures corresponding to three aforementioned effects requires a specific approach for making measurements applicable to observational data. Each of these measures is calculated prior to choice estimation, which avoids computational problems. After presenting the generalized measures of the three effects, we perform an empirical analysis of choices based on the new measures using observational data. We use an extensive dataset of airfare choices for this exercise. We identify that attraction and similarity effects do influence choices in air-travel booking data. We also detect a reverse compromise effect that seems to indicate that air-travelers consistently prefer extreme alternatives (i.e., the cheapest, or the shortest flight) to alternatives that constitute a compromise among extreme options.
+
+\subsection{Context effect and choice modeling}
+
+HERE SOME BRIEF INTRO TO REFRESH CONTEXT EFFECTS
+
+Over the years, multiple empirical models have been developed to model context effects. Empirical approaches usually model context effects either in the structural part of utility or in the error covariance part \citep{kamakuraSrivastava84, dotsonEtAl18}. Some of these models have the capacity to account for multiple effects at the same time \citep{tverskySimonson93, orhun09}. These models extend a classical random utility model \citep{mcfadden01} in multiple directions using discrete choice modeling \citep{benAkivaLerman85}. However, Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11} present a unifying model taking into account all three context effects. Instead of using advanced statistical techniques for remedying violations of utility maximization assumptions associated with the existence of context effects \citep{luce59}, their approach hinges on additive specification and ex ante calculation of individual measures for each of the three context effects for each item in the menu. Namely, authors assume that choice estimator is additive in three context effects (along with a generic preference-driven part) and develop the methodology of quantifying three effects for each alternative prior to calculating the estimator. This is a particularly flexible approach which also ensures that researcher does not run into computational difficulties (i.e., $NP$-hard calculations). We follow the suite and formulate the utility that a consumer c attaches to an option i, under a given menu m, as being additive in two parts:
+
+$$U_{c,i}^m = u_{c,i} + v_{c,i}^m$$
+
+The first summand in this equation $u_{c,i}$ denotes an inherent utility that the consumer $c$ can derive from option $i$. This part depends only tastes of consumer $c$ towards the characteristics of the option $i$. It is independent of other options contained in the menu. The second summand $v_{c,i}^m$, denotes the context dependent utility. I additionally assume, that the context-dependent part of the utility can be represented as a linear combination of three contextual effects, 
+
+$$v_{c,i}^m = a_1 \text{Attraction} + a_2 \text{Compromise} + a_3 \text{Similarity}.
+$$
+
+Thus, the measures of three context effects that are necessary to estimate empirical discrete choice models based on utility formulation above need to be computed ex ante. Measures developed by Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}, are tailored to experimental data with a small number of alternatives in the choice set, and a small number of attributes characterizing alternatives. This significantly limits the application of the unifying model of context effects. In the next section I present a generalization of three context effect measures to multi-option, multi-attribute environment which will further allow for the application of the unifying model to observational data.
+
+\subsection{Generalizing context effect measures}
+\subsubsection{Approach to generalization}
+
+Naturally, generalizing across many alternatives and many attributes presents challenges in both dimensions. The fact that theoretical underpinnings of the three effects are diverse, does not simplify the task. In following sections, I will discuss specificities involved in the generalization of each measure. First, however, I concentrate on common challenges.
+
+Conceptualizations of contextual effects commonly hinge on the choice frequency comparisons between two alternatives. For example, in case of attraction effect, if adding a third alternative to a two-item menu induces some of the consumers to switch their choices to the other incumbent alternative – one could conclude that attraction effect is present. This is suitable for experimental setups where researcher has control over menus and can observe choices in both cases (i.e., in case of an original two-item menu, as well as after adding the third item). However, given that the aim is to generalize context effect measures for application to a wider range of situations, and most importantly to observational data, it is necessary to take a more fine-grained view and quantify the context in which each of the alternatives is embedded. Quantifying the choice context for each alternative would create opportunity to study the effect of the context on choice probabilities through inference across (very) different choice sets. Such an approach would be general enough to consider not only addition of a new alternative to the menu, but also any alteration of attributes for any of the items in the menu. For example, increasing price of an alternative could decrease the probability of its choice. This would have a direct effect on choice probabilities of other alternatives. However, the same price increase could also change the choice context and have additional knock-on effect on choice probabilities of (at least some) alternatives.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{staticFiles/contextEffectZaksScatterPlot.png}
+    \caption{Visualization of accounting for attraction effect. \\ Note: The figure represents three alternative choice sets, each comprising of six options, described along two characteristics. Options A, B, C, E and F and common across three menus. Menus differ in the identity of the 6th option (D, D' or D").}
+    \label{fig:attractionZakVisualization}
+\end{figure}
+
+Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11} take this approach in case of simple two-attribute products. Using attraction effect as an example once more, the idea is to quantify how much attraction power does a given menu provide to a given alternative. If option $A$ dominates option $B$ (i.e., is superior along at least some attributes and is not inferior in any of the attributes), while option $B$ is not dominated by option $C$, attraction power of $A$ compared to $C$ could be measured by the extent to which option $A$ is better than option $B$. The more pronounced is the dominance, the more pronounced the attraction effect. However, once we leave a neat context of tree-item menus we wonder into a possibility that option A dominates not one, but multiple alternatives at the same time. Consider the situation depicted in figure \ref{fig:attractionZakVisualization}. Here we have the menu with six alternatives ${A, B, C, D, E, F}$ each of which are characterized across two attributes $V1$ and $V2$. In this example option $A$ dominates three alternatives ${B, C, D}$. To straight-forwardly extend the approach by Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11} and calculate the attraction power of alternative $A$, we could find the center among the three dominated variables and then measure the distance. Such a measure would capture the difference between two choice sets ${A, B, C, D, E, F}$ and ${A, B, C, D', E, F}$. In the latter case, $A$’s attraction power is lower as option $D'$ is closer to $A$ than $D$. However, such a measure would not accurately capture the difference between scenarios ${A, B, C, D', E, F}$ and ${A, B, C, D", E, F}$. Under the latter case $A$ only dominates two alternatives ${B, C}$. So, the setting changes qualitatively. Such qualitative differences are avoided in experimental settings by design. However, they are pervasive in observational data. While it is acknowledged that the move from $D$ to $D'$ changes the choice context, I argue that the context change is more pronounced in case of the move from $D'$ to $D"$. Even though the ideal measure would combine the features of the number of dominated alternatives and the (some measure of average) distance between the focal alternative and the group of dominated options, in this paper I take the approach of concentrating on the former as this is likely to have a more pronounced impact \footnote{Combining frequency and distance measures in one metric requires arbitrage across the two drivers of context effects. It is not clear how to solve such a problem (i.e., it is not clear if dominating one option that is at a certain distance from a focal alternative generates more or less attraction than dominating two alternatives that are at a half that distance).}. 
+
+As a result, our approach would capture the context change between ${A, B, C, D, E, F}$ and ${A, B, C, D", E, F}$ or ${A, B, C, D', E, F}$ and ${A, B, C, D", E, F}$, but will evaluate no context difference between ${A, B, C, D, E, F}$ and ${A, B, C, D', E, F}$. In what follows, the same approach is applied to similarity and compromise measures.
+
+Once one moves towards choices which have multiple attributes, it is quick to realize that there are two distinct types of choice characteristics that our measures should potentially handle. One type of attributes constitute product characteristics over which preferences are fairly similar for all customers, and their effects can be readily anticipated from basic economic theory. These attributes can easily be ordered from most preferred to least preferred. The most obvious of such characteristics is price. We can assume that every customer would prefer obtaining a given product for a lower price. We call such product characteristics, vertical attributes. These are usually attributes that can be represented using numeric values. Previous work measuring context effects only considers such (vertical) attributes \citep{trueblood2014multiattribute, noguchi2018multialternative, noguchi2014attraction}. This is a requirement for defining preferential relationships that are necessary for identifying attraction and compromise effects. The same approach is adopted and where I consider only vertical attributes when defining attraction and compromise effects.
+
+On the other hand, there exists another set of attributes where there is no obvious, homogeneous ordering. For example, consider color. We have no theoretical ground to assume that all consumers would prefer a car that is blue, over a car that is green (all other attributes held constant). Same is true about attributes which at first sight are not strictly labelled as categorical, for example time. When buying a cinema or plane ticket there is no theoretical reason for one to explain how a ticket for 15:00 is better or worse than the one at 17:00.  I refer to these as horizontal attributes. Potential heterogeneity across decision-makers in ordering over categories in such attributes makes inclusion of such features in the calculation of attraction and compromise effects impossible. In experimental settings, it is often the case that these attributes are constant across treatments to prevent any confounding effects. However, in the field this usually cannot be done. Therefore, the study of context effects with observational data requires controlling for them statistically. 
+
+However, unlike the measurement of attraction and compromise effects, measuring the similarity across the alternatives does not require the existence of a single universal ranking. In fact, many clustering methods can identify options that are more or less similar to each other based on a wide range (numeric and categorical) of variables. Therefore, in what follows I will incorporate all (vertical, as well as horizontal) attributes in the measurement of similarity between a pair of alternatives.
+
+\subsubsection{Attraction effect}
+
+Previous studies of the attraction effect concentrate on carefully designed small choice sets in experimental settings \citep{huberEtAl82, huberPuto83}. In such settings, an alternative is added to the choice set in a position that it is unequivocally inferior to (only) one of two items already present in the menu. Notice, again, that identification of inferiority requires the attribute under consideration to be vertical and this can not be achieved with horizontal attributes. This manipulation introduces an asymmetry between the two incumbent alternatives - one alternative now dominates the decoy, while the other does not. The attraction effect implies that such manipulation increases the attractiveness of the dominant incumbent option with respect to the other incumbent alternative. 
+
+A standard measure of the attraction effect considers a tradeoff between two (vertical) characteristics. Let's consider $i \in \mathbb{N}$ vertical attributes  $V_i$ for a set of two options A and B. In two dimensions $n = 2$, we start out with $V_1(A) > V_1(B)$ and $V_2(A) < V_2(B)$, and then introduce an alternative $C$ such that $V_1(A) > V_1(C) > V_1(B)$ and $V_2(C) < V_2(A) < V_2(B)$. Under such circumstances $C$ is dominated by $A$, but not by $B$. This introduces the asymmetry in consumer considerations and increases the probability that the consumer will choose option $A$. Generalizing this concept to multiple (vertical) attributes is straight forward. For $N > 2$, we again start out with $A$ being preferred over $B$ in some $j > 0$ dimensions, while $B$ is preferred to $A$ in some others $k > 0$, such that $j+k \le N$. Then we need an alternative $C$ which will be strictly worse to $A$ in at least one dimension while not being better in any other dimensions and being better than $B$ in some dimensions while being worse in some others. As long as these two conditions are satisfied, the attraction effects says that $C$ will result in $A$ being favored. 
+
+Generalizing this approach to multiple alternatives is somewhat more challenging. The reason for this is that rather than one comparison ($A$ vs. $B$ in the case above), for a choice set with $M$ alternatives, there are $\frac{M(M-1)}{2}$ potential comparisons to consider. Under real-life circumstances, it is easy to identify situations where more than one of $\frac{M(M-1)}{2}$ relationships carry the potential for attraction effect. Besides, for any given pair of choices we could have multiple decoy options generating attraction effect. The final complication is that option $A$ may have one set of decoy alternatives and option $B$ - another set of decoy alternatives. In these contexts, it is not clear which option the attraction effect favors.
+
+To quantify the attraction effect generated by the menu for a given alternative, we propose to calculate the number of options present in the menu that the focal alternative dominates. This is done across all vertical dimensions. Then, two alternatives present in the same menu can be compared by examining how many choices they dominate. Under such circumstances we can consider different positions option $C$ can take with respect to options $A$ and $B$. If options $C$ is neither superior (dominant) not inferior (dominated) by any of the options ${A and B}$, or if it dominates both of the focal options, then it does not generate an attraction effect for either $A$ or $B$. If option $C$ is dominated by both of the options in focal pair, it generates an attraction effect for both of them (compared to other alternatives). In all of these cases option $C$'s location contributes similarly to the choice probability of both options ${A, B}$.  Finally, if option $C$ is dominated by only one of the two focal alternatives (say by $A$, but not by $B$) - it generates a discriminatory attraction effect favoring option $A$ and increasing its probability of being chosen. As a result, the number of options that the current alternative dominates in a menu (appropriately normalized by the size of menu for a comparison across different choice settings) measures the (relative) extent of the attraction effect generated by the menu. For example, contrast the probability of choosing option $A$ vs $E$ in figure \ref{fig:attractionZakVisualization} across two sets of menus ${A, B, C, D, E, F}$ and ${A, B, C, D", E, F}$. This probability is higher in the former situation (where $A$ dominates three alternatives, while $E$ dominates one) than the latter case (where $A$ only dominates two alternatives, while $E$ still dominates one). Even though in these cases both of the alternatives do have some attraction effect, relative attraction effect of option $A$ compared to option $E$ is stronger in the former scenario.  Therefore, I measure attraction effect favoring the focal option $F$ as
+
+$$Attraction(F)=O(Dominated),$$
+
+where $O(Dominated)$ measures the number of alternatives in the menu that the focal option $F$ dominates. Given the measure, we expect that the higher the attraction effect in favor of the focal option, the higher the choice probability of the focal option (\textit{ceteris paribus}).
+
+\subsubsection{Compromise effect}
+
+The compromise effect is traditionally understood and operationalized in a three-option, two-attribute (experimental) setting \citep{simonson89, dharEtAl00}. It is worth mentioning again here that these two attributes need to be vertical so that we can define universal preference relationships. Let's consider the similar starting situation of options $A$ and $B$ as in the previous subsection: $V_1(A) > V_1(B)$ and $V_2(A) < V_2(B)$. The addition of option $C$ to this menu such that $V_1(C) > V_1(A) > V_1(B)$ and $V_2(C) < V_2(A) < V_2(B)$, makes option $A$ a compromise between two extreme options $B, C$. The compromise effect 
+maintains that such an alteration of the menu would disproportionately benefit alternative $A$ compared to alternative $B$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{staticFiles/compromiseEffectZaksScatterPlot.png}
+    \caption{Visualization of the compromise effect generalization.\\ Note: The figure represents a generalization of the compromise effect across multiple alternatives. $F$ represents a focal option. $Gr_1$ collects alternatives dominated by $F$, $Gr_2$ collects alternatives dominating $F$. Focal option represents a compromise between alternatives in $Gr_3$ and $Gr_4$.}
+    \label{fig:compromiseZakVisualization}
+\end{figure}
+
+To formulate the general measure of the compromise effect, let's first consider the case of multiple options $M$ in two dimensions (attributes, $N = 2$).The compromise effect  calculation over multiple options is visualized on figure \ref{fig:compromiseZakVisualization} with $M = 7$ case. To quantify the extent of the compromise that focal option $F$ introduces in the menu we propose to split all other $M - 1$ alternatives into four groups. Let group 1 contain all alternatives for which $V_1(G_1 ) \le V_1(F)$ and $V_2(G_1 ) \le V_2(F)$. These are the alternatives dominated by the focal option. In the case of figure \ref{fig:compromiseZakVisualization}, this set only contains option $A$. Let group 2 contain all alternatives for which $V_1(G_2 ) \ge V_1(F)$ and $V_2(G_2 ) \ge V_2(F)$. All these options dominate the focal option. This set contains option $E$ in figure \ref{fig:compromiseZakVisualization}. Clearly, the focal option cannot constitute a compromise between any pair of alternatives which is included in any of these first two groups of alternatives. Next, let group 3 contain all alternatives for which $V_1(G_3 ) > V_1(F)$ and $V_2(G_3 ) < V_2(F)$, and group 4 contain all alternatives for which $V_1(G_4 ) < V_1(F)$ and $V_2(G_4 ) > V_2(F)$. In the case of figure \ref{fig:compromiseZakVisualization}, group 3 contains options $B$, $C$ and $D$, while group 4 contains option $G$. The focal alternative can be viewed as a compromise between these groups 3 and 4. As the quantification of the extent of such a compromise, I defin
+
+\begin{align}\label{}
+    \text{Compromise}(F) = \frac{\min(O(G_3), O(G_4))}{\max(O(G_3), O(G_4))} * (O(G_3) + O(G_4))
+\end{align}
+
+
+where $O(G_i)$ measures a number of alternatives in group $i$. The first multiplier (the ratio) in the measure quantifies the asymmetry across the sizes (in terms of number of alternatives) of the two groups, while the second multiplier (the sum) quantifies the joint size of two groups across which the focal option is a compromise. For option $F$ in figure \ref{fig:compromiseZakVisualization}, this value is $Compromise(F) = \frac{1}{3} * 4 = 1.33$. If any of the two concerned groups are empty, the value is zero, corresponding to the fact that the focal alternative is at the extreme edge of one of the dimensions and therefore is not a compromise. As a result, our compromise measure will be strictly zero for options $B$, $C$, $E$ and $G$. On the other hand, the better the balance between the size of the two groups, the more valuable compromise alternative $F$ provides. So, the same measure for option $D$ in figure \ref{fig:compromiseZakVisualization} is 4. Alternative $D$ also corresponds the compromise between 4 alternatives (like option $F$), but the comparison groups are better (in this case, perfectly) balanced. Notice that the measure is also increasing in the number of total options in two comparison groups. Notice that the same measure for option $A$ is 2, even though (similar to option $D$) it also exhibits the prefect balance across the sizes of two comparative groups. This reflects the fact that option $D$ is a compromise between larger sets of extreme alternatives \footnote{An alternative way to quantify the compromise between two sets of extreme options is to count the number of all possible pairs for which a given focal option is a compromise. This would result in $Compromise'(F) = O(G_3) * O(G_4)$. This measure behaves very similarly to the one discussed in the paper. In fact, the correlation between the two compromise measures in the dataset that we use in this paper is 0.825. All results reported in the paper are qualitatively unaltered by the replacement of the compromise measure with this alternative. However, we prefer working with the compromise measure in the paper as it takes a more "collective" view of the choice process.}. 
+
+Extending the compromise measure to multiple dimensions is somewhat more challenging. The challenge relates to the fact that increasing number of dimensions (i.e., vertical dimensions) presents exponentially increasing opportunity of different ways a given option can be a compromise. The $N = 2$ case has one pair of groups to compare. In the case of $N = 3$, however a focal alternative can be a compromise between multiple pairs of option groups. For example, option $F$ can be a compromise between two groups $Z$ and $Y$ such that all options in group $Z$ are superior to option $F$ in dimensions 1 and 2, but inferior in dimension 3, while options in group $Y$ are inferior to option $F$ in dimensions 1 and 2, but superior in dimension 3. Permutation calculus guarantees there are three such potential comparisons. However, this is not all. Option $F$ can also be a compromise between two groups $X$ and $W$ such that all options in group $X$ are superior to option $F$ in dimension 1, but inferior in dimension 2, while options in group $W$ are inferior to option $F$ in dimension 1, but superior in dimension 2, as long as dimension 3 is constant across all options in groups $X$ and $W$, as well as $F$. Permutation calculus guarantees additional three such comparisons.
+
+As a result, moving from 2 to 3 dimensions increases the number of potential comparisons for calculating the value of the alternative as a compromise option in the from 1 to 6. Appendix \ref{appendix:compromiseCalculation} derives the number of comparison alternatives necessary to cover all potential ways a focal alternative can be a compromise as a function of the number of dimensions. However, as all above-defined groups are mutually exclusive (i.e., each alternative can only belong to one and only one of such potential comparison groups), generalization of the compromise measure in $N$ dimensions would require summation of our comparison-group specific compromise measure over all comparison groups. And thus,
+
+\begin{align}\label{eq:compromiseEffectGeneralFormula}
+    \text{Compromise}(F) = \sum_j \text{Compromise}(F)_j
+\end{align}
+
+
+ where $j$ runs over all possible comparison groups. Summation, instead of averaging, is used in order to reward options that constitute a compromise across multiple (many) comparison groups. Given our measure of compromise effect, we expect that the higher the compromise effect, the higher choice probability of the focal alternative.    
+
+ It is worth mentioning here, that as both attraction and compromise measures only generalize across vertical dimensions, it is important to control for all relevant horizontal dimensions in choice models employing these measures of the two context effects.
+
+ \subsubsection{Similarity effect}
+
+ Operationalising the measure of similarity effect across three options and two vertical dimensions is straight forward \citep{roodrkerkEtAl11}. Increasing the size of the menu introduces an important challenge of defining the border between options that are similar to the focal alternative and those that are not similar to it. At the same time, unlike the previous two context effects, the theory pertinent to the similarity effect does not require dimensions to be necessarily vertical \citep{tversky1972elimination}. The sufficient condition for quantifying the similarity effect requires detecting the number of other alternatives that are similar to the focal option.
+
+ Clustering, using machine learning, gives a possibility to operationalise the similarity effect measure across all dimensions. Several clustering algorithms have been developed that can take multi-dimensional lists and partition them into groups of similar objects. Clustering algorithms are unsupervised machine learning techniques that require no explicit guidance on the definition of similarity. They use different internally consistent evaluation criteria in order to partition the input group of objects into multiple sub-groups. Items belonging to the same group are judged to be similar to each other, while the items belonging to two different groups are regarded as dissimilar. Some algorithms, like K-means clustering \citep{lloyd82}, require additional input on (or an optimization layer for calculating) how many sub-groups the user would like to detect. Others, like Affinity Propagation \citep{freyDueck07}, automatically calculate the optimal number of detected clusters. Appendix \ref{appendix:clusteringAlgorithms} provides a summary of two popular clustering algorithms that can be used for this purpose. We argue that being able to autodetect the number of clusters is significant in terms of minimizing necessary input, as well as minimizing computational power, and use Affinity Propagation in the empirical application bellow. 
+
+ As a result, I propose using a clustering algorithm (in this case Affinity Propagation) in order to detect clusters within the menu of proposed options. Once such clusters have been identified the size of the cluster to which the focal option belongs can be used as a straightforward measure of similarity. Hence, I measure similarity effect as
+
+ $$\text{Similarity}(F) = O(\text{Cluster}_F)
+$$
+
+where, $Cluster_F$ refers to the cluster to which the focal option belongs. Given this measure of similarity effect, we expect that the higher the similarity, the lower the choice probability of the focal alternative.
+
+\subsection{Empirical applications}
+
+In this section, I present two empirical applications using the generalization of three contextual measures and estimate unifying model of context effects. Both applications come from a travel context in Europe. The first application uses a large set of observational data on airfare booking. This is a very heterogeneous dataset and choice setups vary in terms of number of alternatives, as well as across origin-destination city pairs. The second application uses stated choice experimental data on urban commute. This data is less exciting in terms of menu-variability, but it allows to address several potential concerns with our main observational dataset. As a result, this is used as a validation exercise. 
+
+\subsubsection{Observational data}\label{section:additionalPreprocessingObservationalData}
+
+Observational data I use is the same which is used in the previous chapter. Dataset is described in detail in section \ref{section:observationalDataDescription}. Besides vertical attributes, there are also  three attributes that do not vary across alternatives within each menu. These are the number of days between when choice was performed and the start of the trip, whether the trip is domestic or international, and whether it is intercontinental. This data has been subject to preprocessing rules which were also described in the section \ref{section:observationalDataDescription}. The descriptive statistics of vertical and context variables are shown in the table \ref{tab:descriptivesVerticalPlusContext}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lrrrrr}
+\hline
+Variable & Count & Mean & St.Dev & Min & Max \\
+\hline
+Price & 368,723 & 647.12 & 1,105.12 & 59.55 & 16,997 \\
+Trip duration & 368,723 & 518.98 & 555.04 & 70 & 2,715 \\
+Number of flights & 368,723 & 2.94 & 0.95 & 2 & 6 \\
+Number of airlines & 368,723 & 1.25 & 0.45 & 1 & 5 \\
+\hline
+\multicolumn{6}{c}{\textbf{Context variables}} \\
+\hline
+Attraction & 368,723 & 19.78 & 20.33 & 0 & 98 \\
+Compromise & 368,723 & 1.73 & 3.96 & 0 & 63.01 \\
+Similarity & 368,723 & 11.27 & 5.88 & 1 & 77 \\
+\hline
+\end{tabular}
+\caption{Descriptive statistics of vertical and context variables. \\ Note. Statistics before normalization}
+\label{tab:descriptivesVerticalPlusContext}
+\end{table}
+
+\textbf{Measurement of context effects}
+
+The measurement of the attraction and compromise effects is pretty straight forward. I follow the methodology outlined in the previous section. For the attraction effect, I count the number of alternatives dominated by a given option within the menu. This is implemented across all four vertical attributes. The compromise effect, given by equation \ref{eq:compromiseEffectGeneralFormula}, is also measured across all four dimensions. This results in 25 pairs of comparison groups for each alternative (see equation \ref{eq:compromiseEffectDetailedCalculation} in Appendix \ref{appendix:compromiseCalculation}). 
+
+Before proceeding to the measurement of similarity effect, however, it is needed to normalize the flight departure variables for the clustering algorithms. In order to identify similar alternatives within the menu the clustering method needs a variable that allows it to measure the distance between any two departures values. This is achieved by transforming these variables into the Coordinated Universal Time format preserving dates, hours and minutes of departure time. This way the algorithm is able to measure the distance between any pair of alternatives in minutes. For normalization purposes I also subtract the timestamp of the earliest flight in a menu from the departure times of every flight in that menu; thus, all times are measured as times after the earliest time.
+
+After this transformation I use Affinity Propagation for obtaining sets of similar options within each menu. I feed the clustering algorithm with the data on all vertical and horizontal variables for each alternative. The algorithm returns an identifier for the cluster belonging of each of the options. Affinity Propagation detects on average 7.62 clusters within the choice sets. In order to develop the measure of the similarity effect I calculate the number of alternatives in the cluster to which the focal alternative belongs.
+
+\textbf{Choice modeling}
+
+To examine the context effects on choices in the airline booking data, I estimate random effects Probit models augmented by the context effect measures. These models have a crucial advantage of interpretability. Another advantage (over, for example, Logit) is the feature that Probit does not explicitly require the assumption of the independence from irrelevant alternatives. If the augmented model perfectly accounts for all context effects (IAA) this would not be a concern. However, as one cannot guarantee that human choices are not affected by any other context features (that have not yet been hypothesized and examined) having this feature is an additional advantage. I, however, also present robustness checks by fitting alternative statistical models in the Appendix \ref{appendix:LogitMixedAndFixedEffectResults} (Logit, Mixed Logit and Fixed Effects Probit) \footnote{An additional robustness check in terms of the usage of the clustering method is also presented in the same appendix. There I use K-mean clustering (augmented with the use of Silhouette score \citep{rousseeuw1987silhouettes} for calculating the optimal number of clusters) in order to calculate the similarity measure. Results are robust to this alteration too.}.
+
+One important point to notice here is the fact that the context variables incorporate menu size effects. For example, attraction variable cannot take any value higher than 5 in a menu of size 6. However, the same variable can take the value of 49 in the menu of size 50. One way of dealing with this feature would be to normalize context variables by the menu size. Another alternative is to account for this feature statistically by controlling for the menu size in the regression equation. I opt for the latter because it guarantees higher flexibility in the empirical model structure. It also allows to account for menu size effects that could go further than context effects (for example potential choice overload). An additional advantage is that it is much simpler to interpret marginal effects of unscaled context variables.
+
+
+\clearpage
+
+\begin{sidewaystable}[ht]
+\centering
+\begin{tabular}{p{5cm}|*{9}{p{1.7cm}}}
+\hline
+Variable & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\ \hline
+Price & -0.225*** & -0.232*** & -0.200*** & -0.227*** & -0.219*** & -0.184*** & -0.186*** & -0.184*** & -0.186*** \\ 
+ & (0.006) & (0.006) & (0.008) & (0.006) & (0.006) & (0.008) & (0.007) & (0.007) & (0.007) \\ 
+Trip duration & -0.136*** & -0.116*** & -0.087*** & -0.112*** & -0.124*** & -0.093*** & -0.092*** & -0.094*** & -0.092*** \\
+ & (0.009) & (0.009) & (0.010) & (0.009) & (0.009) & (0.010) & (0.010) & (0.010) & (0.010) \\ 
+Number of flights & -0.342*** & -0.322*** & -0.325*** & -0.309*** & -0.289*** & -0.279*** & -0.289*** & -0.281*** & -0.290*** \\ 
+ & (0.008) & (0.008) & (0.008) & (0.008) & (0.009) & (0.009) & (0.009) & (0.009) & (0.009) \\
+Number of airlines & -0.208*** & -0.209*** & -0.197*** & -0.210*** & -0.205*** & -0.193*** & -0.199*** & -0.193*** & -0.199*** \\
+ & (0.010) & (0.010) & (0.011) & (0.010) & (0.010) & (0.010) & (0.010) & (0.010) & (0.010) \\ 
+Attraction &  &  & 0.003*** &  &  & 0.003*** &  & 0.003*** &  \\ 
+ &  &  & (0.001) &  &  & (<0.001) &  & (<0.001) &  \\ 
+Compromise &  &  &  & -0.038*** &  & -0.034*** & -0.031*** &  &  \\ 
+ &  &  &  & (0.003) &  & (0.003) & (0.003) &  &  \\ 
+Similarity &  &  &  &  & -0.020*** & -0.020*** & -0.031*** & -0.020*** & -0.031*** \\ 
+ &  &  &  &  & (0.001) & (0.001) & (0.002) & (0.001) & (0.002) \\ 
+Attraction within cluster &  &  &  &  &  &  & 0.025*** &  & 0.0245*** \\ 
+ &  &  &  &  &  &  & (0.002) &  & (0.002) \\ 
+Attraction outside cluster &  &  &  &  &  &  & 0.002*** &  & 0.002*** \\ 
+ &  &  &  &  &  &  & (<0.001) &  & (<0.001) \\ 
+Compromise within cluster &  &  &  &  &  &  &  & -0.149*** & -0.136*** \\ 
+ &  &  &  &  &  &  &  & (0.020) & (0.020) \\ 
+Compromise outside cluster &  &  &  &  &  &  &  & -0.028*** & -0.027*** \\
+ &  &  &  &  &  &  &  & (0.004) & (0.004) \\
+Constant included & YES & YES & YES & YES & YES & YES & YES & YES & YES \\
+Horizontal variables as controls & NO & YES & YES & YES & YES & YES & YES & YES & YES \\ 
+Number of observations & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 \\ 
+Number of choices & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 \\ 
+Consistent Akaike information criterion & 49592 & 48906 & 48878 & 48764 & 48716 & 48565 & 48477 & 48555 & 48469 \\ 
+Log likelihood & -24761 & -24356 & -24335 & -24278 & -24254 & -24165 & -24114 & -24153 & -24103 \\ \hline
+\end{tabular}
+\caption{Choice model estimation results.\\ Notes: Outputs from random effects probit regressions. Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+\label{tab:mainResultsRandomProbitModel19AmadeusData}
+\end{sidewaystable}
+ 
+
+\clearpage
+
+Before getting to estimation, there is a need to transform the departure time variables into outbound and inbound flight pairs. The transformation that was performed for the clustering exercise cannot be directly used because it estimated coefficients that are not interpretable. In order to make this information as tractable as possible, I generate a set of variables. First, a day of the week variable for the outbound flight is generated. Second, a variable that measures the duration of the stay at the destination is generated \footnote{For the regression analysis, similar to other numeric variables, in order to eliminate any scale effects, I perform a z-score transformation of duration of stay variable.}.  These two variables together describe inbound and outbound flight timing characteristics at the level of the day. However, consumer preferences might be defined on a smaller scale. Therefore, I also generate two variables that describe the exact time of the day of outbound and inbound flights. These variables, $t_out,t_i \in [0;1)$, are measured as a fraction of a day, such that $t_i = 0$ corresponds to the midnight, while $t_i=0.5$ corresponds to the midday. I further apply a cosine transformation to these variables, i.e., $\cos(t_i ) = 2 \pi t_i$. This confines the departure time variable to the interval [-1;1], and ensures the smooth transition in departure times across the midnight mark.  These transformations result in a total of four variables describing departure timestamps for outbound and inbound flight pair - horizontal attribute of the alternative.
+
+I estimate a sequence of 9 models and present results in table \ref{tab:mainResultsRandomProbitModel19AmadeusData}. I estimate these models by using random effects probit regressions  with robust standard errors. First I start out by fitting two simple baseline models of consumer choice. Model 1 is the simplest estimation which includes only the four vertical attributes as independent variables. Model 2 further extends this model by adding four horizontal attributes. In both cases, with or without horizontal attribute controls, all vertical variables generate meaningful results. Consumers clearly have preferences for shorter, cheaper flights with fewer layovers and airline changes. Travelers also seem to have preferences for the outbound flight during daytime and for the inbound flight during nighttime (recall that the cosine transform variables reach a maximum at midnight and minimum at midday).
+
+\begin{table}[ht]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\tabcolsep}{0.4em}
+    \begin{tabular}{p{3cm}*{7}{p{1.5cm}}}
+    \hline
+    Variable & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\
+    \hline
+    Attraction & 0.0187 & & 0.0170 & & 0.0173 & & \\
+    Compromise & & -0.1900 & & -0.1646 & & -0.1509 & \\
+    Similarity & & & -0.0747 & -0.0756 & -0.1222 & -0.0740 & -0.1207 \\
+    Attraction within cluster & & & & & 0.1042 & & 0.1040 \\
+    Attraction outside cluster & & & & & 0.0133 & & 0.0135 \\
+    Compromise within cluster & & & & & & -0.6039 & -0.5444 \\
+    Compromise outside cluster & & & & & & -0.1377 & -0.1323 \\
+    \hline
+    \end{tabular}
+    \caption{Average marginal effects for relevant models.\\ Note. Average marginal effects implied by various models. All p-values were significant at $p<0.001$ level.}
+    \label{tab:marginalEffectsAmadeusModel39}
+\end{table}
+
+To further extend the model 2, three models (3 through 5) that each incorporate one of the context effects, and one model that incorporates all three context effects at once (model 6) were estimated. Table \ref{tab:mainResultsRandomProbitModel19AmadeusData} indicates consistency between coefficient estimates of model 6 and those from models 3-5. This set of models also allows to evaluate the effect of the three context effects on consumer choice. In line with the theory, the presence of attraction and similarity effects is observed. Namely, if the attraction measure increases for a given option, this increases the likelihood of the option being chosen. When the similarity measure increases, on the other hand, it decreases the likelihood of the option being chosen. Both of these effects are statistically highly significant and are in the hypothesized direction. In order to better understand the economic significance of the estimated effects, table \ref{tab:marginalEffectsAmadeusModel39} presents (average) marginal effects of relevant models. From table \ref{tab:marginalEffectsAmadeusModel39} we can read that if the attraction measure increases by one unit (i.e., having one more option dominated by the focal alternative, \textit{ceteris paribus}) the likelihood of an option being chosen goes up by about 0.02 percentage points on average. On the other hand, if the similarity measure increases by one unit, the likelihood of given option being chosen goes down by about 0.08 percentage points on average.
+
+Tables \ref{tab:mainResultsRandomProbitModel19AmadeusData} and \ref{tab:marginalEffectsAmadeusModel39}, however also indicate the existence of a reverse compromise effect. The compromise effect posits that if an option represents a compromise between extreme alternatives, it will have higher likelihood of being chosen. On the contrary, our results indicate that increasing our compromise measure decreases likelihood of an option being chosen. This effect is again statistically and economically significant. From here we can conclude that in the context of airfare choice consumers prefer extreme options to those that represent compromise. This implies that the preferences of individual consumers are strongly anchored to one of the four vertical attributes. For example, if a traveler attaches particular importance to price, she will be reluctant to trade away an option that is cheap for increases in the attractiveness in any other (vertical) dimension. This, in fact, is rather understandable given the context of current empirical exercise: the two largest groups of air-travelers are holidaymakers, who are price-sensitive and do not readily trade away price advantage for shorter travel time, and business travelers, who are time-sensitive and do not trade away flight duration for a decrease in price.
+
+Next, I investigate the interaction between several context effects. Previous literature has hypothesized and demonstrated the interaction between attraction and similarity effects in laboratory environments \citep{huberEtAl82, huberPuto83, roodrkerkEtAl11}. The interaction between similarity and compromise effects has not been studied in literature, however one can consider that if the similarity effect efficiently identifies comparable alternatives that could constitute a consideration set of the consumer, the compromise effect, which considers options outside the consideration set, will not constitute an adequate guide for consumer behavior.  Given that the similarity measure hinges on identifying clusters of similar options, the interplay between the similarity effect and other two context effects is rather straight forward to study. 
+
+For this, I calculate four additional measures for each option decomposing attraction and compromise effects along the cluster lines identified by the similarity measure. More precisely, attraction and compromise measure for a given option is calculated: 1) by taking only the alternatives that belong to the same cluster to which this particular option belongs, and 2) by considering only the alternatives that do not belong to the same cluster. This way, one can get a measure of attraction and compromise effects of an alternative within the cluster (i.e., among comparable alternatives, or within the consideration set) and outside the cluster (i.e., among relatively non-comparable alternatives, or outside the consideration set).
+
+In models 7 through 9 I study the comparative effects of pairs of these effects. Model 7 decomposes the attraction effect in model 6 into two parts (inside and outside the cluster).  Model 8 decomposes the compromise effect along the same lines, and model 9 estimates the model that includes both decompositions simultaneously. The results, again, are consistent and meaningful. Models 7 and 9 imply that attraction effect within the cluster, i.e., among comparable alternatives has a much stronger impact on the purchase likelihood than that of the impact of the measure calculated based on non-similar alternatives. Table \ref{tab:marginalEffectsAmadeusModel39} indicates a difference of the size of the order of magnitude. Similarly, as indicated by models 8 and 9, being a compromise among comparable alternatives has a much higher detrimental effect on purchase likelihood than being a compromise among remote alternatives. The p-values for all tests of coefficient pair equality (i.e., estimated coefficient for attraction within cluster being equal to that of the attraction outside cluster, and coefficient for compromise within the cluster being equal to the compromise coefficient outside the cluster) are below 0.001, indicating that cluster-based measure of similarity may be an efficient indicator of the consumer's consideration set.
+
+\clearpage
+
+\begin{sidewaystable}[ht]
+\centering
+\begin{tabular}{p{5cm}*{9}{p{1.7cm}}}
+    \hline
+        Variable & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\ \hline
+        \addlinespace
+        Price & -0.249*** & -0.259*** & -0.253*** & -0.257*** & -0.249*** & -0.238*** & -0.245*** & -0.238*** & -0.245*** \\ 
+         & (0.008) & (0.009) & (0.013) & (0.009) & (0.009) & (0.013) & (0.013) & (0.013) & (0.013) \\ 
+        Trip duration & -0.167*** & -0.143*** & -0.137*** & -0.143*** & -0.147*** & -0.139*** & -0.144*** & -0.138*** & -0.143*** \\ 
+         & (0.013) & (0.013) & (0.016) & (0.013) & (0.013) & (0.015) & (0.015) & (0.015) & (0.015) \\ 
+        Number of flights & -0.414*** & -0.392*** & -0.393*** & -0.386*** & -0.373*** & -0.369*** & -0.373*** & -0.371*** & -0.375*** \\ 
+         & (0.014) & (0.014) & (0.014) & (0.014) & (0.014) & (0.015) & (0.015) & (0.015) & (0.015) \\ 
+        Number of airlines & -0.161*** & -0.163*** & -0.160*** & -0.164*** & -0.164*** & -0.162*** & -0.165*** & -0.161*** & -0.164*** \\ 
+         & (0.015) & (0.015) & (0.015) & (0.015) & (0.015) & (0.015) & (0.015) & (0.015) & (0.015) \\ 
+        Attraction &  &  & 0.002 &  &  & 0.002 &  & 0.003 &  \\ 
+         &  &  & (0.003) &  &  & (0.003) &  & (0.003) &  \\ 
+        Compromise &  &  &  & -0.066*** &  & -0.063*** & -0.064*** &  &  \\ 
+         &  &  &  & (0.013) &  & (0.013) & (0.013) &  &  \\ 
+        Similarity &  &  &  &  & -0.023*** & -0.023*** & -0.029*** & -0.022*** & -0.029*** \\ 
+         &  &  &  &  & (0.003) & (0.003) & (0.004) & (0.003) & (0.004) \\ 
+        Attraction within cluster &  &  &  &  &  &  & 0.016*** &  & 0.016*** \\ 
+         &  &  &  &  &  &  & (0.005) &  & (0.005) \\ 
+        Attraction outside cluster &  &  &  &  &  &  & -0.001 &  & -0.001 \\ 
+         &  &  &  &  &  &  & (0.003) &  & (0.003) \\ 
+        Compromise within cluster &  &  &  &  &  &  &  & -0.182*** & -0.180*** \\ 
+         &  &  &  &  &  &  &  & (0.048) & (0.048) \\ 
+        Comrpmise outside cluster &  &  &  &  &  &  &  & -0.029 & -0.031* \\ 
+         &  &  &  &  &  &  &  & (0.018) & (0.018) \\ 
+        Constant included & YES & YES & YES & YES & YES & YES & YES & YES & YES \\ 
+        Horizontal variables as controls & NO & YES & YES & YES & YES & YES & YES & YES & YES \\ 
+        Number of observations & 79080 & 79080 & 79080 & 79080 & 79080 & 79080 & 79080 & 79080 & 79080 \\ 
+        Number of choices & 3954 & 3954 & 3954 & 3954 & 3954 & 3954 & 3954 & 3954 & 3954 \\ 
+        Consistent Akaike information criterion & 25568 & 25124 & 25134 & 25106 & 25088 & 25085 & 25087 & 25101 & 25104 \\ 
+        Log likelihood & -12759 & -12482 & -12481 & -12467 & -12458 & -12444 & -12439 & -12446 & -12441 \\ 
+    \hline
+    \end{tabular}
+\caption{Choice model estimation results from the reduced dataset.\\ Notes: Outputs from random effects probit regressions. Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+\label{tab:reducedResultsRandomProbitModel19AmadeusData}
+\end{sidewaystable}
+
+\clearpage 
+
+An important drawback of the dataset is the feature that there is no way of knowing which available options on the market reached eyeballs of the consumer. One way of thinking about this problem is to consider the most likely way such menus are delivered to decision-makers. Most online booking sites and flight aggregators use specific and proprietary algorithms for ranking available menus at the point of search. These rankings decide which options are shown to the customer. Even though the information about specific ranking algorithms is not public, we know that the attribute that usually plays the most important role is the price. Given the robust findings that price negatively affects choice probability, the best guess for a simple ranking mechanism that would capture a wide variety of sorting mechanisms would be options sorted with the decreasing order with respect to price. Assuming that each user was reached by the same number of options, we could construct a reduced dataset for a sensitivity check. For this exercise I construct a dataset that only contains menus with more than 20 options, and only retain 20 cheapest alternatives per menu. There are also cases where the chosen option is not part of the set of 20 cheapest alternatives in the menu \footnote{20 alternatives are chosen so that we have enough entries to have variance in key variables. Results are robust to different menu sizes, with the characteristics that as I reduce menu size more effects seem to lose significance.}. I also eliminate these choice cases from the reduced dataset. This leaves me with about four thousand choice cases.
+
+\clearpage
+
+\begin{table}[!ht]
+    \centering
+    \renewcommand{\arraystretch}{1.1}
+    \setlength{\tabcolsep}{0.3em}
+    
+    \begin{tabular}{>{\fontsize{10pt}{11pt}\selectfont}p{3cm}>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l}
+        \hline
+        Panel A & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\ \hline
+        Attraction & 0.0138 & & 0.0191 & & 0.0010 & & \\ 
+         & [0.512] & & [0.362] & & [0.317] & & \\
+        Compromise & & -0.5507 & & -0.5239 & & -0.5335 & \\ 
+         & & [$<0.001$] & & [$<0.001$] & & [$<0.001$] & \\ 
+        Similarity & & & -0.1916 & -0.1890 & -0.2425 & -0.1859 & -0.2375 \\ 
+         & & & [$<0.001$] & [$<0.001$] & [$<0.001$] & [$<0.001$] & [$<0.001$] \\ 
+        \renewcommand{\arraystretch}{1.}
+        Attraction within cluster & & & & & 0.1357 & & 0.1329 \\ 
+         & & & & & [0.001] & & [0.001] \\ 
+        Attraction outside cluster & & & & & -0.0111 & & -0.0080 \\ 
+         & & & & & [0.628] & & [0.728] \\ 
+        \renewcommand{\arraystretch}{1.}
+        Compromise within cluster & & & & & & -1.5127 & -1.4961 \\ 
+         & & & & & & [$<0.001$] & [$<0.001$] \\ 
+        Comrpmise outside cluster & & & & & & -0.2374 & -0.2566 \\ 
+         & & & & & & [0.107] & [0.083] \\ \hline
+    \end{tabular}
+    
+    \vspace{10pt}
+    
+    \begin{tabular}{>{\fontsize{10pt}{11pt}\selectfont}p{3cm}>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l>{\fontsize{11pt}{13pt}\selectfont}l}
+        \hline
+        Panel B & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\ \hline
+        Attraction & 0.0359 & & 0.0291 & & 0.0096 & & \\ 
+         & [$<0.001$] & & [$<0.001$] & & [$<0.001$] & & \\
+        Compromise & & -0.4150 & & -0.3482 & & -0.3112 & \\ 
+         & & [$<0.001$] & & [$<0.001$] & & [$<0.001$] & \\ 
+        Similarity & & & -0.2037 & -0.2082 & -0.3084 & -0.2038 & -0.3034 \\ 
+         & & & [$<0.001$] & [$<0.001$] & [$<0.001$] & [$<0.001$] & [$<0.001$] \\ 
+        \renewcommand{\arraystretch}{1.}
+        Attraction within cluster & & & & & 0.2454 & & 0.2436 \\ 
+         & & & & & [$<0.001$] & & [$<0.001$] \\ 
+        Attraction outside cluster & & & & & 0.0177 & & 0.0182 \\ 
+         & & & & & [$<0.001$] & & [0.006] \\ 
+        \renewcommand{\arraystretch}{1.}
+        Compromise within cluster & & & & & & -1.5331 & -1.3553 \\ 
+         & & & & & & [$<0.001$] & [$<0.001$] \\ 
+        Comrpmise outside cluster & & & & & & -0.2851 & -0.2655 \\ 
+         & & & & & & [$<0.001$] & [$<0.001$] \\ \hline
+    \end{tabular}
+    
+    \caption{Average marginal effects from the reduced dataset (Panel A, top) and marginal effects from the full dataset at menu size $=20$ (Panel B, bottom). P-values in the square brackets.}
+    \label{tab:marginalEffectsOnReducedDatasetAmadeus}
+\end{table}
+
+\clearpage
+
+Table \ref{tab:reducedResultsRandomProbitModel19AmadeusData} presents the estimation results of all 9 models, while panel A in table \ref{tab:marginalEffectsOnReducedDatasetAmadeus} presents corresponding marginal effects. For the sake of comparison, panel B in table \ref{tab:marginalEffectsOnReducedDatasetAmadeus} also presents marginal effects implied by the models estimated on the original dataset at menu size being equal to twenty. One difference due to the move from full to reduced dataset is that the total attraction effect seems to lose the significance. However, once this effect is decomposed along the borders traced by the similarity measure in the complete model 9, it is clear that in-cluster attraction effect does attain statistical significance. Naturally, there are differences in terms of the size of marginal effects from the original and reduced datasets that one can read by comparing panels A and B in table \ref{tab:marginalEffectsOnReducedDatasetAmadeus}. However, these differences are fairly small - two exercises seem to produce consistent results.
+
+\subsubsection{Experimental data}
+
+The airfare choice data presents an excellent opportunity for application of the proposed methodology. It is a large dataset of actual choices made in a natural environment by consumers, the product under question is relatively complex (i.e., characterized by more than two attributes), the menu size is not constant across different choice cases, menu sizes are sufficiently large to get sufficient variance in all context variables. However, the dataset also has shortcomings. Firstly, even though one knows what was available on the market when the choice was made, there exists no accurate information on which of the options were in fact considered by the consumer. Secondly, there is no information on identity and characteristics of the consumers. Without such information one is not able to account consumer-side features that could systematically drive choice outcomes that is observed.
+
+To remedy these shortcomings, in what follows I apply the same methodology to an experimental dataset. This data, like the observational dataset, comes from a travel context. Similarly, the studied product is relatively complex. Unlike observational dataset, however, the dataset comes from a stated choice experiment. Here there is no variance in menu sizes, and these menus are relatively small (five alternatives). Importantly, this dataset has information on a set of variables describing subject demographics. An added advantage of the dataset is that each subject is making 12 choices, and these 12 choice cases are constant across all subjects. This allows to control for menu-specific, as well as subject-specific characteristics.
+
+The data comes from a discrete choice experiment administered to residents and daily commuters to the city of Ljubljana, Slovenia by Gerzinic et al. \citeyearonly{gerzinicEtAl21}. 108 subjects were sequentially presented with 12 5-alternative menus and were asked to choose the best alternative in each case \footnote{In fact, the experiment consisted of multiple choices rounds within each menu. In the first round subjects needed to choose the best option of the five presented alternatives. Consequently, this alternative was removed from the menu and in the second round they needed to choose the worst option out of four remaining alternatives. Then this option was removed and subjects needed to choose the best of the three remaining, and ultimately the worst of the two remaining options. The experiment was designed for a different purpose, see Gerzinic et al. \citeyearonly{gerzinicEtAl21}. For the purpose of this study, only the data from the first round of choices is used.}.  This represents 1,296 recorded choice cases. Each alternative described a commuter trip with a 'park and ride facility choice' to the city with respect to following five characteristics: price, car ride duration, public transport ride duration, public transport (average) wait time, and the mode of public transport (either bus or train). Subjects were overwhelmingly Slovenian nationals ($91.67\%$), 58\% female, with mean age of 36 years, ($St. Dev.=12.5$). Further information on education, income, household size and the number of cars in the household was also obtained. Descriptive  statistics of choice variables in the experimental dataset is presented in table \ref{tab:descriptivesNejc}. Subject characteristics are used as control variables.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lccccc}
+    \toprule
+    Variable & Count & Mean & St.Dev & Min & Max \\
+    \midrule
+    Price & 6480 & 5 & 3.266 & 1 & 9 \\
+    Car ride duration & 6480 & 15 & 8.166 & 5 & 25 \\
+    Public transport ride duration & 6480 & 20 & 8.166 & 10 & 30 \\
+    Public transport wait time & 6480 & 16.67 & 10.275 & 5 & 30 \\
+    1[Public transport is train] & 6480 & 0.5 & 0.500 & 0 & 1 \\
+    Attraction & 6480 & 0.067 & 0.249 & 0 & 1 \\
+    Similarity & 6480 & 2.633 & 1.080 & 1 & 4 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Descriptive statistics for choice and context variables.}
+    \label{tab:descriptivesNejc}
+\end{table}
+
+\textbf{Measurement of context effects}
+
+A significant disadvantage of this particular dataset is the small menu size (five) and large number of choice variables (also five). These circumstances, together with the fact that the experiment was not designed for specific purpose of studying context effects and that one of the choice variables is categorical (mode of public transport), restricts possibility of variance in context variables. So much so that the procedure applied to observational data does not identify a single case with this data where we can observe a compromise option. As a result, there is no variance in compromise measure. In addition, presence of categorical variable drives the AP clustering algorithm (as well as K-Means algorithm, for that matter), which always results in two groups of similar options - one options - one consisting of all options using bus as the mean of public transport, and the other using train. Given that calculating dominance relationship also requires constancy of categorical variable across a pair of options, all dominance relationships (and hence all attraction) are only within the cluster. The consequence of all this is that I cannot estimate model 4, and that models 6 through 9 become equivalent. Table \ref{tab:descriptivesNejc} also presents descriptive statistics of context variables.
+
+\textbf{Choice modeling}
+
+Choice modeling exercise takes a very similar approach to that using observational data. The only difference is that in the current case regressions also include menu-level fixed effects. This is necessary as 12 choice cases are constant across all subjects. Results of the random effects probit estimation are given in table \ref{tab:nejcModelResults} \footnote{Robustness checks with random effects Logit, and fixed effects Probit with experimental dataset are presented in Appendix \ref{appendix:nejcDataRobustnessChecks}}.  At the choice variable level, not surprisingly one finds negative effects of all vertical variables (price, car ride duration, public transport ride duration, public transport wait time). I also find that commuters have preference for train over bus as a mode of public transportation.
+Results with respect to context variables are consistent with those obtained from observational dataset in that significant attraction and similarity effects are observed. Even though in model 3, the attraction effect is insignificant (and goes in "wrong" direction), in the unifying model of context effects it achieves statistical significance ($p = 0.021$). Marginal effects indicate a much stronger impact of the context in experimental setup. One-unit increase in attraction results in 4.8\% increase in the choice likelihood of an option. One-unit increase in similarity, on the other hand, decreases the choice likelihood by 3.2\%, \textit{ceteris paribus}. Such a difference in marginal effects is not surprising given a much smaller menu size compared to the observational dataset.
+
+\clearpage
+\begin{sidewaystable}[ht]
+    \centering
+    \begin{tabular}{p{7cm}ccccc}
+    \toprule
+    Variable & Model 1 & Model 2 & Model 3 & Model 5 & Models 6-9 \\
+    \midrule
+    Price & -0.221*** & -0.228*** & -0.228*** & -0.214*** & -0.208*** \\
+    & (0.008) & (0.008) & (0.008) & (0.008) & (0.009) \\
+    Car ride duration & -0.067*** & -0.070*** & -0.070*** & -0.069*** & -0.066*** \\
+    & (0.003) & (0.003) & (0.003) & (0.003) & (0.003) \\
+    Public transport ride duration & -0.046*** & -0.047*** & -0.047*** & -0.041*** & -0.039*** \\
+    & (0.002) & (0.003) & (0.003) & (0.002) & (0.003) \\
+    Public transport wait time & -0.048*** & -0.050*** & -0.050*** & -0.043*** & -0.040*** \\
+    & (0.003) & (0.003) & (0.003) & (0.003) & (0.003) \\
+    1[Public transport is train] & 0.189*** & 0.179*** & 0.179*** & 0.147*** & 0.140*** \\
+    & (0.042) & (0.043) & (0.043) & (0.044) & (0.044) \\
+    Attraction & & & -0.005 & & 0.226** \\
+    & & & (0.089) & & (0.098) \\
+    Similarity & & & & -0.122*** & -0.149*** \\
+    & & & & (0.025) & (0.027) \\
+    Constant included & YES & YES & YES & YES & YES \\
+    Control variables included & NO & YES & YES & YES & YES \\
+    Number of observations & 6480 & 6180 & 6180 & 6180 & 6180 \\
+    Number of choices & 1296 & 1236 & 1236 & 1236 & 1236 \\
+    Number of subjects & 108 & 103 & 103 & 103 & 103 \\
+    Consistent Akaike information criterion & 5206 & 5105 & 5113 & 5089 & 5092 \\
+    Log likelihood & -2537 & -2386 & -2386 & -2374 & -2371 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Choice model estimation with experimental data. \\
+    Note: Five of the subjects did not provide information on all control variables (i.e., demographics). As a result, the data from those subjects is missing in regressions with control variables. Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+    \label{tab:nejcModelResults}
+\end{sidewaystable}
+
+\clearpage
+
+\subsection{Conclusion}
+
+This article has extended established measures of context effects with the aim to make contextual choice modeling applicable to observational data from a wide range of environments. Previous approaches to the study of context effects were limited to choices among small number of options (usually two or three) of simple products (usually characterized by two numerical attributes). This meant much of the previous literature used experimental settings and examined, relatively simple, product line design questions, e.g., Orhun et al. \citeyearonly{orhun09} and Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}, where the choice was among a set of similar products with marginally varied characteristics. 
+
+One important limitation of this approach is that (in case of attraction and compromise effects) it relies on ordinal relationships between the available options. In other words, the information that option $A$ is better than option $B$ in terms of attribute $X$ is used. This is a departure from previous literature which has relied on cardinal measurements (e.g., Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}), i.e., how much one thing differs from another. When we are dealing with only two or three options, cardinal measurement is the only way to quantify context effects. In the proposed framework, on the other hand, cardinal measurement is not a necessity. However, given that cardinal measurement is possible in most contexts (at least for a set of attributes), using ordinal measurements may hide some information from the modeling approach. One could imagine developing context effect measures that will consider both ordinal and cardinal measures. In this way, for example, a researcher could measure the attraction effect not only based on how many alternatives a focal option - which is an ordinal measure, but also by how much the focal option dominates those alternatives (at least on average) - which is a cardinal measure. In a similar vein, information on how central the focal option is in the group of alternatives could be incorporated in the measure of compromise effect, and information on the spread of options identified as similar to the focal option could be incorporated in the measure of similarity effect.  Moreover, clustering has proved itself being a reliable method to account for similarity effect.
+
+This framework opens up possibilities to study context effects in a much wider range of settings. The presented methodology can handle very large menu sizes of products that are relatively complex (i.e., characterized by many and varied types of attributes). Equally importantly, the approach does not require consistent menu sizes in the dataset. In the paper only one such empirical application is presented. However, this methodology could be applied to larger and richer datasets generated from electronic commerce websites, as well as offline environments. This enables the study of context effects in the field without explicit experimental interventions, which usually prove to be very expensive. As a result, the methodology could contribute to designing optimal offers on larger scale (e.g., optimizing recommender systems) especially in online settings where each shop outlet can carry hundreds of substitute options to choose from. 
+
+In an increasingly crowded digital marketplace, online portals often leverage recommender systems to assist consumers in the decision-making process. Sometimes even the number of alternatives recommended may seem overwhelmingly large. Prior research has established that, when facing many alternatives people tend to use decision-heuristics \citep{fishburn1974exceptional}. One can utilize the findings of this study in an attempt to design consideration sets which encompass empirically similar alternatives. This might especially be useful when recommender systems have very little information about the user which are known as cold-start problem. 
+
+The results of this study provide a good foundation for the next chapter of my thesis. There I will utilize cluster based similarity measure to propose a recommender system design which can especially be useful in user information scarce environments.
+
+
+
+
+\newpage
+\section{Use of clustering for consideration set modeling in recommender systems}\footnote{This chapter is based on a joint work with my supervisor Zakaria Babutsidze, also William Rand and Thierry Delahaye which has been published in the proceedings of 54th Hawaii International Conference on System Sciences}
+
+\begin{abstract}
+        The cold-start problem has become a significant challenge in recommender systems. To solve this problem, most approaches use various user-side data  and combine them with item-side information in their systems design. However, when such user data is not available, those methods become unfeasible. We provide a novel recommender system design approach which is based on two-stage decision heuristics. By utilizing only the item-side characteristics we first identify the structure of the final choice set and then generate it using stochastic and deterministic approaches.
+        
+\end{abstract}
+
+\subsection{Introduction}
+
+With the rise of the Internet, interaction with recommender systems has become a common part of human activity. When there are many options to choose from, recommender systems save consumers time and effort by matching them with items \citep{bobadilla2013recommender}. Making successful recommendations requires knowledge of demand-side factors, such as consumer taste, historical interactions, purchasing power, and socio-demographic characteristics, along with supply-side factors, such as item characteristics.
+
+Because recommender systems are online services implemented by the providers, supply-side information is generally available at all times. However, this is not always the case with demand-side information. On most occasions users are not identified, either because it is not feasible, or because interaction with the system does not require them to identify themselves.
+
+This lack of information is referred to as the cold-start problem \citep{adomavicius2005toward}. Some services, for example Netflix, solve this problem by providing general suggestions until they can gather enough information about the user. Others, such as Goodreads, explicitly survey the new user to solicit such information.
+
+With the current regulations and users' awareness of security and privacy on the internet \citep{anton2010internet}, systems face continuous cold-start problems \citep{wong2014online}. In such cases, using supply-side contextual information becomes crucial \citep{adomavicius2005toward}. One way of utilizing such information is using random utility models. However, such models rely on the notion of perfectly rational consumers having well-defined preferences \citep{babutsidze2019asymmetric}. Hence, they are not able to account for context-dependent preferences \citep{tversky1979preference}. Under such circumstances, clustering-based approaches can be used to enrich the context in recommender systems. Previous research \citep{babutsidze2019asymmetric} has demonstrated that such an approach is flexible enough to be extended over imperfectly rational, or context-dependent consumer behavior.
+
+In this paper, I incorporate insights from the decision literature into recommender system design using the dataset of European flight choices \citep{lheritier2019airline}. I argue that the choice process occurs in two sequential stages: consumers first identify the small subset of the choices that they would "consider" and then make a choice from that subset. Combining findings in marketing, management and consumer behavior, and using clustering to quantify the contextual information of the choice set,  I propose a user-side, two-step  "consider-then-choose" \citep{liu2011efficient, gilbride2004choice} approach to recommender system design to tackle the cold-start problem. 
+
+\subsection{Theoretical background}
+
+\textbf{Choice heuristics}
+
+Previous literature in psychology and economics has suggested that individuals tend to use various decision heuristics to reduce the cognitive load during the decision-making process \citep{fishburn74,bettman1979memory,johnson1989choice}. Because consumers tend to behave as \textit{satisficers} rather than \textit{maximizers}, they do not perform an evaluation of all the alternatives available to them but stop as soon as they find an option which has overall better attributes and satisfies their needs \citep{simon1956rational}. For simplicity, let's consider the case of buying flight tickets. There are  $N$ tickets, and they each have $k$ attributes, which can include price, duration, time of the day of the flight, number of connections, and so on. A consumer has a single objective function
+
+\begin{equation} \label{eq:1}
+   O = O(T_1, T_2, \dots, T_N), 
+\end{equation}
+
+where $T$ is the linear transformation of the flights' attributes $Z^k$ with some random parameters $\theta$. We can rewrite equation \ref{eq:1} as
+
+    \begin{equation} \label{eq:2}
+        O = O\left(\sum_{k} \theta_{k}Z_1^k, \dots,\sum_{k} \theta_{k}Z_j^k, \dots, \sum_{k} \theta_{k}Z_N^k\right),
+    \end{equation}
+
+which would allow a consumer to explicitly compare the marginal contribution of each attribute to the maximization of the the objective function \citep{de2011modelling}. However, most of the time, choice attributes do not require or allow for such trade-off calculations, as some of them are too valuable, or there are too many attributes to consider. For example, a consumer flying for business purposes may value the flight duration more than a budget traveler, who would value price above everything else. In such cases, even when consumers are perfectly rational and are well-informed, when they face options that simultaneously differ across many attributes, or it is difficult to calculate such trade-offs, they use various heuristic approaches \citep{hauser1990evaluation}.
+
+Heuristics are mathematical formulas describing different rule-based decision steps taken by individuals to reduce their potential decision effort \citep{bettman1998constructive}. One can distinguish several types of heuristics-based approaches: lexicographic rule \citep{fishburn74}, conjunctive/disjunctive \citep{coombs1951mathematical}, elimination by aspects \citep{tversky1972elimination}, and so on. 
+
+The lexicographic rule is the simplest deterministic rule in the heuristic approach. Here, individuals choose the alternative which has the highest value of the feature they desire. If there are several options with equal values, individuals compare those options based on the second most valued feature. This loop continues until there is one option remaining. For example, an individual searching for flight tickets from Paris to New York will have different options varying in time, price, number of connections, baggage allowance, transfer time, and so on. Attributes of the choices are first ranked based on their importance to the consumer: cheaper than 600 Euros, checked and carry-on baggage included, one layover, maximum transfer time of four hours. Then, a filtering stage occurs. After filtering on the price, if there are multiple options remaining, the consumer will switch to baggage allowance, connections and transfer time. As soon as the choice set contains only one option, the search stops.
+
+The conjunctive and disjunctive heuristic approaches are related \citep{coombs1951mathematical}. In the conjunctive rule, consumers first establish the list of features they consider relevant to the choice problem. Then, they establish various thresholds on those features. If an alternative passes all of those thresholds, it is chosen. In contrast, in the disjunctive approach, an option which exceeds threshold on at least one of the features is chosen \citep{coombs1951mathematical}. The results of the lexicographic approach and conjunctive approach appear to be similar. The only difference is that, instead of evaluating options based on the first aspect, then the second and so on, in conjunctive approach the consumer evaluates options based on all aspects simultaneously. In some cases consumers might be willing to use a subset-conjunctive approach  which generalizes both the conjunctive and disjunctive approaches \citep{hauser2014consideration}. It allows some variation in the desired aspects. For example, if the consumer valued 4 aspects as mentioned in the example above, he or she might be willing to accept an option which satisfies 3 of those 4 aspects. This approach is particularly useful when there are time constraints or a fully conjunctive rule would result in no choice \citep{hauser2009non}. 
+
+Elimination by aspects is another heuristic approach which has been
+proposed in the literature \citep{tversky1972elimination}. The basic setup of this approach is that an individual chooses one attribute, and eliminates options based on this attribute and repeats this procedure for other attributes if necessary until the remaining options do not share common attributes anymore. Then, as a last step, the final option is chosen according to Luce’s choice axiom \citep{luce2012individual} which states that the probability of selecting one option over the others in a choice set is not affected by presence or absence of other options. Most of the results on this topic \citep{batsell1985new,gensch1987two,manrai1989elimination,currim1988disaggregate} indicate that the use of multi-phase heuristic processes can increase the accuracy of the estimation and result in improved interpretability of the models. Elimination by aspects is considered a heuristic method with stochastic rules because of the nature of the comparisons an individual makes, and because the selection process is not based on the relative importance of the features 
+\citep{aribarg2018advancing}. Such models are also hard to apply successfully because they require tremendous numbers of parameters to be estimated \citep{batsell1985new}. Although these models can theoretically capture the essence of the two-stage choice process, they are not able to identify the results of separate stages \citep{gilbride2004choice}. 
+
+\textbf{Two-stage choice}
+
+During the choice process consumers usually face a large number of options \citep{payne1988adaptive}. Evaluating that many options drastically increases  cognitive load during the decision process and so, to reduce this load, consumers first select a small subset during an initial consideration  stage \citep{paulssen2005self} and then make their choice  from that subset in the final stage \citep{bettman1979memory, gensch1987two, paulssen2005self}. Firstly, this allows users to remove unrealistic options from thorough consideration. Secondly, 
+because the choice set is much smaller in the final stage, users are able to invest more cognitive effort to analyse individual options more carefully \citep{gensch1987two}. Also, the decision strategies used in the two stages differ considerably and are therefore not interchangeable. The main reason for that is the cognitive costs of the decision rules should not outweigh their potential benefits during each stage \citep{bettman1990componential}.
+
+In the information processing literature the small subsets that consumers make their final decisions from are called consideration sets. There are several definitions of a consideration set. \citep{shocker1991consideration} defines a consideration set as a "set of alternatives that are goal-satisfying and accessible to a consumer on a particular occasion". Hauser \citeyearonly{hauser1990evaluation} refers to it as a "set of options that receive a significant amount of consideration during the decision making process". In marketing, however, scholars generalize these definitions and  refer to consideration sets as a "subset of alternatives surviving the initial screening phase" \citep{haubl2000consumer}. 
+
+Despite the fact that consumers may not always use such a two-stage process to screen products \citep{hauser2009non}, the use of consideration sets is justified because they represent the choice process more realistically and they explain consumer behavior better \citep{horowitz1995role}. Potentially up to 80\% of the decision process uncertainty can be resolved if we determine the consideration set correctly \citep{hauser1978testing}. 
+
+For an empirical study of consideration set formation, one can elicit information on consideration sets in multiple ways \citep{ding2011unstructured,gaskin2007two,yee2007greedoid}. However, for modeling purposes the literature discusses two main ways of consideration set formation: deterministic \citep{coombs1951mathematical} and stochastic \citep{mcfadden1973conditional, urban1984testing}. While stochastic modeling makes all potential sets possible by attaching non-zero choice probability to each of them, deterministic approaches may render some outcomes impossible \citep{aribarg2018advancing}. Because we can not know which answer is the best and the decision-maker, or consumer, is the final arbiter of the "correct" choice \citep{hauser2014consideration}, the use of either of these two approaches must consider the choice environment, time frame, future value (or loss) associated with the correct and incorrect choice, and so on \citep{punj2009information}. For example, let's consider the flight booking case again and suppose that the consumer lives far from the airport and can reach it only in the afternoon. Consequently, all tickets with departure time before midday would not be considered at all. When forming a consideration set in this case, one must not only consider the characteristics of available options, but also the characteristics of the consumer and the choice environment. While using a purely stochastic approach might yield sets which include some options that consumer would indeed consider, there will also be options which will have zero probability for consideration. In contrast, applying some deterministic rules derived from this particular choice environment, such as the departure time, in the consideration set formation, will exclude those options completely.
+
+When there are not many options to consider, options have few attributes, or final choice utility is not evenly distributed among the attributes, the consideration sets may be modelled via simple deterministic rules, because there is not much cognitive load and the decision rules are relatively simple  \citep{hauser2014consideration, lee2004effect} . When forming consideration sets, it is also important to consider their size. It is very difficult to decide an optimal size based on the choice environment and individual processing capabilities \citep{de2011modelling}. 
+
+With the current progress in computer science, mathematics and behavioral economics, recommender systems are ideal tools to solve this information overload problem and provide users with the most relevant consideration sets \citep{breese2013empirical}.
+
+    
+\textbf{Recommender systems}    
+
+Recommender systems (RS) have been an important part of our daily lives thanks to the rise of the Internet. RS are software tools and/or algorithms which match users to items \citep{mahmood2009improving} \footnote{Although there are other tools which create suggestions for users (such as Interactive Decision Aids, Recommender agents and etc.), for the purposes of this study I refer to recommender systems and bound the definition using the one by Mahmood \citeyearonly{mahmood2009improving}. These other tools have some theoretical differences which makes orthogonal to the purposes of this study. However, I discuss, differentiate between them and define the boundary conditions in the chapter \ref{chapter:UserControlAndRS}}. One example is Netflix, which recommends a movie similar to the one the user just watched. The general purpose of any RS is to help users who do not have sufficient knowledge or experience, or the capacity to evaluate the item pool fully. 
+
+I distinguish between personalized and general recommender systems. Personalized RS  may suggest different items to different users or user groups. General RS in turn, are usually directed towards the general public and might be relevant only to some part of it, for example, Billboard Hot 100, IMDB Top 250, or the front page of New York Times \citep{ricci2010recsystems}.
+
+When RS face new users or new items, they may fail to provide personalized content due to the sparsity of information \citep{lika2014facing}. Because such RS mainly utilize historical interactions of similar users on similar items, and their ratings, facing a new entity about which it has no information makes it impossible to generate recommendations. This problem is referred to in the literature as the cold-start problem \citep{adomavicius2005toward} and is considered a key challenge in RS design \citep{park2009pairwise}.
+
+The literature distinguishes three main cold-start settings \citep{park2009pairwise}: a) recommending existing items for new users (user-side), b) recommending new items for existing users (item-side), c) recommending new items for new users (user- and item-side). However, when trying to address this problem scholars have mainly focused on settings in which the challenge was to recommend new items to existing users \citep{zhang2010solving}.
+
+Recently, some progress was made in solving the user-side cold-start problem after the introduction of contextual information into recommender systems. As a result of this effort, Context Aware Recommender systems were introduced \citep{adomavicius2011context}. In this approach the context refers to the time of the choice, the location or socio-demographic characteristics of the decision-maker etc.  Some approaches have been very successful by combining contextual information with collaborative filtering \citep{aharon2013off,bykau2013coping,saveski2014item}. Utilizing baseline information for new users \citep{kluver2014evaluating} and using social network data \citep{guy2009personalized} have also been proven to overcome the cold-start problem to a certain extent.
+
+In practice however, these cold-start problems often transform into continuous cold-start problems \citep{kiseleva2016beyond}. This happens when:
+\begin{enumerate}
+    \item The user stays "inactive" for a long period before the initial interaction
+    \item The user's interactions have a significant time window
+    \item The user creates a "one-time" account
+    \item It is not possible or permitted to track users, or (under GDPR) the user has requested their personal information to be removed from the system \citep{hildebrandt2022issue}.
+\end{enumerate}
+
+In the case of the continuous cold-start problem, the solutions suggested in the literature discussed above are not feasible. The first reason is that users generally do not need to create an account for interacting with some services, for example,  watching videos on YouTube, searching for items on Amazon, or looking for airline tickets. Because of this, systems commonly treat different sessions by the same user as being by new users. Secondly, due to rising awareness of internet security and privacy, people tend to use incognito mode when they make searches \citep{anton2010internet} which disables most of the tracking, and user identification.
+
+My approach addresses the user-side continuous cold-start problem, which has not been thoroughly researched before. By utilizing only characteristics at item and search level I propose a novel RS design which is able to tackle the information sparsity. First, I use clustering \citep{rokach2005clustering} to quantify the contextual information both on the individual and the search level and I cluster empirically similar items together. Then, a hypergeometric sampling technique is used to generate the structure of the final choice set, meaning how many options from each cluster should be in the final choice set. Because my goal in this study is to provide the design of the RS which is not aimed towards providing accurate recommendations per se, the final stage of the choice set generation will consist of applying both stochastic \citep{mcfadden1973conditional, urban1984testing} and deterministic rules \citep{hauser2014consideration, lee2004effect, coombs1951mathematical}.
+
+\subsection{Methodology}
+
+Observational data I use is the same which is used in the previous chapter. Dataset is described in detail in section \ref{section:observationalDataDescription}. Besides vertical attributes, there are also  three attributes that do not vary across alternatives within each menu. These are the number of days between when choice was performed and the start of the trip, whether the trip is domestic or international, and whether it is intercontinental. This data has been subject to preprocessing rules which were also described in the section \ref{section:observationalDataDescription} and in the section \ref{section:additionalPreprocessingObservationalData}. The descriptive statistics of vertical variables are shown in the table \ref{tab:descriptiveObservationalShort}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{lrrrrr}
+    \hline
+    Variable & Count & Mean & St.Dev & Min & Max \\
+    \hline
+    Price & 368,723 & 647.12 & 1,105.12 & 59.55 & 16,997 \\
+    Trip duration & 368,723 & 518.98 & 555.04 & 70 & 2,715 \\
+    Number of flights & 368,723 & 2.94 & 0.95 & 2 & 6 \\
+    Number of airlines & 368,723 & 1.25 & 0.45 & 1 & 5 \\
+    Days before departure & 368,723 & 32.36 & 38.03 & 0 & 340\\
+    Domestic travel & 368,723 & 0.49 & 0.49 & 0 & 1\\
+    Intercontinental travel & 368,723 & 0.06 & 0.23 & 0 & 1\\\hline
+    \end{tabular}
+    \caption{Summary statistics of main horizontal and vertical variables}
+    \label{tab:descriptiveObservationalShort}
+\end{table}
+
+\textbf{Clustering}
+
+Clustering is used to divide data into different groups where empirically similar elements belong to the same group and dissimilar ones are assigned to different groups \citep{rokach2005clustering}. By using clustering, I aimed to identify options which were similar in their context. I used two mainstream clustering algorithms: Affinity propagation (AP) and KMeans (KM). Both clustering methods are described in detail in the Appendix \ref{appendix:clusteringAlgorithms}.
+
+To quantify the context and clusters we created two variables that captured the characteristics of clusters: relative cluster size and relative cluster dispersion. The first accounts for the normalized number of options within that cluster. The second is derived using
+
+$$\frac{\sum_{i=1}^{m}{({x_i -\mu_k})}^2}{{\sum_{i=1}^{N}{(x_i- \mu_M)}^2}} ,$$
+
+where $N$ is the number of options within the menu, $m$ is the number of options within the cluster, $\mu_k$ is the centroid of cluster $k$ to which $x_i$ belongs and $\mu_M$ is the mass center of the menu.
+
+
+\textbf{Two-stage choice}\label{hypergeometricDefinitionText}
+ 
+The modeling process consisted of two stages. In the first stage, I modelled the structure of the final choice set and determined how many elements of each cluster should present in the consideration set. Next, I used stochastic and simple deterministic rules to select options following the structure obtained during the first stage.
+
+First, the attractiveness measure of clusters within the menu was calculated. I defined the attractiveness measure as the probability of the given cluster to contain an actual choice and calculated it using the traditional multivariate logistic model \citep{ben1985discrete}. Utilizing both descriptive information of options within clusters and the aforementioned cluster level characteristics as covariates, I estimated those probabilities for every cluster in the menu according to
+
+\begin{equation}\label{eq:multivariateLogit}
+    a_k = Pr(Y=1|X_k)=\frac{exp(\beta  X_k)}{1 + exp(\beta X_k)},
+\end{equation}
+where $a_k$ is the attractiveness measure, $X_k$ is the feature vector of the cluster $k$ and $\beta$ is a vector of coefficients.
+ 
+Using cluster level characteristics allowed me to embed the contextual information of options within a cluster into my model. Then, using this metric the structure of the final choice set was dertermined via hypergeometric sampling. 
+
+Let $N$ be the number of options within the menu which belong to $k$ unique clusters and $m_i\in M$ be the number  of options that belong to cluster $i$, so that $\sum_{i=1}^{k}m_i= N$. If we sample $n$ random options from that menu without replacement we get a set $J = \{j_1,j_2,j_3, \dots,j_k\}$ which follows the hypergeometric distribution and the probability of getting such vector $J$ is determined by
+
+\begin{equation}\label{eq:hypergeometric1}
+    P(j_1, j_2,\ldots, j_k) = P(J) =\frac{{m_1\choose j_1} {m_2\choose j_2} \dots {m_k\choose j_k}}{{N\choose n}} ,
+\end{equation}
+
+where $j_k$ is the number of elements belonging to cluster $k$ in our sample. 
+ 
+However, using $M$ and $N$ does not allow to quantify the menu context in terms of its clusters, which was our goal. One way of avoiding this limitation is to use the attractiveness measure instead of $M$ in sampling. Yet, because the attractiveness measures are in the range of zero to one, it was impossible to use them directly in our sampling. So, I defined the \textit{attractiveness score} of a cluster as $s_k = a_k \ast 1e6$, where $a_k$ is the attractiveness measure of a cluster $k$. The constant $1e6$ was chosen to account for the smallest differences between two almost identical $a_k$. Accordingly, I replaced $N$ with $D=\sum_{i=1}^{k}s_i$. So equation \ref{eq:hypergeometric1} becomes
+
+\begin{equation}\label{eq:hypergeometric2}
+    P(j_1, j_2,\ldots, j_k) = P(J) =\frac{{s_1\choose j_1} {s_2\choose j_2} \dots {s_k\choose j_k}}{{D\choose n}}.
+\end{equation}
+
+To save computational time and overcome the sparsity of the vector $J$, during sampling I used only attractiveness scores of the top $n$ most probable clusters. Because $n$ was assumed to be relatively small, I was able define beforehand all the possible $J$ vectors such that $j_1\geq j_2\geq j_3\ldots\geq j_k; k \in n$ using integer partitioning.
+
+In order to make sampling results also dependent on $M$ I used $M$ as a constraint for $J$, so that 
+
+$$ \forall j \in J,m \in M: j_i\le m_i.$$
+
+If this condition could not be satisfied for some $i$ then I did the assignment ${j_i\gets m_i}$ and the remainder $j_i-m_i$ was added to the leftmost possible element of $J$.  Yet, for 108 menus, it was still the case that there was not a valid $J$ complying with these rules. I simply removed those menus from the analysis. 
+
+To better understand the approach, let $J$ be $[4, 3, 2, 1,\ldots,0]$ and $M$ be $[8, 2, 4, 1,\dots, 6]$. Then, $j_2\geq m_2$, which violates the constraint above. So, the assignment $j_2\gets2$ is made and the remainder $1$ is added to leftmost possible element of $J$. The final result becomes [5,2,2,1,\ldots,0].
+
+Finally, by randomly sampling according to equation \ref{eq:hypergeometric2} one hundred thousand times I picked our most likely $J$ by finding the most repeated sample. Then, by selecting the top $j_1, j_2, \dots, j_k$ options from the top $n$ most probable clusters based on the attractiveness score of options obtained using equation \ref{eq:multivariateLogit}.
+
+After identifying the clusters and the number of elements to select from, I applied two methods to generate the final choice set. The first method was stochastic and consisted of randomly selecting elements according to vector $J$. The second method was deterministic and used the price of the option as a determinant. The cheapest options were selected according to $J$. As a baseline, I used the same two approaches, but selection was done disregarding the $J$. Therefore, the baseline of the first method was the random selection of one option from every cluster. The baseline of the second method was the selection of the cheapest option from every cluster. Recall that there were two different clustering methods, AP and KM used. Hence, I applied four models per clustering method:
+
+\begin{itemize}
+    \item $Model 1$. Random selection following $J$
+    \item $Model 1b$. Random selection (baseline of model one)
+    \item $Model 2$. Selection of the cheapest options following $J$
+    \item $Model 2b$. Selection of the cheapest options (baseline of model two)
+\end{itemize}
+
+\textbf{Performance metrics}
+
+To evaluate each model's performance I used accuracy at top-N, which is a commonly used metric not only in classification tasks but also in RS design studies, especially for context-based recommendations \citep{ricci2010recsystems}. In classification, it measures whether the actual class is in the top N predicted classes of the model. Similarly, in RS design it measures if the chosen option is among the top N suggestions of the system. I conformed with the existing literature and selected accuracy at top-5 and top-10 as our evaluation metrics \cite{cremonesi2010performance}. 
+
+Accordingly,  $n = 5$ and $n = 10$ were chosen. So, all possible $J$ values were found via integer partitioning of five and ten, which gave us 7 and 42 possible variations accordingly.
+
+\subsection{Results}
+
+\textbf{Clustering results}
+    
+The results of clustering methods are clearly different. While AP tended to create fewer but larger clusters (7.62 on average), KM generally identified more clusters (10.29 on average)  with relatively smaller sizes. This indicates that both algorithms were able to identify the contextual information but in different ways. 
+
+The runtime of these algorithms also differed considerably. Because AP did not need an initial number of clusters, while for KM we had to compute the optimal cluster count in each menu, for the same menu AP converged on average 7.2 times faster. This makes AP more viable for larger choice spaces.
+
+\textbf{First stage results}
+
+Table \ref{tab:desciptiveResultsTwoStageChoiceModelFirstStage} gives descriptive information about the structure of the consideration sets for the different clustering methods. We notice the similarities between AP and KM in terms of the average number of clusters present in the choice sets. Despite the different contexts identified by those algorithms in the clustering phase, both algorithms appeared to identify the "important" clusters. One can also see that KM resulted in more variance, yet generated less diverse consideration sets in general. On the contrary, AP appeared to be more robust when it came to different choice environment setups and was able to generate consideration sets that were more distinct. 
+
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{lcccc}\hline
+     & \multicolumn{2}{c}{$n=5$} & \multicolumn{2}{c}{$n=10$}\\
+     & AP & KM & AP & KM\\\hline
+    Mean & 2.74 & 2.59 & 3.62 & 3.41\\
+    Standard deviation\hspace{5mm} & 0.84 & 1.16 & 0.98 & 1.61\\
+    Minimum & 1 & 1 & 1 & 1\\
+    Maximum & 5 & 5 & 7 & 10\\\hline
+    \end{tabular}
+    \caption{Consideration set structure as unique clusters across clustering methods}
+    \label{tab:desciptiveResultsTwoStageChoiceModelFirstStage}
+\end{table}
+
+\textbf{Second stage results}
+
+One can see that both clustering methods were also robust to the selection methods used in the second  stage. This indicates that item-side contextual information helps capture the choice environment better and it also provides meaningful insights into the consumer behavior.
+ 
+Both of the models outperformed their baseline counterparts considerably. Stochastic models performed in general better in KM than AP which is not surprising. The main reason for this is that KM identified smaller clusters and so the chance of randomly selecting a correct option was therefore higher. This difference decreased in cases where the selection was made based on deterministic rules.
+
+The performance of the models using a deterministic rule to make the selections may indicate that consumers use multiple determinants as criteria during the decision-making process, which also complies with previous findings \citep{bettman1979memory, lee2004effect}. Table \ref{tab:mainResultsTwoStageModeling} summarizes the second stage results.
+
+\begin{table}
+    \centering
+    \begin{tabular}{lcccc}\hline
+     & \multicolumn{2}{c}{$n=5$} & \multicolumn{2}{c}{$n=10$}\\
+     & AP & KM & AP & KM\\\hline
+    Model 1\hspace{20mm} & 0.39 & 0.40 & 0.56 & 0.55\\
+    Model 1b & 0.21 & 0.23 & 0.21 & 0.25\\
+    Model 2 & 0.49 & 0.48 & 0.63 & 0.62\\
+    Model 2b & 0.32 & 0.32 & 0.32 & 0.34\\\hline
+    \end{tabular}
+    \caption{Top-5 and top-10 accuracy scores across clustering methods}
+    \label{tab:mainResultsTwoStageModeling}
+\end{table}
+
+\section{Conclusion and discussion}
+
+We have proposed a novel approach to tackling the user-side continuous cold-start problem in RS design. By using the contextual information of the menu we were able to generate relevant choice sets using a two-step choice modeling approach. Our structural 
+approach to choice set generation proved to be robust not only to selection criteria, be it stochastic or deterministic, but also to the clustering method used. Because in an online environment the calculation time is critically important, using AP as the clustering method appears to be advantageous.
+
+The findings of this work can be implemented by various systems which face continuous cold-start problems. They also help to understand the decision-making process of consumers and hence reduce their search cost by introducing the most relevant alternatives. This also benefits the supply-side via the reduction of the overall time spent by users on the platform.
+
+This work has some limitations. RS design using one-stage simple MNL probabilities would result in 52\% and 65\% in top-5 and top-10 accuracy, respectively. Such random utility models violate Luce's choice axiom \citep{luce2012individual}, which states that the choice probabilities of options in the choice set must be equally affected by the introduction or removal of a new option. However, one possible way to improve our approach could be the integration those probabilities into our models. Another possible avenue for future research could be using more complex characteristics derived from the choice set along with clustering.
+
+TALK ABOUT HOW DEMAND SIDE INFORMATION IS NOT ALWAYS ENOUGH AS PEOPLE'S PREFERENCES CHANGE AND RS NEEDS TO ALLOW USERS TO HELP IT. USER CONTROL BRIDGE IS BUILT HERE.
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{User control and recommender systems acceptance}\label{chapter:UserControlAndRS}
+
+
+%\bibliographystyle{chicago}
+
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\clearpage
+
+\appendix
+\section{}\label{appendix:compromiseCalculation}
+
+\textbf{Comparison pair count calculation for the compromise effect}
+
+Given a setting with $N$ vertical attributes there is a number of ways a focal option can act as a compromise between two groups of competing options.
+I discuss this case by case.
+
+Case 1: No dimension is equal across focal and competing options. In this case one group of options might be better than the focal option in one dimension and worse in $N-1$ dimensions. The mirror image of this group would be a group that is better than the focal option in the $N-1$ dimensions and worse in the same one dimension. There are $\binom{N}{1}$ of such groups.
+
+Another option within the same option could be a group that is better than focal option in 2 dimensions and worse in $N-2$ dimensions. There are $\binom{N}{2}$ such groups. 
+
+All in all, there are $N-1$ such sub-cases. These sub-cases count distinct groups. As we have to pair these groups, we divide the number by two.
+
+Therefore, for this case the number of comparisons is 
+
+$$\frac{1}{2}\sum_{a=1}^{N-1}\binom{N}{a}.$$
+
+Case 2: Only one dimension is equal across all competing options, including the focal option. In this case, we are down to comparing not $N$, but $N-1$ options. Therefore, for every given dimension which is equal across options, we have $$\frac{1}{2}\sum_{a=1}^{N-2}\binom{N-1}{a}$$ comparisons. However, not only one, but each of the N vertical attributes can be equal across all options. Therefore, the total number of comparisons in this case is $$\frac{1}{2}\binom{N}{1}\sum_{a=1}^{N-2}{\binom{N-1}{a}.}$$
+
+Case 3: Multiple dimensions are equal across all competing options. First, we extend the previous case to the situation where two dimensions are equal across all options, which yields $$\frac{1}{2}\binom{N}{2}\sum_{a=1}^{N-3}{\binom{N-2}{a}}.$$ We iterate the same exercise until (and including) the setup where we have $N-2$ dimensions equal across all options \footnote{One needs the minimum of two dimensions that can be compared across two comparable groups.}. 
+
+The total of all comparisons will simply be the sum of all these cases, which can be expressed as
+
+\begin{align}\label{eq:compromiseEffectDetailedCalculation}
+    \Omega=\frac{1}{2}\sum_{b=0}^{N-2}\left[\binom{N}{b}\sum_{a=1}^{N-1-b}\binom{N-b}{a}\right].    
+\end{align}
+
+
+Figure \ref{fig:compromiseComparisonPlot} shows how $\Omega$ changes with $N$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{staticFiles/compromiseComparisonsZakAppendix.png}
+    \caption{Correspondence between $\Omega$ and $N$}
+    \label{fig:compromiseComparisonPlot}
+\end{figure}
+
+\newpage
+\section{}\label{appendix:clusteringAlgorithms}
+
+\textbf{Clustering}
+
+The goal of clustering is to separate data into different groups in a way that similar instances belong to the same group, while the dissimilar instances are allocated to different groups \citep{maimon2005data}. Formally, clustering consists in making a partition $C\ =\ {C_1,C_2,\ldots,C_k}$ of some set $S$ in a way that: $S=\cup_{I\ =\ 1}^kC_i and C_i\cap C_j\neq0 for all i\neq j$. So, any alternative in the set $S$ belongs to exactly one cluster.
+
+There exist many clustering methods and each of them have a different way of defining similar items and as a result will group in different ways. Clustering is usually an unsupervised machine learning method in that there are no preconceived labels given to the clusters. This implies that we have no universal way of evaluating the quality of a clustering outcome. Moreover, most clustering methods require an additional input to determine the number of clusters.  Therefore, in order to make sure our results do not depend on the chosen clustering method, I investigate the two widely used methods - affinity propagation and k-means clustering.
+
+\textbf{Affinity propagation}
+
+The first clustering method, is examined, is affinity propagation \citep{freyDueck07}. affinity propagation identifies a limited number of "exemplars", which are identified as the best representative of other objects in the same cluster ("samples"). It calculates the pairwise values characterizing the suitability for one object to be the exemplar of the other. These values are updated in response to the values from other pairs. This updating happens in an iterative manner until convergence, at which point the final exemplars are chosen, and hence the final clustering is identified.
+
+There are two characteristics involved in the process. The responsibility $r\left(i,k\right)$ which quantifies how suited $k$ is as an exemplar of the cluster $i$ compared to all other potential exemplars. It is calculated as
+
+\begin{align}\label{eq:affinityPropagationExemplars}
+    r\left(i,k\right) = s\left(i,k\right) - \max\left[a\left(i,k^\prime\right) + s\left(i,k^\prime\right) \text{ for all } k^\prime \neq k\right],
+\end{align}
+
+where $s\left(i,k\right)$ is the similarity between $i$ and $k$, measured as the negative squared error.
+
+The second property is availability $a\left(i,k\right)$ which measures the extent to which $i$ is an appropriate sample of $k$, given all other already identified samples of $k$. This is calculated as
+
+\begin{align}\label{eq:availabilityAffinityPropagation}
+    a\left(i,k\right) = \min\left[0, r\left(k,k\right) + \sum_{i^\prime \text{ s.t. } i^\prime \notin \{i,k\}} r\left(i^\prime,k\right)\right].
+\end{align}
+
+At the start, both $r$ and $a$ are set to zero and the calculations are iterated until full convergence. To eliminate oscillations when updating the values, the damping factor $\lambda$ is introduced to the iteration process. This facilitates the convergence process and alters the responsibility and availability equations as follows:
+
+\begin{align}\label{eq:responsibilityAffinityPropagation}
+    r_{t+1}\left(i,k\right) = \lambda \cdot r_t\left(i,k\right) + (1-\lambda) \cdot r_{t+1}\left(i,k\right),
+\end{align}
+
+\begin{align}
+    a_{t+1}\left(i,k\right) = \lambda \cdot a_t\left(i,k\right) + (1-\lambda) \cdot a_{t+1}\left(i,k\right).
+\end{align}
+
+
+The damping factor,  $\lambda\in[0;1]$, affects the number of identified clusters in affinity propagation procedure. After setting its value, the number of clusters in the data are automatically identified. Frey and Dueck \citeyearonly{freyDueck07} recommend setting  $\lambda\in[0.5;1]$, in order to ensure the convergence in large datasets. I have experimented with the sensitivity of clustering outcomes with respect to damping factor and have found very little differences in the vicinity of the factor between 0.5 and 0.75. Therefore, I conform to the wide usage of $\lambda=0.5$ (which also increases the convergence speed) for the rest of the paper.
+
+\textbf{Kmeans}
+
+A popular alternative method to identify clusters of comparable objects in data is the k-means algorithm \citep{lloyd82}. It divides a set of N objects of X into K distinct clusters $C_j$  which are described by the means $\mu_j$ of the samples within each cluster. Those means are commonly referred to as cluster centroids. The algorithm aims to select centroids that minimize the within cluster sum of squares, i.e
+
+$$\sum_{i=0}^{n}\min_{\mu_j\in C_j}\left(\left.\left|x_i-\mu_j\right|^2\right.\right)$$
+
+At its core, k-means is a computationally cheap algorithm. However, it has an important drawback, which is that it explicitly requires the number of clusters to be fixed ex-ante. Different number of clusters result into different clustering outcomes for a given data. This is a disadvantage compared to affinity propagation where the number of clusters is endogenously identified. To solve this problem, there are external measures we can use in order to judge the optimality of clustering outcomes for a given data. One such popular and computationally affordable measure is the silhouette score \citep{rousseeuw1987silhouettes}. The silhouette score is calculated for every object in the set as
+
+\begin{align}\label{eq:silhouetteCalculation}
+    s=\frac{1}{n}\sum_{i\ =\ 1}^{n}{\frac{b-a}{max\left(a,b\right)}},
+\end{align}
+
+where  $a$ is the mean distance between this object and all other objects in the same cluster, $b$ is the mean distance between this object and all other objects from the nearest cluster, and $n$ is the number of objects in the set. An important advantage of this method over alternatives is that it is confined to the interval $[-1;1]$. The higher the silhouette score, the better is the cluster assignment. Then one can compute clusters for every feasible number of clusters, calculate silhouette score for each of the instances and choose the instance (i.e. number of identified clusters) with the maximal silhouette score. This drastically increases computational requirements for the k-means clustering as in this case one has to calculate cluster assignment for a set of potential cluster numbers to choose from.
+
+
+\newpage
+\section{}\label{appendix:LogitMixedAndFixedEffectResults}
+
+\begin{sidewaystable}[h]
+    \centering
+    \scriptsize
+    \begin{tabular}{p{5.3cm}*{9}{p{1.3cm}}}
+    \toprule
+    Variable & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\
+    \midrule
+    Price & -0.504*** & -0.515*** & -0.387*** & -0.499*** & -0.480*** & -0.351*** & -0.354*** & -0.351*** & -0.354*** \\
+    & (0.013) & (0.013) & (0.017) & (0.013) & (0.013) & (0.017) & (0.017) & (0.017) & (0.017) \\
+    Trip duration & -0.327*** & -0.278*** & -0.165*** & -0.264*** & -0.291*** & -0.178*** & -0.176*** & -0.178*** & -0.176*** \\
+    & (0.020) & (0.020) & (0.023) & (0.020) & (0.020) & (0.022) & (0.022) & (0.022) & (0.022) \\
+    Number of flights & -0.703*** & -0.658*** & -0.670*** & -0.626*** & -0.580*** & -0.562*** & -0.580*** & -0.567*** & -0.584*** \\
+    & (0.018) & (0.018) & (0.018) & (0.018) & (0.018) & (0.019) & (0.019) & (0.019) & (0.019) \\
+    Number of airlines & -0.473*** & -0.474*** & -0.430*** & -0.475*** & -0.461*** & -0.420*** & -0.431*** & -0.418*** & -0.430*** \\
+    & (0.023) & (0.023) & (0.024) & (0.023) & (0.023) & (0.023) & (0.023) & (0.024) & (0.023) \\
+    Attraction & & & 0.013*** & & 0.011*** & & 0.012*** & & \\
+    & & & (0.001) & & (0.001) & & (0.001) & & \\
+    Compromise & & & & -0.128*** & & -0.110*** & -0.101*** & & \\
+    & & & & (0.011) & & (0.011) & (0.011) & & \\
+    Similarity & & & & & -0.050*** & -0.051*** & -0.082*** & -0.050*** & -0.081*** \\
+    & & & & & (0.004) & (0.004) & (0.005) & (0.004) & (0.005) \\
+    Attraction within cluster & & & & & & & 0.070*** & & 0.070*** \\
+    & & & & & & & (0.005) & & (0.005) \\
+    Attraction outside cluster & & & & & & & 0.009*** & & 0.009*** \\
+    & & & & & & & (0.001) & & (0.001) \\
+    Compromise within cluster & & & & & & & & -0.404*** & -0.365*** \\
+    & & & & & & & & (0.055) & (0.055) \\
+    Compromise outside cluster & & & & & & & & -0.092*** & -0.088*** \\
+    & & & & & & & & (0.013) & (0.013) \\
+    Constant included & YES & YES & YES & YES & YES & YES & YES & YES & YES \\
+    Horizontal variables as controls & NO & YES & YES & YES & YES & YES & YES & YES & YES \\
+    Number of observations & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 \\
+    Number of choices & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 \\
+    Consistent Akaike information criterion & 49786 & 49124 & 49004 & 48924 & 48924 & 48643 & 48537 & 48643 & 48537 \\
+    Log likelihood & -24858 & -24465 & -24398 & -24358 & -24358 & -24204 & -24144 & -24197 & -24137 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Outputs from logistic regressions with observational data.\\ Notes: Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+    \label{tab:AppendixA1LogisticRegression}
+\end{sidewaystable}
+
+\newpage
+\clearpage
+\begin{sidewaystable}[h]
+    \centering
+    \scriptsize
+    \begin{tabular}{p{5.3cm}*{9}{p{1.3cm}}}
+        \toprule
+    Variable & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\
+    \midrule
+    Price & -0.788*** & -0.832*** & -0.757*** & -0.812*** & -0.822*** & -0.734*** & -0.731*** & -0.730*** & -0.727*** \\
+    & (0.027) & (0.028) & (0.032) & (0.028) & (0.029) & (0.032) & (0.032) & (0.032) & (0.032) \\
+    Trip duration & -0.627*** & -0.568*** & -0.449*** & -0.535*** & -0.557*** & -0.448*** & -0.447*** & -0.442*** & -0.444*** \\
+    & (0.043) & (0.041) & (0.044) & (0.041) & (0.042) & (0.044) & (0.044) & (0.044) & (0.044) \\
+    Number of flights & -3.034*** & -2.877*** & -3.053*** & -2.818*** & -2.873*** & -2.973*** & -2.829*** & -2.986*** & -2.891*** \\
+    & (0.224) & (0.208) & (0.232) & (0.200) & (0.202) & (0.225) & (0.247) & (0.228) & (0.224) \\
+    Number of airlines & -0.677*** & -0.720*** & -0.692*** & -0.749*** & -0.758*** & -0.640*** & -0.671*** & -0.629*** & -0.712*** \\
+    & (0.096) & (0.091) & (0.087) & (0.090) & (0.089) & (0.066) & (0.095) & (0.079) & (0.080) \\
+    Attraction & & & 0.009*** & & 0.009*** & & 0.008*** & & \\
+    & & & (0.002) & & (0.002) & & (0.002) & & \\
+    Compromise & & & & -0.042** & & -0.058*** & -0.056*** & & \\
+    & & & & (0.019) & & (0.020) & (0.017) & & \\
+    Similarity & & & & & -0.008 & -0.007 & -0.019*** & -0.006 & -0.016** \\
+    & & & & & (0.006) & (0.006) & (0.007) & (0.006) & (0.007) \\
+    Attraction within cluster & & & & & & & 0.025*** & & 0.025*** \\
+    & & & & & & & (0.006) & & (0.006) \\
+    Attraction outside cluster & & & & & & & 0.007*** & & 0.007*** \\
+    & & & & & & & (0.002) & & (0.002) \\
+    Compromise within cluster & & & & & & & & -0.211*** & -0.211*** \\
+    & & & & & & & & (0.056) & (0.056) \\
+    Compromise outside cluster & & & & & & & & -0.059** & -0.050** \\
+    & & & & & & & & (0.027) & (0.025) \\
+    Constant included & YES & YES & YES & YES & YES & YES & YES & YES & YES \\
+    Horizontal variables as controls & NO & YES & YES & YES & YES & YES & YES & YES & YES \\
+    Number of observations & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 \\
+    Number of choices & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 \\
+    Consistent Akaike information criterion & 34142 & 33275 & 33243 & 33273 & 33281 & 33249 & 33263 & 33251 & 33256 \\
+    Log likelihood & -17043 & -16596 & -16573 & -16588 & -16592 & -16562 & -16562 & -16556 & -16552 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Outputs from midex logit regressions with observational data.\\ Note: Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+    \label{tab:AppendixMixedLogisticRegression}
+\end{sidewaystable}
+
+\clearpage
+\newpage
+\clearpage
+\begin{sidewaystable}[h]
+    \centering
+    \scriptsize
+    \begin{tabular}{p{5.3cm}*{9}{p{1.3cm}}}
+    \toprule
+    Variable & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 & Model 9 \\
+    \midrule   
+    Price & -0.225*** & -0.232*** & -0.201*** & -0.227*** & -0.231*** & -0.200*** & -0.203*** & -0.200*** & -0.203*** \\
+     & (0.006) & (0.006) & (0.008) & (0.006) & (0.006) & (0.008) & (0.008) & (0.008) & (0.008) \\
+    Trip duration & -0.136*** & -0.116*** & -0.085*** & -0.112*** & -0.116*** & -0.087*** & -0.090*** & -0.086*** & -0.090*** \\
+     & (0.009) & (0.009) & (0.010) & (0.009) & (0.009) & (0.010) & (0.010) & (0.010) & (0.010) \\
+    Number of flights & -0.342*** & -0.322*** & -0.324*** & -0.309*** & -0.320*** & -0.308*** & -0.310*** & -0.310*** & -0.312*** \\
+     & (0.008) & (0.008) & (0.008) & (0.008) & (0.008) & (0.009) & (0.008) & (0.009) & (0.009) \\
+    Number of airlines & -0.208*** & -0.209*** & -0.193*** & -0.210*** & -0.209*** & -0.196*** & -0.198*** & -0.196*** & -0.198*** \\
+     & (0.010) & (0.010) & (0.010) & (0.010) & (0.010) & (0.011) & (0.011) & (0.011) & (0.011) \\
+    Attraction & & & 0.003*** & & 0.003*** & & 0.003*** & & \\
+     & & & (0.001) & & (0.001) & & (<0.001) & & \\
+    Compromise & & & & -0.038*** & & -0.037*** & -0.037*** & & \\
+     & & & & (0.003) & & (0.003) & (0.004) & & \\
+    Similarity & & & & & -0.001 & -0.001* & -0.002*** & -0.000 & -0.002*** \\
+     & & & & & (0.000) & (0.000) & (0.001) & (<0.001) & (0.001) \\
+    Attraction within cluster & & & & & & & 0.005*** & & 0.005*** \\
+     & & & & & & (0.001) & & (0.001) & \\
+    Attraction outside cluster & & & & & & & 0.002*** & & 0.002*** \\
+     & & & & & & (0.001) & & (0.001) & \\
+    Compromise within cluster & & & & & & & & -0.057*** & -0.057*** \\
+     & & & & & & & & (0.008) & (0.008) \\
+    Compromise outside cluster & & & & & & & & -0.035*** & -0.036*** \\
+     & & & & & & & & (0.005) & (0.005) \\
+    Constant included & YES & YES & YES & YES & YES & YES & YES & YES & YES \\
+    Horizontal variables as controls & NO & YES & YES & YES & YES & YES & YES & YES & YES \\
+    Number of observations & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 & 368723 \\
+    Number of choices & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 & 6297 \\
+    Consistent Akaike information criterion & 49598 & 48910 & 48886 & 48770 & 48922 & 48765 & 48765 & 48787 & 48789 \\
+    Log likelihood & -24764 & -24358 & -24339 & -24281 & -24357 & -24265 & -24258 & -24269 & -24263 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Outputs from choice model with K-means clustering.\\ Note: Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+    \label{tab:kmeansProbit}
+\end{sidewaystable}
+
+\clearpage
+\newpage
+
+
+
+
+\section{}\label{appendix:nejcDataRobustnessChecks}
+\clearpage
+\begin{sidewaystable}[h]
+    \centering
+    \scriptsize
+    \begin{tabular}{p{5.3cm}*{9}{p{1.5cm}}}
+    \toprule
+    Variable & Model 1 & Model 2 & Model 3 & Model 5 & Models 6-9 \\
+    \midrule
+    Price & -0.397*** & -0.410*** & -0.411*** & -0.384*** & -0.375*** \\
+     & (0.015) & (0.015) & (0.015) & (0.016) & (0.016) \\
+    Car ride duration & -0.120*** & -0.125*** & -0.126*** & -0.125*** & -0.119*** \\
+     & (0.005) & (0.005) & (0.005) & (0.005) & (0.006) \\
+    Public transport ride duration & -0.082*** & -0.083*** & -0.083*** & -0.073*** & -0.070*** \\
+     & (0.004) & (0.005) & (0.005) & (0.005) & (0.005) \\
+    Public transport wait time & -0.085*** & -0.089*** & -0.089*** & -0.076*** & -0.072*** \\
+     & (0.005) & (0.005) & (0.005) & (0.005) & (0.006) \\
+    1[Public transport is train] & 0.307*** & 0.289*** & 0.288*** & 0.239*** & 0.240*** \\
+     & (0.074) & (0.076) & (0.076) & (0.077) & (0.077) \\
+    Attraction & & -0.044 & & & 0.384** \\
+     & & (0.158) & & & (0.176) \\
+    Similarity & & & & -0.216*** & -0.263*** \\
+     & & & & (0.043) & (0.048) \\
+    Constant included & YES & YES & YES & YES & YES \\
+    Control variables included & NO & YES & YES & YES & YES \\
+    Number of observations & 6180 & 6180 & 6180 & 6180 & 6180 \\
+    Number of choices & 1296 & 1236 & 1236 & 1236 & 1236 \\
+    Number of subjects & 108 & 103 & 103 & 103 & 103 \\
+    Consistent Akaike information criterion & 5201 & 5100 & 5108 & 5084 & 5087 \\
+    Log likelihood & -2535 & -2383 & -2383 & -2371 & -2369 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Outputs from logistic regressions with experimental data.\\ Note: Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+    \label{tab:logitExperimentalData}
+\end{sidewaystable}
+\clearpage
+\newpage
+\clearpage
+\begin{sidewaystable}[h]
+    \centering
+    \scriptsize
+    \begin{tabular}{p{5.3cm}*{9}{p{1.5cm}}}
+    \toprule
+    Model & Model 1 & Model 2 & Model 3 & Model 5 & Models 6-9 \\
+    \midrule
+    Price & -0.222*** & -0.229*** & -0.229*** & -0.215*** & -0.209*** \\
+     & (0.008) & (0.008) & (0.008) & (0.009) & (0.009) \\
+    Car ride duration & -0.068*** & -0.070*** & -0.070*** & -0.069*** & -0.066*** \\
+     & (0.003) & (0.003) & (0.003) & (0.003) & (0.003) \\
+    Public transport ride duration & -0.046*** & -0.047*** & -0.047*** & -0.042*** & -0.040*** \\
+     & (0.002) & (0.003) & (0.003) & (0.003) & (0.003) \\
+    Public transport wait time & -0.048*** & -0.050*** & -0.050*** & -0.043*** & -0.041*** \\
+     & (0.003) & (0.003) & (0.003) & (0.003) & (0.003) \\
+    1[Public transport is train] & 0.189*** & 0.179*** & 0.179*** & 0.146*** & 0.140*** \\
+     & (0.042) & (0.043) & (0.043) & (0.044) & (0.044) \\
+    Attraction & & -0.008 & & & 0.223** \\
+     & & (0.089) & & & (0.098) \\
+    Similarity & & & & -0.123*** & -0.149*** \\
+     & & & & (0.025) & (0.027) \\
+    Constant included & YES & YES & YES & YES & YES \\
+    Control variables included & NO & YES & YES & YES & YES \\
+    Number of observations & 6180 & 6180 & 6180 & 6180 & 6180 \\
+    Number of choices & 1296 & 1236 & 1236 & 1236 & 1236 \\
+    Number of subjects & 108 & 103 & 103 & 103 & 103 \\
+    Consistent Akaike information criterion & 6074 & 5726 & 5734 & 5709 & 5712 \\
+    Log likelihood & -2534 & -2383 & -2383 & -2371 & -2369 \\
+
+    \bottomrule
+    \end{tabular}
+    \caption{Outputs from fixed effect probit regressions with experimental data.\\ Note: Standard errors in parentheses. Statistical significance levels: $*** p<0.01$, $** p<0.05$, $* p<0.1$}
+    \label{tab:fixedProbitExperimentalData}
+\end{sidewaystable}
+\clearpage
+\newpage
+
+\section{}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
