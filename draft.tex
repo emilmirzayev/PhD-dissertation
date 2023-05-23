@@ -86,9 +86,40 @@
 \spacing{1.5}
 \maketitle
 
-\section{GENERAL INTRODUCTION}
+\section{General introduction}
 
-\subsection{Introduction}
+\begin{abstract}
+
+    This thesis comprises of four studies investigating the context effects arising from multidimensional, multi-attribute choice settings and from consumer preferences and applies the knowledge to enhance recommender systems in online marketplaces. My findings indicate that context effects in choice settings which were primarily studied and observed in experimental settings before are also present and detectable in field settings. Moreover, tools that enable users to signal their preferences to recommender systems can significantly increase their adoption. The empirical tests of these essays rely on four distinct and unique datasets, the biggest being an observational data from a field setting and the remaining three coming from an experimental setting.
+
+    The first essay applies a computational decision making model, MDbS, to a substantial real-world choice dataset, making the first application of this magnitude. Findings show that the context effects which have been commonly observed and accounted for in controlled experiments can also apply in field settings. The study suggest that online marketplaces could utilize such models to gain further insights into how the composition of the choice set and interplay among different options affect consumer decisions. This study also has certain limitations related to the capacity of computational models to identify context effects only in aggregate. The capability to recognize these effects in isolation can foster a more profound comprehension of the manifestation of context effects, offering more granular insights into how they individually influence the choice behaviors of individuals when co-existing with other effects.
+
+    Building on the findings of the previous work, the second essay aims to develop a methodology which can disentangle the context effects and separate big three effects known as attraction, compromise and similarity from one another. The unique approach of this study allows further applications of this methodology to online and offline environments. The findings of this study lays the foundation of future research on using contextual information extracted from the choice set into a design of recommender systems with a particular application of tackling the so called cold-start problem.
+
+    The third study presented a novel approach to addressing the user-side cold-start problem in recommender system design. It applied the findings of two-stage choice process observed in individuals to contextual information extracted from the choice set via clustering to generate consideration sets. The approach proved to be robust to clustering method and different heuristics applied. Its findings pave the way for investigating context effects arising from outside the choice sets, namely the preferences of individuals and the user control tools that allows individuals to signal their preferences in designing. This is argued to be one of the main mechanisms to create more effective recommender systems.
+
+    The final study investigated the effect of user control on recommender system acceptance using the Technology Acceptance Model as a theoretical framework. This study found that easy-to-use recommender systems were perceived as more useful by users and resulted in a higher intention to use them. However, different control mechanisms had varying impacts on user experience. The findings propose an exciting opportunity for future research in designing more effective recommender systems, including the potential integration of large language models (LLMs) for better user interaction and recommendation transparency.
+
+    This thesis demonstrates the existence of context effects in multi-attribute, multidimensional settings and develops methodologies on enhancing recommender systems design with context effects. Also, this study investigates context arising outside the choice set, namely, the tools that allows users to express their preferences.
+
+       
+   
+\end{abstract}
+
+\subsection{Purpose and research questions}
+
+
+
+The context in which a consumer makes decisions significantly influences their choices. This thesis investigates the role of context effects in consumer decision-making and applies this knowledge to enhance recommender systems in online marketplaces. Leveraging a computational model known as MDbS, we examine the impact of context effects in real-world choice data. Our findings indicate that these effects, previously studied primarily in experimental settings, also manifest in field scenarios. This insight enables online platforms to utilize mathematical decision-making models to better tailor their product lists and recommendations.
+
+Our work extends beyond current measures of context effects by making contextual choice modeling applicable to a wider range of observational data. This approach paves the way to study context effects in various settings and opens up opportunities for optimizing recommender systems in e-commerce platforms. We also propose a novel approach to tackle the user-side continuous cold-start problem in recommender system design, using the context information of the product menu to generate relevant choice sets.
+
+Further, we delve into the role of user control on recommender systems' acceptance, using the Technology Acceptance Model (TAM) as a theoretical framework. Our findings suggest that users perceive easy-to-use recommender systems as more useful and intend to use them more. We also find that different control mechanisms can have varying impacts on user experience, leading to diverse effects on user acceptance of recommender systems.
+
+This thesis offers valuable insights for online marketplaces and recommender systems, showcasing the benefits of considering context effects in product presentation and user decision-making processes. Our research also identifies future directions for enhancing user control in recommender systems, including the integration of large language models for more intuitive and transparent user interactions. By recognizing the dynamic nature of user preferences and the significant role of context effects in decision-making, our work contributes to the design of more effective and user-centric recommender systems.
+
+
+
 TWO TYPE OF CONTEXT EFFECTS - THE ONES WITHIN THE CHOICE SETS AND ONES WITHOUT. ONES WITHOUT ARE GIVEN BY RECOMMENDER SYSTEMS. ONE WITHIN COMES WITHIN. MY ULTIMATE GOAL IS TO CONTRIBUTE TO CONTEXT EFFECT APPLICATIONS TO RECOMMENDER SYSTEMS.
 
 FIRST I WANT TO CONTRIBUTE TO UNDERSTANDING OF CONTEXT EFFECTS AND THEIR DETECTION IN MULTIDIMENSIONAL MULTIATTRIBUTE CHOICE SETS -> THIS IS THE FIRST PAPER, SIMULATION USING MATHEMATICAL MODEL TO ACCOUNT FOR CONTEXT EFFECTS.
@@ -100,6 +131,7 @@ ANOTHER GOAL IS TO UNDERSTAND THE CONTEXTUAL EFFECTS ARISING FROM MULTIDIMENSION
 ALSO, TO UNDERSTAND HOW 
 
 \subsection{Data and research methodology}
+
 \subsection{Placeholder}
 
 BLABLABLA
@@ -113,14 +145,27 @@ BLABLABLA
     Previous computational decision making models developed to account for context effects have only been
     studied with an experimental data where only one effect was produced at a time. Using data coming from strictly controlled experimental environments
     hinders the understanding of context effects that occur in real-world choice scenarios where items have multiple dimensions and choice sets have dozens of alternatives. In this chapter
-    I apply a computational model to an observational data which was not done before. The data comes from an air travel industry and is ideal to study context effects in multiattribute, multialternative choice environments. I first find optimal parameters for computational model using differential evolution algorithm. Then, I complement a traditional choice model with its outputs and assess the significance of its contribution. This chapter contributes to context effect and decision making literature by providing further insights on behavior of computational decision making models in real-world choice data.
+    I apply a computational model to an observational data which was not done before. The data comes from an air travel industry and is ideal to study context effects in multi-attribute, multialternative choice environments. I first find optimal parameters for computational model using differential evolution algorithm. Then, I complement a traditional choice model with its outputs and assess the significance of its contribution. This chapter contributes to context effect and decision making literature by providing further insights on behavior of computational decision making models in real-world choice data.
     
 \end{abstract}
 
 \newpage
 
-
 \subsection{Introduction}
+
+Context effects have been extensively studied and demonstrated in various domains, from psychology to marketing \citep{herne1997decoy, soltani2012range, evangelidisEtAl18,  truebloodEtAl13, wuConsguner20, frederickEtAl14}. Some recent studies also concluded that multiple context effects may occur at the same time \citep{berkowitsch2014rigorously, noguchi2014attraction}. However, recent studies also have discovered boundary conditions for these effects \citep{liew2016appropriacy, spektor2018good, spektor2019similarity}. Familiarity with the choice domain was found to reduce context effects experienced by individuals \citep{kim2005attraction, sheng2005understanding}.  It was also found that, some conditions may force these effects to completely reverse \citep{cataldo2019comparison}. The findings described above make it necessary to call for a model which could explain these effects.
+
+Logit and Probit models have been traditionally used in choice settings \citep{gensch1979multinomial, kim2017probit}. However, those models can not account for context effects, because they only account for the attributes of the focal option, not taking into account the attributes of the other options in the choice set. Tversky has proposed a model of elimination by aspects which could account for similarity effect \citeyearonly{tversky1972elimination}. The foundation of the model is attention switching of individuals between alternatives and attributes and their comparisons. Once receiving attention, attribute value of a given alternative is compared to a pre-determined threshold value by the individual and if failing to meet the threshold, that alternative is eliminated from the decision. The step is then  continued with another attribute until final decision is made. Another model which was proposed by Tversky and Simonson could account for compromise effect \citeyearonly{tverskySimonson93}. That model posited that, alternatives are compared based on a weighted sum of attribute values and a local context comprising of binary comparisons among alternatives. However, these two models could not successfully account for all three effects. Despite their drawbacks, the sequential decision making and attention based mechanisms in these models laid the foundations of many upcoming computational choice models \citep{bhatia2013associations}. 
+
+In the last three decades, researchers have developed many computational models which account for context effects: Multialternative Decision Field Theory (MDFT) \citep{roe2001multialternative}, Leaky competing
+accumulator \citep{usher2001time}, Multiattribute linear ballistic accumulator \citep{trueblood2014multiattribute}, Multialternative Decision by Sampling  \citep{noguchi2018multialternative} and etc.. Some of these models have been extensively tested and studied, while others are relatively new, hence have not received much attention from scholars \citep{truebloodEtAl13}. However, these studies have been performed with experimental data \citep{evans2019response, berkowitsch2014rigorously, trueblood2014multiattribute, busemeyer2019cognitive}. Research has proven that the behavior of individuals in laboratory choice environment is different from real-world choice environment \citep{hogarth1989risk}. Hence, the applicability of such models to field data is an uninvestigated avenue, because no previous study has been done where a computational model was been applied to a real-world observational data. I plan to address this gap by applying Multialternative Decision by Sampling (MDbS) model proposed by Noguchi and Stewart \citeyearonly{noguchi2018multialternative} to a field data from airfare booking domain. This would allow me to assess the applicability level of this model to multialternative and multidimensional field data. 
+
+Also, applying MDbS to observational data would allow me to statistically asses the significance of the contribution of this model's ability to account for context effect. Instead of testing this model against established choice models, I will attempt to complement them with MDbS. To do this, I will use random effect Probit model as a variation of Probit family and augment it with MDbS output. I choose Probit model as it does not explictly assume IIA unlike family of logit models. To validate my results further I will apply the same methodology and analysis to an experimental data.
+
+I have chosen MDbS for two main reasons. Firstly, it is relatively new when compared to other models, hence it has not been further investigated before. Secondly, it is more robust and can account for wider range of context effects (than other models) known to the literature \citep{noguchi2018multialternative}. I will discuss these reasons in more detail in the next section. 
+
+
+\subsection{Big three context effects}
 
 We make choices all the time. Remember the time when you went to see a movie you have been waiting for some time ago and decided to grab some popcorn before entering. You might have seen something like in the figure \ref{fig:decoyPopcornExample}  although prices may be higher these days. You are puzzled at first, but reminded that the movie about to start, so you better hurry up and choose one. 
 
@@ -136,7 +181,7 @@ The small one feels not enough for a 90 minute marathon. Then, there is a middle
 
 If this situation is familiar to you, then you have experienced so called context effect which can bu understood as "the composition  and the nature of the choice set, availability of various options in it" \citep{tversky1972elimination, huberPuto83}. For the long time, our understanding of the choice did not extend over the borders of two related principles. First one is, independence of irrelevant alternatives (IIA) which states that when having a choice between two two options $A$ and $B$ if a person prefers $A$ for example, regardless of adding a third option $C$ to this choice set, that person's preference must be unaltered \citep{luce59}. Second one is regularity principle which states that, the choice probability of option $A$ can not increase by introduction of option $C$ \citep{luce59}.
 
-However, research has concluded that the context of the choice set and options in it have substantial effect on how people make choices. This effect has been studied extensively for the past five decades by many economists, marketing scholars and psychologists \footnote{See Dowling et al. \citeyearonly{dowlingEtAl20} and Lichtenstein \citeyearonly{lichtenstein2006construction} for more comprehensive review.} \citep{tverskySimonson93, kahnemanTversky79, simonson89, lichtenstein2006construction, dowlingEtAl20}. Most of the research has focused on three context effects: attraction, compromise and similarity \citep{howes2016contextual}.
+However, research has concluded that the context of the choice set and options in it have substantial effect on how people make choices. This effect has been studied extensively for the past five decades by many economists, marketing scholars and psychologists \footnote{See Dowling et al. \citeyearonly{dowlingEtAl20} and Lichtenstein \citeyearonly{lichtenstein2006construction} for more comprehensive review.} \citep{tverskySimonson93, kahnemanTversky79, simonson89, lichtenstein2006construction, dowlingEtAl20}. Most of the research has focused on three context effects, also reffered to as "big three": attraction, compromise and similarity \citep{howes2016contextual}.
 
 To better understand these three context effects, lets think of a hypothetical choice set where options differ along two dimensions: Dimension 1 and Dimension 2. We first start with a choice set consisting of two options: $A$ which has the values 20 and 80; $B$ which has values 80 and 20 that figure \ref{fig:binaryChoiseSet} depicts. 
 
@@ -148,7 +193,7 @@ To better understand these three context effects, lets think of a hypothetical c
 
 \end{figure}
 
-People have heterogeneous preferences and hence when facing a choice set with only these two options they would weigh each dimension roughly equally. The ones who prefer Dimension 1 would choose $B$ whereas $A$ will be chosen by individuals prefering Dimension 2. This can be described as equation \ref{eq:onlyTwoOptions} below.
+People have heterogeneous preferences and hence when facing a choice set with only these two options they would weigh each dimension roughly equally. The ones who prefer Dimension 1 would choose $B$ whereas $A$ will be chosen by individuals preferring Dimension 2. This can be described as equation \ref{eq:onlyTwoOptions} below.
 
 \begin{equation}\label{eq:onlyTwoOptions}
     P(A|A,B) = P(B|A,B)
@@ -216,16 +261,6 @@ Similarity effect in choice set ${A, B, S_A}$ will follow similar route. Figure 
 
 \end{figure}
 
-These effects have been extensively studied and demonstrated in various domains, from psychology to marketing \citep{herne1997decoy, soltani2012range, evangelidisEtAl18,  truebloodEtAl13, wuConsguner20, frederickEtAl14}. Some recent studies also concluded that all three effects may occur at the same time \citep{berkowitsch2014rigorously, noguchi2014attraction}. However, recent studies also have discovered boundary conditions for these effects \citep{liew2016appropriacy, spektor2018good, spektor2019similarity}. Familiarity with the choice domain was found to reduce context effects experienced by individuals \citep{kim2005attraction, sheng2005understanding}.  It was also found that, some conditions may force these effects to completely reverse \citep{cataldo2019comparison}. The findings described above make it necessary to call for a model which could explain these effects.
-
-Logit and Probit models have been traditionally used in choice settings \citep{gensch1979multinomial, kim2017probit}. However, those models can not account for context effects, because they only account for the attributes of the focal option, not taking into account the attributes of the other options in the choice set. Tversky has proposed a model of elimination by aspects which could account for similarity effect \citeyearonly{tversky1972elimination}. The foundation of the model is attention switching of individuals between alternatives and attributes and their comparisons. Once receiving attention, attribute value of a given alternative is compared to a pre-determined threshold value by the individual and if failing to meet the threshold, that alternative is eliminated from the decision. The step is then  continued with another attribute until final decision is made. Another model which was proposed by Tversky and Simonson could account for compromise effect \citeyearonly{tverskySimonson93}. That model posited that, alternatives are compared based on a weighted sum of attribute values and a local context comprising of binary comparisons among alternatives. However, these two models could not successfully account for all three effects. Despite their drawbacks, the sequential decision making and attention based mechanisms in these models laid the foundations of many upcoming computational choice models \citep{bhatia2013associations}. 
-
-In the last three decades, researchers have developed many computational models which account for context effects: Multialternative Decision Field Theory (MDFT) \citep{roe2001multialternative}, Leaky competing
-accumulator \citep{usher2001time}, Multiattribute linear ballistic accumulator \citep{trueblood2014multiattribute}, Multialternative Decision by Sampling  \citep{noguchi2018multialternative} and etc.. Some of these models have been extensively tested and studied, while others are relatively new, hence have not received much attention from scholars \citep{truebloodEtAl13}. However, these studies have been performed with experimental data \citep{evans2019response, berkowitsch2014rigorously, trueblood2014multiattribute, busemeyer2019cognitive}. Research has proven that the behavior of individuals in laboratory choice environment is different from real-world choice environment \citep{hogarth1989risk}. Hence, the applicability of such models to field data is an uninvestigated avenue, because no previous study has been done where a computational model was been applied to a real-world observational data. I plan to address this gap by applying Multialternative Decision by Sampling (MDbS) model proposed by Noguchi and Stewart \citeyearonly{noguchi2018multialternative} to a field data from airfare booking domain. This would allow me to assess the applicability level of this model to multialternative and multidimensional field data. 
-
-Also, applying MDbS to observational data would allow me to statistically asses the significance of the contribution of this model's ability to account for context effect. Instead of testing this model against established choice models, I will attempt to complement them with MDbS. To do this, I will use random effect Probit model as a variation of Probit family and augment it with MDbS output. I choose Probit model as it does not explictly assume IIA unlike family of logit models. To validate my results further I will apply the same methodology and analysis to an experimental data.
-
-I have chosen MDbS for two main reasons. Firstly, it is relatively new when compared to other models, hence it has not been further investigated before. Secondly, it is more robust and can account for wider range of context effects (than other models) known to the literature \citep{noguchi2018multialternative}. I will discuss these reasons in more detail in the next section. \textbf{MAYBE MOVE THIS DOWN Although my main focus is on so-called big three context effects, assuming that other context effects do not exist in field data would be erroneous}. 
 
 \subsection{Computational decision making models}
 
@@ -617,7 +652,7 @@ Context effects have been systematically studied in marketing and psychology \ci
 
 There have been recent attempts in computer science to define some of these effects. Machine learning community has incorporated context effects in discrete choice models applied to observational data \citep{pfannschmidt2019learning, bowerBalzano20}. However, the aim therein is increased prediction accuracy of choice models \citep{tomlinsonBenson21}. As a result, incorporation of context effects takes the form of generalizing choice models to allow for departure from the strict rationality assumptions \footnote{Recent examples of this approach are Linear Context Logit by Tomlinson and Benson \citeyearonly{tomlinsonBenson21} and Contextual Multinomial Logit by Yusefi Maragheh et al. \citeyearonly{yousefi2020choice}}.  These proposed generalizations of estimated functional forms usually do not distinguish across various different types of context effects. Additionally, these approaches often run into computational difficulties, i.e., the estimation process is NP-hard \citep{yousefi2020choice}.
 
-In this paper, I propose measures of different context effects in multi-option and multi-dimensional settings. Following Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}, I consider three context effects – attraction, compromise and similarity effects. Attraction effect refers to the increase in attractiveness of a set of option as a result of adding an alternative to the choice set, compromise effect refers to the inclination of consumers to prefer options that represent a compromise across extreme sets of alternatives, while similarity effect refers to the drop in choice likelihood for an alternative once another, similar, alternative has been added to the choice set. Each of the measures corresponding to three aforementioned effects requires a specific approach for making measurements applicable to observational data. Each of these measures is calculated prior to choice estimation, which avoids computational problems. After presenting the generalized measures of the three effects, we perform an empirical analysis of choices based on the new measures using observational data. We use an extensive dataset of airfare choices for this exercise. We identify that attraction and similarity effects do influence choices in air-travel booking data. We also detect a reverse compromise effect that seems to indicate that air-travelers consistently prefer extreme alternatives (i.e., the cheapest, or the shortest flight) to alternatives that constitute a compromise among extreme options.
+In this paper, I propose measures of different context effects in multi-option and multi-dimensional settings. Following Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}, I consider three context effects - attraction, compromise and similarity effects. Attraction effect refers to the increase in attractiveness of a set of option as a result of adding an alternative to the choice set, compromise effect refers to the inclination of consumers to prefer options that represent a compromise across extreme sets of alternatives, while similarity effect refers to the drop in choice likelihood for an alternative once another, similar, alternative has been added to the choice set. Each of the measures corresponding to three aforementioned effects requires a specific approach for making measurements applicable to observational data. Each of these measures is calculated prior to choice estimation, which avoids computational problems. After presenting the generalized measures of the three effects, we perform an empirical analysis of choices based on the new measures using observational data. We use an extensive dataset of airfare choices for this exercise. We identify that attraction and similarity effects do influence choices in air-travel booking data. We also detect a reverse compromise effect that seems to indicate that air-travelers consistently prefer extreme alternatives (i.e., the cheapest, or the shortest flight) to alternatives that constitute a compromise among extreme options.
 
 \subsection{Context effect and choice modeling}
 
@@ -1026,9 +1061,7 @@ This article has extended established measures of context effects with the aim t
 
 One important limitation of this approach is that (in case of attraction and compromise effects) it relies on ordinal relationships between the available options. In other words, the information that option $A$ is better than option $B$ in terms of attribute $X$ is used. This is a departure from previous literature which has relied on cardinal measurements (e.g., Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}), i.e., how much one thing differs from another. When we are dealing with only two or three options, cardinal measurement is the only way to quantify context effects. In the proposed framework, on the other hand, cardinal measurement is not a necessity. However, given that cardinal measurement is possible in most contexts (at least for a set of attributes), using ordinal measurements may hide some information from the modeling approach. One could imagine developing context effect measures that will consider both ordinal and cardinal measures. In this way, for example, a researcher could measure the attraction effect not only based on how many alternatives a focal option - which is an ordinal measure, but also by how much the focal option dominates those alternatives (at least on average) - which is a cardinal measure. In a similar vein, information on how central the focal option is in the group of alternatives could be incorporated in the measure of compromise effect, and information on the spread of options identified as similar to the focal option could be incorporated in the measure of similarity effect.  Moreover, clustering has proved itself being a reliable method to account for similarity effect.
 
-This framework opens up possibilities to study context effects in a much wider range of settings. The presented methodology can handle very large menu sizes of products that are relatively complex (i.e., characterized by many and varied types of attributes). Equally importantly, the approach does not require consistent menu sizes in the dataset. In the paper only one such empirical application is presented. However, this methodology could be applied to larger and richer datasets generated from electronic commerce websites, as well as offline environments. This enables the study of context effects in the field without explicit experimental interventions, which usually prove to be very expensive. As a result, the methodology could contribute to designing optimal offers on larger scale (e.g., optimizing recommender systems) especially in online settings where each shop outlet can carry hundreds of substitute options to choose from. 
-
-In an increasingly crowded digital marketplace, online portals often leverage recommender systems to assist consumers in the decision-making process. Sometimes even the number of alternatives recommended may seem overwhelmingly large. Prior research has established that, when facing many alternatives people tend to use decision-heuristics \citep{fishburn1974exceptional}. One can utilize the findings of this study in an attempt to design consideration sets which encompass empirically similar alternatives. This might especially be useful when recommender systems have very little information about the user which are known as cold-start problem. 
+This framework opens up possibilities to study context effects in a much wider range of settings. The presented methodology can handle very large menu sizes of products that are relatively complex (i.e., characterized by many and varied types of attributes). Equally importantly, the approach does not require consistent menu sizes in the dataset. In the paper only one such empirical application is presented. However, this methodology could be applied to larger and richer datasets generated from electronic commerce websites, as well as offline environments. This enables the study of context effects in the field without explicit experimental interventions, which usually prove to be very expensive. As a result, the methodology could contribute to designing optimal offers on larger scale (e.g., optimizing recommender systems) especially in online settings where each shop outlet can carry hundreds of substitute options to choose from. Considering that in an increasingly crowded digital marketplace, online portals often leverage recommender systems to assist consumers in the decision-making process. Sometimes even the number of alternatives recommended may seem overwhelmingly large. Prior research has established that, when facing many alternatives people tend to use decision-heuristics \citep{fishburn1974exceptional}. One can utilize the findings of this study in an attempt to design consideration sets which encompass empirically similar alternatives. This might especially be useful when recommender systems have very little information about the user which are known as cold-start problem. 
 
 The results of this study provide a good foundation for the next chapter of my thesis. There I will utilize cluster based similarity measure to propose a recommender system design which can especially be useful in user information scarce environments.
 
@@ -1259,9 +1292,9 @@ The performance of the models using a deterministic rule to make the selections 
     \label{tab:mainResultsTwoStageModeling}
 \end{table}
 
-\section{Conclusion and discussion}
+\subsection{Conclusion and discussion}
 
-We have proposed a novel approach to tackling the user-side continuous cold-start problem in RS design. By using the contextual information of the menu we were able to generate relevant choice sets using a two-step choice modeling approach. Our structural 
+I have proposed a novel approach to tackling the user-side continuous cold-start problem in RS design. By using the contextual information of the menu we were able to generate relevant choice sets using a two-step choice modeling approach. The structural 
 approach to choice set generation proved to be robust not only to selection criteria, be it stochastic or deterministic, but also to the clustering method used. Because in an online environment the calculation time is critically important, using AP as the clustering method appears to be advantageous.
 
 The findings of this work can be implemented by various systems which face continuous cold-start problems. They also help to understand the decision-making process of consumers and hence reduce their search cost by introducing the most relevant alternatives. This also benefits the supply-side via the reduction of the overall time spent by users on the platform.
@@ -1269,8 +1302,8 @@ The findings of this work can be implemented by various systems which face conti
 This work has some limitations. RS design using one-stage simple MNL probabilities would result in 52\% and 65\% in top-5 and top-10 accuracy, respectively. Such random utility models violate Luce's choice axiom \citep{luce2012individual}, which states that the choice probabilities of options in the choice set must be equally affected by the introduction or removal of a new option. However, one possible way to improve our approach could be the integration those probabilities into our models. Another possible avenue for future research could be using more complex characteristics derived from the choice set along with clustering.
 
 
-In our this study, I demonstrated the importance of context effects derived from choice sets in shaping user decisions, as well as the feasibility of incorporating these effects into the design of recommender systems.
-Albeit enhancing the system's ability to align its recommendations on the account of user's two-step decision making process is a significant step forward, one must also recognize that context does not arise from the choice set alone. In previous chapters I have used Tversky's \citeyeraonly{tversky1972elimination} definition of context being "the composition  and the nature of the choice set, availability of various options in it". More recent stream of research has also established that choice context is also dependent on user preferences among other things \citep{adomavicius2011context, dey2001understanding}.
+In this study, I demonstrated the importance of context effects derived from choice sets in shaping user decisions, as well as the feasibility of incorporating these effects into the design of recommender systems.
+Albeit enhancing the system's ability to align its recommendations on the account of user's two-step decision making process is a significant step forward, one must also recognize that context does not arise from the choice set alone. In previous chapters I have used Tversky's \citeyearonly{tversky1972elimination} definition of context being "the composition  and the nature of the choice set, availability of various options in it". More recent stream of research has also established that choice context is also dependent on user preferences among other things \citep{adomavicius2011context, dey2001understanding}.
 
 Research agrees that user preferences are not static and rather fluctuate based on factors that are individual specific \citep{songWhenHowDiversify2019}. In light of this, it becomes clear that to help users in choosing, recommender systems must have tools that enable users to signal their preferences to it. All in all, this could be summarized as "help me help you" approach.
 
@@ -1286,7 +1319,7 @@ To bridge this gap, my next study ventures into the realm of domain-neutral choi
 
 \begin{abstract}
 
-    This study examines the influence of user control on recommender systems' acceptance in a context-independent experimental setting, using the Technology Acceptance Model as a theoretical framework. It confirms the original  Technology Acceptance Model relationships, demonstrating that easy-to-use and useful recommender systems lead to higher user adoption rates. User control is found to be a crucial factor in explaining users' behavioral intention. The findings also reveal that different control methods have varying effects on users' experiences, suggesting a need for dynamic user controls that align with users' requirements. In conclusion, the study highlights the importance of user control in recommender systems and encourages further research into dynamic control mechanisms and more innovative approaches to increase user adoption further.
+    This study examines the influence of user control on recommender systems' acceptance in a context-independent experimental setting, using the Technology Acceptance Model as a theoretical framework. It confirms the original  Technology Acceptance Model relationships, demonstrating that easy-to-use and useful recommender systems lead to higher user adoption rates. User control is found to be a crucial factor in explaining users' behavioural  intention. The findings also reveal that different control methods have varying effects on users' experiences, suggesting a need for dynamic user controls that align with users' requirements. In conclusion, the study highlights the importance of user control in recommender systems and encourages further research into dynamic control mechanisms and more innovative approaches to increase user adoption further.
     
 \end{abstract}
 
@@ -1347,9 +1380,9 @@ Thirdly, RS use more complex set of information to generate recommendations. Unl
 
 \subsection{User control}
 
-User control is referred to as "the extend to which users have control over the recommendation generation" \citep{knijnenburgExplainingUserExperience2012}. Depending on the interaction history of the user with RS, two main stages of user control can be distinguished : 1) control in preference elicitation phase, 2) control after recommendation generation \citep{jannachUserControlRecommender2017}.
+User control is referred to as "the extend to which users have control over the recommendation generation" \citep{knijnenburgExplainingUserExperience2012}. Depending on the interaction history of the user with RS, two main stages of user control can be distinguished : 1) control in preference elicitation phase, 2) control after recommendation generation \citep{jannach2017user}.
 
-First stage commonly consists of preference forms, interactive conversation and critiquing \citep{jannach2019explanations}. In the preference form, users are asked pre-defined questions about their search. The answers may come in form of selection from drop-down list, user input, or slider style input. Figure \ref{fig:preference} shows an example of this method. Users can express their preferences clearly and directly.  However, when the preference form is too long or too complex, users might disengage \citep{jannachUserControlRecommender2017}. Moreover, it might be difficult to interpret the underlying meaning of these preferences. For example, when users utilize slider based inputs, it might not be obvious to them what is the effect of having all sliders in the middle, far left or far right \citep{jannach2017user}. Another disadvantage of this method is when the preference of the user does not exist in the form at all.
+First stage commonly consists of preference forms, interactive conversation and critiquing \citep{jannach2019explanations}. In the preference form, users are asked pre-defined questions about their search. The answers may come in form of selection from drop-down list, user input, or slider style input. Figure \ref{fig:preference} shows an example of this method. Users can express their preferences clearly and directly.  However, when the preference form is too long or too complex, users might disengage \citep{jannach2017user}. Moreover, it might be difficult to interpret the underlying meaning of these preferences. For example, when users utilize slider based inputs, it might not be obvious to them what is the effect of having all sliders in the middle, far left or far right \citep{jannach2017user}. Another disadvantage of this method is when the preference of the user does not exist in the form at all.
 
 \begin{figure}[H]
     \centering
@@ -1527,7 +1560,7 @@ By applying this formula, I are able to calculate the mathematical expectation o
 
 An important aspect of this design is that depending on user behavior, I can actually measure the usefulness of recommendation system by measuring the change in overall return across all recommended options. Figure \ref{fig:expectationGraph} shows the expectation of the recommendations given the different scenarios. So, I would not only be able to study the differences in user behavior across experimental treatments, but I would also be able to study which part of performance differential is actually due to objective change in the quality of recommended options. Refer again to figure \ref{fig:experimentInterface} for additional details of the experimental interface.
 
-Modern search interfaces usually have tools to facilitate the smoother user experience alongside with recommendations. These may include sorting and filtering features which are not part of the recommender system per-se. However, they offer users help in finding what they are looking for. For this reason I have added a sorting feature as an additional characteristic. Users could sort options in increasing or decreasing order along each of five dimensions in both the choice set, or the recommended options table on the right-hand side. This potentially helps them to solve the task, maximize $U$, but does not change the recommendation set. Although this feature does directly make the recommendetations better, it makes it easier to solve the task and can be used in conjunction with the RS to complete the task faster. So, this can be seen as a feature which creates the control over the search task, but does not have an impact on recommendation generation \citep{jannachUserControlRecommender2017}. 
+Modern search interfaces usually have tools to facilitate the smoother user experience alongside with recommendations. These may include sorting and filtering features which are not part of the recommender system per-se. However, they offer users help in finding what they are looking for. For this reason I have added a sorting feature as an additional characteristic. Users could sort options in increasing or decreasing order along each of five dimensions in both the choice set, or the recommended options table on the right-hand side. This potentially helps them to solve the task, maximize $U$, but does not change the recommendation set. Although this feature does directly make the recommendetations better, it makes it easier to solve the task and can be used in conjunction with the RS to complete the task faster. So, this can be seen as a feature which creates the control over the search task, but does not have an impact on recommendation generation \citep{jannach2017user}. 
 
 Participants were randomly allocated to one of four treatments based on whether subjects have sorting and feature hiding capabilities. Users were remunerated with a fixed 2\$ and additional bonus up to 2\$ which was calculated as 
 
@@ -1742,10 +1775,56 @@ Considering the rapid technological developments of the recent years, we may sta
 \appendix
 \section{}\label{appendix:Differential evolution}
 \textbf{Differential evolution}
-The Differential Evolution (DE) Algorithm is a heuristic-based optimization technique that is widely used in various scientific fields, including Economics. This algorithm is capable of exploring the search space of a problem to find the global optimum. Unlike traditional optimization techniques, the DE algorithm does not require gradient information, making it applicable to non-differentiable, non-linear, and multi-modal optimization problems.
-\citep{storn1997differential}
+
+The Differential Evolution Algorithm developed by Storn \citeyearonly{storn1997differential} is a heuristic-based optimization technique that is widely used in various scientific fields, including economics. This algorithm is capable of exploring the search space of a problem to find the global optimum. Unlike traditional optimization techniques, the DE algorithm does not require gradient information, making it applicable to non-differentiable, non-linear, and multi-modal optimization problems.
+
+Differential Evolution is a population-based, stochastic search algorithm that generates new candidate solutions by combining existing individuals in the population. The algorithm considers differences between their parameter values, hence the term "differential". It includes three primary operations: mutation, crossover, and selection.
+
+The algorithm operates as follows:
+
+1. Initialization: Generate an initial population of $NP$ candidate solutions randomly, each solution is a vector in the $D$-dimensional space.
+    
+    For $i = 1 $to $NP, j = 1$ to $D$:
+    
+    $$X[i, j] = X_min[j] + rand(0, 1) * (X_max[j] - X_min[j])$$
+    
+2. Mutation: For each individual vector $Xi (i=1, 2, ..., NP)$ in the current population, a mutant vector $V_i$ is generated according to:
+
+    $$V[i, j] = X[r1, j] + F * (X[r2, j] - X[r3, j])$$
+
+    Here, $r1$, $r2$, and $r3$ are indices randomly chosen from the population, and they are distinct from each other and $i$. The real number $F \in [0,2]$ is the scaling factor which controls the amplification of the differential variation $X[r2, j] - X[r3, j]$.
+
+3. Crossover: A trial vector $U_i$ is then generated from the original vector $X_i$ and mutant vector $V_i$ according to the rule:
+
+    For $j = 1$ to $D$:
+    
+    $$
+        U[i, j] =
+        \begin{cases}
+            V[i, j] & \text{if } \text{rand}(0,1) \leq \text{CR} \text{ or } j = j_{\text{rand}} \\
+            X[i, j] & \text{otherwise}
+        \end{cases}
+    $$
+
+Here, $rand(0,1)$ is a uniform random number in $[0,1], CR \in [0,1]$ is the crossover rate that controls the fraction of parameter values copied from the mutant vector, and $j_rand$ is a randomly chosen index from the $D$ dimensions.
+
+4 Selection: The trial vector $U_i$ competes against the original individual $X_i$. The one that provides a better objective function value (lower for a minimization problem, higher for a maximization problem) survives into the next generation:
+
+        $$
+        X[i, j] =
+        \begin{cases}
+            U[i, j] & \text{if } f(U[i, j]) \leq f(X[i, j]) \\
+            X[i, j] & \text{otherwise}
+        \end{cases}
+        $$
+
+Here, $f(.)$ denotes the objective function.
+
+5 Loop: Steps 2 to 4 are repeated until a termination criterion is met (such as a maximum number of generations or a satisfactory fitness level).
 
 
+
+\clearpage
 \section{}\label{appendix:compromiseCalculation}
 
 \textbf{Comparison pair count calculation for the compromise effect}
@@ -1782,6 +1861,7 @@ Figure \ref{fig:compromiseComparisonPlot} shows how $\Omega$ changes with $N$.
     \caption{Correspondence between $\Omega$ and $N$}
     \label{fig:compromiseComparisonPlot}
 \end{figure}
+
 
 \newpage
 \section{}\label{appendix:clusteringAlgorithms}
