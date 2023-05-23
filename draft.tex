@@ -74,19 +74,12 @@
 
 
 \author{Emil Mirzayev}
-%\author[2,3]{Zakaria Babutsidze}
-%\affil[1]{University College London}
-%\affil[2]{SKEMA Business School}
-%\affil[3]{Sciences Po Paris}
-%\date{}
 
 %March 28, 2023
 
 \begin{document}
 \spacing{1.5}
 \maketitle
-
-\section{General introduction}
 
 \begin{abstract}
 
@@ -100,41 +93,28 @@
 
     The final study investigated the effect of user control on recommender system acceptance using the Technology Acceptance Model as a theoretical framework. This study found that easy-to-use recommender systems were perceived as more useful by users and resulted in a higher intention to use them. However, different control mechanisms had varying impacts on user experience. The findings propose an exciting opportunity for future research in designing more effective recommender systems, including the potential integration of large language models (LLMs) for better user interaction and recommendation transparency.
 
-    This thesis demonstrates the existence of context effects in multi-attribute, multidimensional settings and develops methodologies on enhancing recommender systems design with context effects. Also, this study investigates context arising outside the choice set, namely, the tools that allows users to express their preferences.
-
-       
+    This thesis demonstrates the existence of context effects in multi-attribute, multidimensional settings and develops methodologies on enhancing recommender systems design with context effects. Also, this study investigates context arising outside the choice set, namely, the tools that allows users to express their preferences and how to make recommender systems better through them.
+           
    
 \end{abstract}
 
+\section{General introduction}
+
 \subsection{Purpose and research questions}
 
+The main objective of this thesis is to make contribution towards understanding the choice context and applying it to improve recommender systems. Thesis makes effort by identifying context effects arising from the choice set and developing a methodology to implement this information in recommender systems design. Furthermore, it analyzes the effectiveness of user control mechanisms, which allow individuals to inform the system about their preferences and also amend them.
 
+Recommender systems have become a crucial ally in the vast landscape of digital world. They help individuals to navigate through the plethora of alternatives and find what they are looking for. They achieve this by using sophisticated algorithms that analyze the wide space of items, users and their interactions with each other. System designers and businesses thrive to maximize the accuracy of recommendations, meaning they want to maximize the consumption of the recommendations. However, recent research stream shows that, accuracy is not the only way to make recommender systems effective. Other factors like diversity, serendipity \citep{kaminskas2016diversity}. Moreover, the black-box nature of the algorithms do not allow to understand the reasons behind a particular user's behaviour \citep{samih2021exmrec2vec, kotkovSurveySerendipityRecommender2016}. Hence, more and more interest is driven towards the understanding and utilizing the choice context \citep{adomavicius2005toward}. Choice context has received interest in scenarios where user or item information is scarce \citep{scheinMethodsMetricsColdStart}.  
 
-The context in which a consumer makes decisions significantly influences their choices. This thesis investigates the role of context effects in consumer decision-making and applies this knowledge to enhance recommender systems in online marketplaces. Leveraging a computational model known as MDbS, we examine the impact of context effects in real-world choice data. Our findings indicate that these effects, previously studied primarily in experimental settings, also manifest in field scenarios. This insight enables online platforms to utilize mathematical decision-making models to better tailor their product lists and recommendations.
+Choice context has long received the attention of scholars in many fields, including marketing, psychology, economics. Because it was studied in many domains, scholars refer to it differently. This thesis concentrates and uses two of them. The first one posits that choice context \footnote{For the remainder of the paper, I will follow the previous literature \citep{truebloodEtAl13} and refer this definition of choice context as context effects} is "the availability and the nature of choice alternatives" \citep{tversky1972elimination, huberEtAl82, simonson89}. Previous research has demonstrated the existence of context effects in various settings \citep{herne1997decoy, soltani2012range, evangelidisEtAl18,  wuConsguner20}. The second definition of context arises much later with the proliferation of recommender systems. Context also referred to as "the time and content of the choice, the location or socio-demographic characteristics of the decision-maker..." \citep{adomavicius2011context}. 
 
-Our work extends beyond current measures of context effects by making contextual choice modeling applicable to a wider range of observational data. This approach paves the way to study context effects in various settings and opens up opportunities for optimizing recommender systems in e-commerce platforms. We also propose a novel approach to tackle the user-side continuous cold-start problem in recommender system design, using the context information of the product menu to generate relevant choice sets.
+However, modeling for these effects mathematically was a challenge because the existing models suffered from independence of irrelevant alternatives \citep{luce59}, meaning these models treated each alternative in isolation. This has shifted the scholar's interest towards computational models \citep{usher2001time, roe2001multialternative, trueblood2014multiattribute, noguchi2018multialternative}. Yet, none of these models have been to real-world choice data and as a result, their applicability to field data remained an open question. I address this gap in the first study where I apply a computational model to a field data of high heterogeneity among dimensions. Building on my results in my second study I delve into the choice modeling more and develop a methodology to account for three main context effects studied in the literature \citep{truebloodEtAl13}. 
 
-Further, we delve into the role of user control on recommender systems' acceptance, using the Technology Acceptance Model (TAM) as a theoretical framework. Our findings suggest that users perceive easy-to-use recommender systems as more useful and intend to use them more. We also find that different control mechanisms can have varying impacts on user experience, leading to diverse effects on user acceptance of recommender systems.
+When new users or items are introduced to recommender systems, they fail to function as intended because of the lack of information their algorithms need. In such cases, even when they do provide recommendations, they are far from personalized \citep{lika2014facing}. It is considered to be a key challenge in recommender system design \citep{park2009pairwise}. Previous literature has applied various methods to overcome this problem \citep{aharon2013off, bykau2013coping, saveski2014item, guy2009personalized}. However, the limitations of these approaches are that they ignore the context effects and concentrate on scenarios where information scarcity is temporary. Using the findings from my second study, decision-making and choice modeling literature I propose an innovative solution to address continious cold-start issue in recommender system design by utilizing menu contextual information to generate relevant choice sets through a two-step choice modeling method. 
 
-This thesis offers valuable insights for online marketplaces and recommender systems, showcasing the benefits of considering context effects in product presentation and user decision-making processes. Our research also identifies future directions for enhancing user control in recommender systems, including the integration of large language models for more intuitive and transparent user interactions. By recognizing the dynamic nature of user preferences and the significant role of context effects in decision-making, our work contributes to the design of more effective and user-centric recommender systems.
+Research agrees on importance of metrics beyond accuracy for recommender systems \citep{kaminskas2016diversity}. It is in the best interest of online marketplaces to provide users with recommendations which are not only in the category "exactly what I want", but also "I never thought I would have liked this one" \citep{kotkovSurveySerendipityRecommender2016}. This can not only boost sales \citep{songWhenHowDiversify2019}, but also increase the satisfaction of users \citep{knijnenburgExplainingUserExperience2012}. Albeit, it was observed that the preferences of individuals are not stable and tend to change and system designers have proposed various tools to enable users signal their preference shifts \citep{bostandjiev2012tasteweights,hijikata2012relation}. However, to better understand it is necessary to study those tools in isolation from the context arising from the choice set and concentrate purely on context arising from the user side, e.g their preferences \citep{adomavicius2011context}. In my last study I address this gap by conducting an online experiment and applying Technology Acceptance Model \citep{davis1985technology} to measure users' acceptance of such tools.
 
-
-
-TWO TYPE OF CONTEXT EFFECTS - THE ONES WITHIN THE CHOICE SETS AND ONES WITHOUT. ONES WITHOUT ARE GIVEN BY RECOMMENDER SYSTEMS. ONE WITHIN COMES WITHIN. MY ULTIMATE GOAL IS TO CONTRIBUTE TO CONTEXT EFFECT APPLICATIONS TO RECOMMENDER SYSTEMS.
-
-FIRST I WANT TO CONTRIBUTE TO UNDERSTANDING OF CONTEXT EFFECTS AND THEIR DETECTION IN MULTIDIMENSIONAL MULTIATTRIBUTE CHOICE SETS -> THIS IS THE FIRST PAPER, SIMULATION USING MATHEMATICAL MODEL TO ACCOUNT FOR CONTEXT EFFECTS.
-THEN I WANT TO CONTRIBUTE TO CONTEXT EFFECT DIFFERENTLY, BY ACCOUNTING FOR THEM USING CLUSTERING.
-THEN I WANT TO CONTRIBUTE TO CONTEXT EFFECT BY DISENTANGLING BIG THREE CONTEXTS 
-
-ONE OF THE MAIN GOALS IS TO COME UP WITH ABILITY OF EXTENDING CONTEXT EFFECT APPLICATIONS TO RECOMMENDER SYSTEMS
-ANOTHER GOAL IS TO UNDERSTAND THE CONTEXTUAL EFFECTS ARISING FROM MULTIDIMENSIONAL CHOICE SETS
-ALSO, TO UNDERSTAND HOW 
-
-\subsection{Data and research methodology}
-
-\subsection{Placeholder}
-
-BLABLABLA
+All in all, all four studies aim to contribute to our understanding of context and provide applications of recommender system design using this information.
 
 \newpage
 
@@ -371,7 +351,7 @@ Having discussed the theoretical aspects of MDbS and its account for big three c
 
 This section will discuss the methodology I have used for this study. After brief discussion of the dataset I will move onto detailed discussion of the steps taken in the analysis. SOME MORE BLABLABLA
 
-\subsubsection{Observational Data}\label{section:observationalDataDescription}
+\textbf{Observational Data}\label{section:observationalDataDescription}
 
 The observational dataset is created by the merger of two sources. The first dataset constitutes of a list of all bookings made in Europe on European routes between December 2013 and June 2014, extracted from the MIDT (Marketing Information Data Tapes) database. Besides all of the booking details (e.g., number of passengers, price), it also contains the timestamp of booking and the identity of the booking office (all offline and online outlets have unique identifiers). The second source of data contains information on all air travel searches performed on one of the most comprehensive air-travel booking services operated by Amadeus S.A.S. This dataset also contains trip specifics as well as the identifier of the office where the search was performed. Most importantly, the latter dataset contains information on all possible alternatives that could have been presented to the traveler at the time of search, but does not contain information on which of the options (if any) has the traveler chosen. Matching these two datasets across office identifier, search/booking time, trip origin and destination, trip dates and the number of passengers results in a merged dataset allows us to identify chosen itineraries within option menus delivered at the search \footnote{  Office ID, trip origin and destination, trip dates and number of passengers are matched exactly. The distance in time between the booking and preceding search is minimized. If, given exactly matched attributes, the booking was not performed within 24 hours after a given search - the search is declared unmatched. If, given exactly matched attributes, no search is found during 24 hours preceding a given booking - the booking is declared unmatched. Unmatched searches and bookings are dropped from the analysis.}.  An important limitation of the data is that there is no way of ensuring that the consumer has actually seen the exhaustive list of alternatives available to him/her at the time of booking. I do know, however, all of the options that they could have seen. Even though this is a drawback for a researcher, this is a standard experience of the practitioner (e.g., recommender system designer). Practitioners designing recommender systems need to create algorithms based on the set of existing alternatives without much visibility on the subset of options a particular user will be interested in, or will eventually see.
 
@@ -403,7 +383,7 @@ $ where $\overline{x}$ is the mean and $\sigma$ is the standard deviation of var
 
 Because of MDbS nature of comparing dimensions with one another, for the purposes of this study, I can not use horizontal attributes in my analysis because they do not follow the standard "greater the better" mathematical approach to comparison. Hence, I bound to utilize solely four vertical attributes in my analysis. Table \ref{tab:descriptiveStats} provides descriptive information about those vertical variables. I have also multiplied all four vertical variables by \-1 to convert them to negative scale because of MDbS nature of comparing absolute values and our assumption that consumers prefer lower values along vertical dimensions.
 
-\subsubsection{Experimental data}
+\textbf{Experimental data}
 
 In the course of our study, I also introduce an additional dataset sourced from a controlled experiment conducted by Noguchi \citeyearonly{noguchi2018multialternative}, distinct from the primary observational data. Albeit not as diverse in terms of alternatives, dimensions and choice sets, this experimental data carries significant value, not as a principal analytic focus, but rather as a mean to corroborate my main findings. I will apply the same analytical techniques employed in the observational analysis, and utilize experimental dataset as a robustness check to verify the validity of my results. Henceforth, the role of this data is primarily confirmatory.
 
@@ -438,7 +418,7 @@ Product & Dimension & Alternative A & Alternative B \\
 \label{tab:noguchiDescriptions}
 \end{table}
 
-\subsubsection{Parameter optimization}
+\textbf{Parameter optimization}
 
 Recall the three dynamic parameters for MDbS, $\alpha, \beta_0, \beta_1$, that were discussed in section \ref{subsec:mechanismMDBS}. They allow MDbS to account for various context effects. Noguchi \citeyearonly{noguchi2018multialternative} demonstrates MDbS performance using fixed set of parameters throughout the paper by using: $\alpha = 3, \beta_0 = 0.1, \beta_1 = 50$. 
 
@@ -492,7 +472,7 @@ Choice set designers and engineers have long used "Top n" accuracy metrics when 
 
 In this section I will present the results of parameter optimization first which later will be accompanied with the results obtained from choice modeling. First the results obtained from analysis on observational data will be discussed. Later, it will be accompanied with a brief discussion of results from experimental data.
 
-\subsubsection{Observational data results}
+\textbf{Observational data results}
 
 \textit{Parameter optimization results}
 
@@ -565,7 +545,7 @@ Recall that variable "MDbS output" refers to the probabilities produced by MDbS.
 
 \end{figure}
 
-\subsubsection{Experimental data results}
+\textbf{Experimental data results}
 
 At first sight, the results from optimization indicate that the optimal parameters differ across the datasets. Considering the nature for these two datasets, such result is to be expected. While optimal $\alpha$ tends to be higher than the one in observational data, both optimal $\beta_0$ and $\beta_1$ values are lower than their counterparts. Higher $\alpha$ can indicate that for smaller choice sets, MDbS tends to less strict in comparison criteria. While the performance metrics seem higher than for the observational data, menus are considerably smaller. Table \ref{tab:optimizationNoghuchiResults} entails further information.
 
@@ -633,7 +613,7 @@ My findings provide a strong foundation which leads to a crucial but also challe
 
 \newpage
 
-\section{Choice modeling with context effects:\\
+\section{Choice modeling with context effects:
 Generalization to multi-option and multi-attribute settings
 }  \footnote{This chapter is based on a joint work with my supervisor Zakaria Babutsidze and also William Rand, Nobuyuki Hanaki, Ismael Rafai, Rodrigo Acuna Agost and Thierry Delahaye}
 
@@ -656,9 +636,7 @@ In this paper, I propose measures of different context effects in multi-option a
 
 \subsection{Context effect and choice modeling}
 
-HERE SOME BRIEF INTRO TO REFRESH CONTEXT EFFECTS
-
-Over the years, multiple empirical models have been developed to model context effects. Empirical approaches usually model context effects either in the structural part of utility or in the error covariance part \citep{kamakuraSrivastava84, dotsonEtAl18}. Some of these models have the capacity to account for multiple effects at the same time \citep{tverskySimonson93, orhun09}. These models extend a classical random utility model \citep{mcfadden01} in multiple directions using discrete choice modeling \citep{benAkivaLerman85}. However, Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11} present a unifying model taking into account all three context effects. Instead of using advanced statistical techniques for remedying violations of utility maximization assumptions associated with the existence of context effects \citep{luce59}, their approach hinges on additive specification and ex ante calculation of individual measures for each of the three context effects for each item in the menu. Namely, authors assume that choice estimator is additive in three context effects (along with a generic preference-driven part) and develop the methodology of quantifying three effects for each alternative prior to calculating the estimator. This is a particularly flexible approach which also ensures that researcher does not run into computational difficulties (i.e., $NP$-hard calculations). We follow the suite and formulate the utility that a consumer c attaches to an option i, under a given menu m, as being additive in two parts:
+Over the years, multiple empirical models have been developed to model context effects. Empirical approaches usually model context effects either in the structural part of utility or in the error covariance part \citep{kamakuraSrivastava84, dotsonEtAl18}. Some of these models have the capacity to account for multiple effects at the same time \citep{tverskySimonson93, orhun09}. These models extend a classical random utility model \citep{mcfadden01} in multiple directions using discrete choice modeling \citep{benAkivaLerman85}. However, Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11} present a unifying model taking into account all three context effects. Instead of using advanced statistical techniques for remedying violations of utility maximization assumptions associated with the existence of context effects \citep{luce59}, their approach hinges on additive specification and ex ante calculation of individual measures for each of the three context effects for each item in the menu. Namely, authors assume that choice estimator is additive in three context effects (along with a generic preference-driven part) and develop the methodology of quantifying three effects for each alternative prior to calculating the estimator. This is a particularly flexible approach which also ensures that researcher does not run into computational difficulties (i.e., $NP$-hard calculations). I follow the suite and formulate the utility that a consumer c attaches to an option $i$, under a given menu $m$, as being additive in two parts:
 
 $$U_{c,i}^m = u_{c,i} + v_{c,i}^m$$
 
@@ -670,7 +648,7 @@ $$
 Thus, the measures of three context effects that are necessary to estimate empirical discrete choice models based on utility formulation above need to be computed ex ante. Measures developed by Rooderkerk, Van Heerde, and Bijmolt \citeyearonly{roodrkerkEtAl11}, are tailored to experimental data with a small number of alternatives in the choice set, and a small number of attributes characterizing alternatives. This significantly limits the application of the unifying model of context effects. In the next section I present a generalization of three context effect measures to multi-option, multi-attribute environment which will further allow for the application of the unifying model to observational data.
 
 \subsection{Generalizing context effect measures}
-\subsubsection{Approach to generalization}
+\textbf{Approach to generalization}
 
 Naturally, generalizing across many alternatives and many attributes presents challenges in both dimensions. The fact that theoretical underpinnings of the three effects are diverse, does not simplify the task. In following sections, I will discuss specificities involved in the generalization of each measure. First, however, I concentrate on common challenges.
 
@@ -693,7 +671,7 @@ On the other hand, there exists another set of attributes where there is no obvi
 
 However, unlike the measurement of attraction and compromise effects, measuring the similarity across the alternatives does not require the existence of a single universal ranking. In fact, many clustering methods can identify options that are more or less similar to each other based on a wide range (numeric and categorical) of variables. Therefore, in what follows I will incorporate all (vertical, as well as horizontal) attributes in the measurement of similarity between a pair of alternatives.
 
-\subsubsection{Attraction effect}
+\textbf{Attraction effect}
 
 Previous studies of the attraction effect concentrate on carefully designed small choice sets in experimental settings \citep{huberEtAl82, huberPuto83}. In such settings, an alternative is added to the choice set in a position that it is unequivocally inferior to (only) one of two items already present in the menu. Notice, again, that identification of inferiority requires the attribute under consideration to be vertical and this can not be achieved with horizontal attributes. This manipulation introduces an asymmetry between the two incumbent alternatives - one alternative now dominates the decoy, while the other does not. The attraction effect implies that such manipulation increases the attractiveness of the dominant incumbent option with respect to the other incumbent alternative. 
 
@@ -707,7 +685,7 @@ $$Attraction(F)=O(Dominated),$$
 
 where $O(Dominated)$ measures the number of alternatives in the menu that the focal option $F$ dominates. Given the measure, we expect that the higher the attraction effect in favor of the focal option, the higher the choice probability of the focal option (\textit{ceteris paribus}).
 
-\subsubsection{Compromise effect}
+\textbf{Compromise effect}
 
 The compromise effect is traditionally understood and operationalized in a three-option, two-attribute (experimental) setting \citep{simonson89, dharEtAl00}. It is worth mentioning again here that these two attributes need to be vertical so that we can define universal preference relationships. Let's consider the similar starting situation of options $A$ and $B$ as in the previous subsection: $V_1(A) > V_1(B)$ and $V_2(A) < V_2(B)$. The addition of option $C$ to this menu such that $V_1(C) > V_1(A) > V_1(B)$ and $V_2(C) < V_2(A) < V_2(B)$, makes option $A$ a compromise between two extreme options $B, C$. The compromise effect 
 maintains that such an alteration of the menu would disproportionately benefit alternative $A$ compared to alternative $B$.
@@ -741,7 +719,7 @@ As a result, moving from 2 to 3 dimensions increases the number of potential com
 
  It is worth mentioning here, that as both attraction and compromise measures only generalize across vertical dimensions, it is important to control for all relevant horizontal dimensions in choice models employing these measures of the two context effects.
 
- \subsubsection{Similarity effect}
+ \textbf{Similarity effect}
 
  Operationalising the measure of similarity effect across three options and two vertical dimensions is straight forward \citep{roodrkerkEtAl11}. Increasing the size of the menu introduces an important challenge of defining the border between options that are similar to the focal alternative and those that are not similar to it. At the same time, unlike the previous two context effects, the theory pertinent to the similarity effect does not require dimensions to be necessarily vertical \citep{tversky1972elimination}. The sufficient condition for quantifying the similarity effect requires detecting the number of other alternatives that are similar to the focal option.
 
@@ -758,7 +736,7 @@ where, $Cluster_F$ refers to the cluster to which the focal option belongs. Give
 
 In this section, I present two empirical applications using the generalization of three contextual measures and estimate unifying model of context effects. Both applications come from a travel context in Europe. The first application uses a large set of observational data on airfare booking. This is a very heterogeneous dataset and choice setups vary in terms of number of alternatives, as well as across origin-destination city pairs. The second application uses stated choice experimental data on urban commute. This data is less exciting in terms of menu-variability, but it allows to address several potential concerns with our main observational dataset. As a result, this is used as a validation exercise. 
 
-\subsubsection{Observational data}\label{section:additionalPreprocessingObservationalData}
+\textbf{Observational data}\label{section:additionalPreprocessingObservationalData}
 
 Observational data I use is the same which is used in the previous chapter. Dataset is described in detail in section \ref{section:observationalDataDescription}. Besides vertical attributes, there are also  three attributes that do not vary across alternatives within each menu. These are the number of days between when choice was performed and the start of the trip, whether the trip is domestic or international, and whether it is intercontinental. This data has been subject to preprocessing rules which were also described in the section \ref{section:observationalDataDescription}. The descriptive statistics of vertical and context variables are shown in the table \ref{tab:descriptivesVerticalPlusContext}.
 
@@ -982,7 +960,7 @@ An important drawback of the dataset is the feature that there is no way of know
 
 Table \ref{tab:reducedResultsRandomProbitModel19AmadeusData} presents the estimation results of all 9 models, while panel A in table \ref{tab:marginalEffectsOnReducedDatasetAmadeus} presents corresponding marginal effects. For the sake of comparison, panel B in table \ref{tab:marginalEffectsOnReducedDatasetAmadeus} also presents marginal effects implied by the models estimated on the original dataset at menu size being equal to twenty. One difference due to the move from full to reduced dataset is that the total attraction effect seems to lose the significance. However, once this effect is decomposed along the borders traced by the similarity measure in the complete model 9, it is clear that in-cluster attraction effect does attain statistical significance. Naturally, there are differences in terms of the size of marginal effects from the original and reduced datasets that one can read by comparing panels A and B in table \ref{tab:marginalEffectsOnReducedDatasetAmadeus}. However, these differences are fairly small - two exercises seem to produce consistent results.
 
-\subsubsection{Experimental data}
+\textbf{Experimental data}
 
 The airfare choice data presents an excellent opportunity for application of the proposed methodology. It is a large dataset of actual choices made in a natural environment by consumers, the product under question is relatively complex (i.e., characterized by more than two attributes), the menu size is not constant across different choice cases, menu sizes are sufficiently large to get sufficient variance in all context variables. However, the dataset also has shortcomings. Firstly, even though one knows what was available on the market when the choice was made, there exists no accurate information on which of the options were in fact considered by the consumer. Secondly, there is no information on identity and characteristics of the consumers. Without such information one is not able to account consumer-side features that could systematically drive choice outcomes that is observed.
 
@@ -1134,7 +1112,7 @@ With the current progress in computer science, mathematics and behavioral econom
     
 \textbf{Recommender systems}    
 
-Recommender systems (RS) have been an important part of our daily lives thanks to the rise of the Internet. RS are software tools and/or algorithms which match users to items \citep{mahmood2009improving} \footnote{Although there are other tools which create suggestions for users (such as Interactive Decision Aids, Recommender agents and etc.), for the purposes of this study I refer to recommender systems and bound the definition using the one by Mahmood \citeyearonly{mahmood2009improving}. These other tools have some theoretical differences which makes orthogonal to the purposes of this study. However, I discuss, differentiate between them and define the boundary conditions in the chapter \ref{chapter:UserControlAndRS}}. One example is Netflix, which recommends a movie similar to the one the user just watched. The general purpose of any RS is to help users who do not have sufficient knowledge or experience, or the capacity to evaluate the item pool fully. 
+Recommender systems (RS) have been an important part of our daily lives thanks to the rise of the Internet. RS are software tools and/or algorithms which match users to items \citep{mahmood2009improving} \footnote{Although there are other tools which create suggestions for users (such as Interactive Decision Aids, Recommender agents and etc.), for the purposes of this study I refer to recommender systems and bound the definition using the one by Mahmood \citeyearonly{mahmood2009improving}. These other tools have some theoretical and implementation differences which makes them orthogonal to the purposes of this study. However, I discuss, differentiate between them and define the boundary conditions in the chapter \ref{chapter:recommenderSystemsAgentsDifferentiation}}. One example is Netflix, which recommends a movie similar to the one the user just watched. The general purpose of any RS is to help users who do not have sufficient knowledge or experience, or the capacity to evaluate the item pool fully. 
 
 I distinguish between personalized and general recommender systems. Personalized RS  may suggest different items to different users or user groups. General RS in turn, are usually directed towards the general public and might be relevant only to some part of it, for example, Billboard Hot 100, IMDB Top 250, or the front page of New York Times \citep{ricci2010recsystems}.
 
@@ -1142,7 +1120,7 @@ When RS face new users or new items, they may fail to provide personalized conte
 
 The literature distinguishes three main cold-start settings \citep{park2009pairwise}: a) recommending existing items for new users (user-side), b) recommending new items for existing users (item-side), c) recommending new items for new users (user- and item-side). However, when trying to address this problem scholars have mainly focused on settings in which the challenge was to recommend new items to existing users \citep{zhang2010solving}.
 
-Recently, some progress was made in solving the user-side cold-start problem after the introduction of contextual information into recommender systems. As a result of this effort, Context Aware Recommender systems were introduced \citep{adomavicius2011context}. In this approach the context refers to the time of the choice, the location or socio-demographic characteristics of the decision-maker etc.  Some approaches have been very successful by combining contextual information with collaborative filtering \citep{aharon2013off,bykau2013coping,saveski2014item}. Utilizing baseline information for new users \citep{kluver2014evaluating} and using social network data \citep{guy2009personalized} have also been proven to overcome the cold-start problem to a certain extent.
+Recently, some progress was made in solving the user-side cold-start problem after the introduction of contextual information into recommender systems. As a result of this effort, Context Aware Recommender systems were introduced \citep{adomavicius2011context}. In this approach the context refers to the time and content of the choice, the location or socio-demographic characteristics of the decision-maker etc.  Some approaches have been very successful by combining contextual information with collaborative filtering \citep{aharon2013off,bykau2013coping,saveski2014item}. Utilizing baseline information for new users \citep{kluver2014evaluating} and using social network data \citep{guy2009personalized} have also been proven to overcome the cold-start problem to a certain extent.
 
 In practice however, these cold-start problems often transform into continuous cold-start problems \citep{kiseleva2016beyond}. This happens when:
 \begin{enumerate}
@@ -1329,7 +1307,7 @@ Internet has brought stores from all around the world to one's computer screen. 
 
 One can categorize recommendation generation into three main categories: collaborative filtering, content-based filtering and hybrid approaches \citep{burke2002hybrid}. Collaborative filtering use the historical interactions of users with items and defines similar users and similar items. Then, it suggests items to users based on the items similar users have consumed \citep{schafer1999recommender}. For example, Spotify would suggest a new rap song to the user based on the rap songs other users with similar profiles have listened to \citep{jacobson2016music}. While quite useful, this approach has two major drawbacks: it does assume that users' preferences are static and do not change; it relies heavily on historical user data \citep{wang2011collaborative}. Content-based filtering is another technique which is widely used. It uses the properties of the items to decide on similar items and suggest them to users \citep{pazzani2007content}. For example, Google News analyzes articles based on their content and then suggest similar articles to users \citep{das2007google}. This approach too, while being quite useful, suffers from drawbacks. Recommending only similar items to the ones already consumer, it may lead to the notion of users being exposed to only limited circle of items, also commonly known as filter bubble \citep{tintarevKnowingUnknownVisualising2018}. Hybrid approach on the other hand, implied from its name, uses both content-based and collaborative techniques. Modern hybrid RS also utilize more sophisticated deep learning based approaches \citep{bahrainian2020deep}. Netflix can be considered the most widely known hybrid RS. Because hybrid techniques are based on content-based and collaborative filtering, they have inherited the main drawback of those two techniques, namely, adapting to evolving preferences. 
 
-It was previously observed that users' preferences are prone to change over time. They become bored with the similarity of the items they have consumed and suggested and want more personalization \citep{songWhenHowDiversify2019}. This makes RS adaptation to dynamic user preference extremely important. To mitigate RS low ability to "evolve" alongisde with the users' preferences, system engineers have introduced user control mechanisms to allow users to participate in personalization. 
+It was previously observed that users' preferences are prone to change over time. They become bored with the similarity of the items they have consumed and suggested and want more personalisation \citep{songWhenHowDiversify2019}. This makes RS adaptation to dynamic user preference extremely important. To mitigate RS low ability to "evolve" alongside with the users' preferences, system engineers have introduced user control mechanisms to allow users to participate in personalisation. 
 
 User control is refereed to as the "extend to which users can influence the recommendation generation" \citep{jannach2019explanations}. It was defined as users' ability to influence on recommendation process and its outcomes \citep{knijnenburgExplainingUserExperience2012}. User control is necessary for several reasons. Firstly, it allows system designers to directly tackle one of the biggest drawbacks of RS, namely, adapting to evolving user preferences. It is achieved by allowing users to provide initial preference information, explicit or implicit feedback, or modify the recommendation algorithm to better align it with their current interests \citep{tintarev2015explaining}. Secondly, it improves the overall user experience, allows users to explore various aspects of recommendation space, come across new and serendipitous items \citep{tintarev2015explaining,kotkovSurveySerendipityRecommender2016}. 
 
@@ -1354,7 +1332,7 @@ In a similar way, defining user control is also important to understand the vari
 
 Henceforth, in the following subsections, we will discuss the definitions of recommender systems and user control in detail and justify our choices for this study.
 
-\subsubsection{Recommender systems}
+\textbf{Recommender systems}\label{chapter:recommenderSystemsAgentsDifferentiation}
 
 The emergence of systems which provide personalized or tailored recommendations is closely connected to rise of e-commerce and Web-based technologies. In the literature such systems are described using different terms such as recommendation agents (RA), interactive decision aids (IDA) and RS. Hereby, I will address the overlap between these terms and clarify the definition of RS used for this study.
 
@@ -1378,7 +1356,7 @@ Secondly, RS offer more dynamic decision rules when compared to IDA. While both 
 
 Thirdly, RS use more complex set of information to generate recommendations. Unlike RA which only considers the focal user's preferences, RS also utilizes the preference information of the user group it thinks the focal user belongs to. Also, unlike IDAs which pre-dominantly use dialogue like elicitation RS uses different combinations of elicitation methods. For example, in the same Spotify, one can use like dislike icons to state the preference for a given song, artist, genre. Also, they can generate recommendations based on sole item within a playlist. Such interactions often lead to more serendipitous recommendations and higher overall satisfaction \citep{kotkovSurveySerendipityRecommender2016}. All in all, for the scope of this study I refer to online systems which have: a) dynamic decision rules, b) elicit user preferences in all stages of users' interaction with the system, c) uses item features in recommendation generation as RS.
 
-\subsection{User control}
+\textbf{User control}
 
 User control is referred to as "the extend to which users have control over the recommendation generation" \citep{knijnenburgExplainingUserExperience2012}. Depending on the interaction history of the user with RS, two main stages of user control can be distinguished : 1) control in preference elicitation phase, 2) control after recommendation generation \citep{jannach2017user}.
 
@@ -1425,8 +1403,7 @@ UTAUT is another model introduced by Venkatesh which is more complex and integra
 
 TAM was chosen as a theoretical framework for our study. TAM is a more suitable model than UTAUT for the current study, because it focuses on the cognitive and affective aspects of user acceptance that are most relevant and measurable in this context. TAM is also a simpler and more parsimonious model than UTAUT, which makes it easier to operationalize and measure in an online experiment environment. TAM requires only two main factors to be manipulated and measured: perceived usefulness and perceived ease-of-use. Both these factors can be altered by changing the level of user control over the RS. UTAUT, on the other hand, involves four main factors. These factors are more complex and may not be easily varied or measured in an online experiment. For example, social influence may depend on the presence and feedback of other users, which is not available in an online experimental setting , as participation is simultaneous. Facilitating conditions may depend on the availability and quality of technical support, which may not be necessarily relevant or consistent given online nature of the experimental setting.
 
-\subsubsection{Hypothesis development}
-
+\textbf{Hypothesis development}
 
 Personalization is proven to be one of the key elements enhancing user satisfaction with RS. Numerous studies have emphasized the significance of personalization in delivering tailored recommendations that better reflect to users' needs, ultimately resulting in increased satisfaction \citep{bostandjiev2012tasteweights, hijikata2012relation, knijnenburgExplainingUserExperience2012, songWhenHowDiversify2019}. The underlying thought is that personalized recommendations better reflect on individual preferences, thereby streamlining decision-making processes \citep{adomavicius2005toward}. A consistent finding in research is that end-users exhibit greater satisfaction with information systems when they regard these systems as more useful \citep{mahmood2000variables, venkatesh2003utaut}. As outlined in the Technology Acceptance Model (TAM), perceived usefulness is an important factor in determining an individual's intention to adopt a technology and, as a result, its acceptance \citep{davis1985technology}. Systems perceived as more useful are thought to be better equipped to address users' needs and expectations, resulting in increased satisfaction and acceptance levels \citep{venkateshTechnologyAcceptanceModel2008}.
 
@@ -1761,6 +1738,19 @@ Recent technological progress in face of LLMs (large language models) creates an
 
 Considering the rapid technological developments of the recent years, we may state with confidence that user control in recommender systems is about to take a huge leap forward and open even more research directions. 
 
+
+
+\newpage
+
+\section{General conclusion}
+
+In this 
+
+ I show that not only this model is able to capture context succesfully, but also information it provides has meaningful contribution to traditional choice model. One can utilize this information to partly address the drawbacks of such models like logit and probit. However, the nature of computational models only allows them to account for the context as aggregate. To address this drawback in 
+
+ This research introduced a flexible framework for accounting for context effects across various settings and with large and complex product menus. The methodology proved to adaptable to inconsistent menu sizes and is not confined to a single empirical application. Its potential extends to large-scale data from e-commerce websites and offline sources, enabling context effect research without costly experimental interventions. Consequently, this method can aid in designing optimal offers and enhancing recommender systems, especially for online outlets presenting large arrays of options. 
+
+ The approach remains robust to selection criteria and contextualization method used, highlighting the efficiency and speed of implementation which is of essence in online environments. It further underscores the critical role of choice set context effects in influencing user decisions and demonstrates the potential of integrating these effects into recommender system design.
 
 
 \newpage
