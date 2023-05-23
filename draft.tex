@@ -57,6 +57,7 @@
 
 
 
+
 \newcommand{\doubleitem}{%
   \begingroup
   \stepcounter{enumi}%
@@ -1035,7 +1036,7 @@ The results of this study provide a good foundation for the next chapter of my t
 
 
 \newpage
-\section{Use of clustering for consideration set modeling in recommender systems}\footnote{This chapter is based on a joint work with my supervisor Zakaria Babutsidze, also William Rand and Thierry Delahaye which has been published in the proceedings of 54th Hawaii International Conference on System Sciences}
+\section{Use of clustering for consideration set modeling in recommender systems}\footnote{This chapter is based on a joint work with my supervisor Zakaria Babutsidze, also William Rand and Thierry Delahaye which has been published in the proceedings of 54th Hawaii International Conference on System Sciences}\label{chapter:hicssPaper}
 
 \begin{abstract}
         The cold-start problem has become a significant challenge in recommender systems. To solve this problem, most approaches use various user-side data  and combine them with item-side information in their systems design. However, when such user data is not available, those methods become unfeasible. We provide a novel recommender system design approach which is based on two-stage decision heuristics. By utilizing only the item-side characteristics we first identify the structure of the final choice set and then generate it using stochastic and deterministic approaches.
@@ -1267,85 +1268,469 @@ The findings of this work can be implemented by various systems which face conti
 
 This work has some limitations. RS design using one-stage simple MNL probabilities would result in 52\% and 65\% in top-5 and top-10 accuracy, respectively. Such random utility models violate Luce's choice axiom \citep{luce2012individual}, which states that the choice probabilities of options in the choice set must be equally affected by the introduction or removal of a new option. However, one possible way to improve our approach could be the integration those probabilities into our models. Another possible avenue for future research could be using more complex characteristics derived from the choice set along with clustering.
 
-TALK ABOUT HOW DEMAND SIDE INFORMATION IS NOT ALWAYS ENOUGH AS PEOPLE'S PREFERENCES CHANGE AND RS NEEDS TO ALLOW USERS TO HELP IT. USER CONTROL BRIDGE IS BUILT HERE.
 
+In our this study, I demonstrated the importance of context effects derived from choice sets in shaping user decisions, as well as the feasibility of incorporating these effects into the design of recommender systems.
+Albeit enhancing the system's ability to align its recommendations on the account of user's two-step decision making process is a significant step forward, one must also recognize that context does not arise from the choice set alone. In previous chapters I have used Tversky's \citeyeraonly{tversky1972elimination} definition of context being "the composition  and the nature of the choice set, availability of various options in it". More recent stream of research has also established that choice context is also dependent on user preferences among other things \citep{adomavicius2011context, dey2001understanding}.
+
+Research agrees that user preferences are not static and rather fluctuate based on factors that are individual specific \citep{songWhenHowDiversify2019}. In light of this, it becomes clear that to help users in choosing, recommender systems must have tools that enable users to signal their preferences to it. All in all, this could be summarized as "help me help you" approach.
+
+Yet, a significant challenge arises when investigating those tools that can account for dynamic preferences, as the existing literature has studied it in specific domain settings. The lack of generalizability hinders creation of more versatile recommender systems which can adapt to varying contexts and user preferences. 
+
+To bridge this gap, my next study ventures into the realm of domain-neutral choice settings. By controlling for the choice context, I can focus on investigation of tools "let users help", ultimately striving to contribute to recommender systems design which are both responsive and adaptive. This arguments creates strong motivation and positions my study in the next chapter as necessary progression from this one.
+
+
+\newpage
+
+
+\section{User control and recommender systems acceptance}\label{chapter:UserControlAndRS}\footnote{This chapter is based on a joint work with my supervisor Zakaria Babutsidze}
+
+\begin{abstract}
+
+    This study examines the influence of user control on recommender systems' acceptance in a context-independent experimental setting, using the Technology Acceptance Model as a theoretical framework. It confirms the original  Technology Acceptance Model relationships, demonstrating that easy-to-use and useful recommender systems lead to higher user adoption rates. User control is found to be a crucial factor in explaining users' behavioral intention. The findings also reveal that different control methods have varying effects on users' experiences, suggesting a need for dynamic user controls that align with users' requirements. In conclusion, the study highlights the importance of user control in recommender systems and encourages further research into dynamic control mechanisms and more innovative approaches to increase user adoption further.
     
+\end{abstract}
 
+\subsection{Introduction}
 
+Internet has brought stores from all around the world to one's computer screen. It revolutionized the e-commerce by bridging users with products. While making e-commerce widely accessible, it also created difficulties for users with high number of products to choose from \citep{ricci2011introduction}. To mitigate this, recommender systems (RS) have been adopted \citep{kotkovSurveySerendipityRecommender2016}. Recommender systems are specialized information filtering tools that aim to suggest relevant items to users \citep{adomavicius2005toward}. The sheer amount of information present online make their existence essential and in today's  world, they have become omnipresent in our digital lives. When we try choose next Christmas gift, movie to watch on weekend, or a place to go during the next vacation, we use their recommendations to aid us. RS are not only useful for consumers (or end-users) to make a choice, but it is also essential for businesses as they offer more relevant items to users which otherwise would be undiscovered \citep{ricci2011introduction}. By using RS, businesses increase user interaction, have strong effect on sales volumes and diversity \citep{songWhenHowDiversify2019}.
 
+One can categorize recommendation generation into three main categories: collaborative filtering, content-based filtering and hybrid approaches \citep{burke2002hybrid}. Collaborative filtering use the historical interactions of users with items and defines similar users and similar items. Then, it suggests items to users based on the items similar users have consumed \citep{schafer1999recommender}. For example, Spotify would suggest a new rap song to the user based on the rap songs other users with similar profiles have listened to \citep{jacobson2016music}. While quite useful, this approach has two major drawbacks: it does assume that users' preferences are static and do not change; it relies heavily on historical user data \citep{wang2011collaborative}. Content-based filtering is another technique which is widely used. It uses the properties of the items to decide on similar items and suggest them to users \citep{pazzani2007content}. For example, Google News analyzes articles based on their content and then suggest similar articles to users \citep{das2007google}. This approach too, while being quite useful, suffers from drawbacks. Recommending only similar items to the ones already consumer, it may lead to the notion of users being exposed to only limited circle of items, also commonly known as filter bubble \citep{tintarevKnowingUnknownVisualising2018}. Hybrid approach on the other hand, implied from its name, uses both content-based and collaborative techniques. Modern hybrid RS also utilize more sophisticated deep learning based approaches \citep{bahrainian2020deep}. Netflix can be considered the most widely known hybrid RS. Because hybrid techniques are based on content-based and collaborative filtering, they have inherited the main drawback of those two techniques, namely, adapting to evolving preferences. 
 
+It was previously observed that users' preferences are prone to change over time. They become bored with the similarity of the items they have consumed and suggested and want more personalization \citep{songWhenHowDiversify2019}. This makes RS adaptation to dynamic user preference extremely important. To mitigate RS low ability to "evolve" alongisde with the users' preferences, system engineers have introduced user control mechanisms to allow users to participate in personalization. 
 
+User control is refereed to as the "extend to which users can influence the recommendation generation" \citep{jannach2019explanations}. It was defined as users' ability to influence on recommendation process and its outcomes \citep{knijnenburgExplainingUserExperience2012}. User control is necessary for several reasons. Firstly, it allows system designers to directly tackle one of the biggest drawbacks of RS, namely, adapting to evolving user preferences. It is achieved by allowing users to provide initial preference information, explicit or implicit feedback, or modify the recommendation algorithm to better align it with their current interests \citep{tintarev2015explaining}. Secondly, it improves the overall user experience, allows users to explore various aspects of recommendation space, come across new and serendipitous items \citep{tintarev2015explaining,kotkovSurveySerendipityRecommender2016}. 
 
 
+However, the studies investigating the effects of user control mechanisms on RS usage achieved differing conclusions. The study on control preference of users in conference RS setting derived  that participants did not treat recommendations coming from control enabled systems differently from the RS with no user control  \citep{jameson2002pros}.The importance of user control to users varies among consumers depending on "the nature of the application, its adoption and individual characteristics" and users were found to prefer simple control mechanisms to more sophisticated ones \citep{knijnenburg2011each, knijnenburgExplainingUserExperience2012}. Ability to control recommendation generation was found to be positively affecting user experience in music RS \citep{bostandjiev2012tasteweights, knijnenburgExplainingUserExperience2012}. Another study on different implementations of control mechanisms in music RS concluded that despite the positive correlation between the users' satisfaction and usage of such mechanisms, user control does not always end with satisfaction. Authors also found that people who had below average domain interest were satisfied even with non-accurate recommendations \citep{hijikataStudyUserIntervention2014}.
 
+Because of the complexity of RS and the nature of the studies, it is not surprising that most of the studies about user control in RS have involved either music, movie or news RS. The main reason for that has been their availability. Those systems were already pre-trained and one had to either download the data about user profiles, ask users to log-in with their existing accounts or create a new account. This approach has several drawbacks. Firstly, relying on pre-trained systems and using existing user profile data can lead to selection bias. Those systems were trained and designed only for use in a given domain and hence conclusions of such studies may have limited applicability to other domains. Secondly, asking users to use their own accounts or create new ones may lead to privacy concerns as users may be reluctant to share their personal preferences which may result in self-selection bias, hence, reducing the representativeness of the study \citep{belanger2011privacy}. Thirdly, using existing RS would limit the ability of researchers to amend the specific features or algorithms of such systems, hence constraining the scope of the experimentation.
 
+Another aspect to keep in mind is the domain knowledge. Users who have high domain knowledge generally tend to be more resistant to RS suggestions. Also, users with extensive domain knowledge may not be a good representation of general user population and they may tend to engage with RS in a way that the recommendations align with their pre-existing beliefs, leading to reduced diversity and "bubble" \citep{mollerNotBlameIt2018}.  
 
+The limitations discussed above make the domain-neutral setting significantly important in RS studies. While it is nearly impossible to come up with a pure "domain-neutral" setting, it is still possible to create a setting which has eliminated the most of domain-specific constraints. It would allow for examining the behavior of users with varying expertise levels in RS and achieve a more comprehensive understanding of how users with heterogeneous expertise levels interact with RS. This will not only facilitate the development of more adaptive RS but also allow the conclusions of studies to be more generalizable. Having a setting not tied to any domain would also allow for researchers to fine tune different features of RS, its algorithm which is hardly possible when using domain specific RS. Lastly, domain-neutral setting alleviates the impact of potential biases, such as confirmation bias, anchoring bias, overconfidence which are highly likely among users with high domain knowledge \citep{hijikata2012relation}.
 
+To the best of our knowledge, no other study has investigated user control and its effect on usage of RS in a pure domain-neutral setting. We aim to fill this gap by designing an experimental setting which is not only domain-free, but also has an RS with no specific assumptions about users' preferences. We utilize technology acceptance model (TAM) by Davis which is widely used in studies concerning usage of a specific technology \citep{davis1985technology}.
 
+\subsection{Definitions and scopes}
 
+The importance of precisely defining the concepts and constructs we use in our study is crucial. Defining the key constructs not only establishes a common understanding, but also provides boundary conditions and ensures the reliability of the research findings \citep{creswell2013research}.
 
+By clearly defining RS we are able to distinguish among related concepts such as recommendation agents (RA) and interactive decision aid tools (IDA) which wile sharing some commonalities, also entail some important differences in their goals, functionalities and user interactions \citep{xiao2007commerce}. By specifying the characteristics of RS in our particular context, we aim to ensure the relevance of our findings. This is also important considering our methodology and framework.
 
+In a similar way, defining user control is also important to understand the various methods and tools user can use to influence recommendation generation process. Different conceptualizations and methods have been explored in the literature \citep{pu2012evaluating}. While those methods have a common end goal, they differ in complexity,  effect time-frame and technical knowledge required to understand the causal links between manipulations of recommendation generation and the outcomes. By specifying the exact definition of user control in our study our objective is to ensure that the construct is measurable and generalisable. 
 
+Henceforth, in the following subsections, we will discuss the definitions of recommender systems and user control in detail and justify our choices for this study.
 
+\subsubsection{Recommender systems}
 
+The emergence of systems which provide personalized or tailored recommendations is closely connected to rise of e-commerce and Web-based technologies. In the literature such systems are described using different terms such as recommendation agents (RA), interactive decision aids (IDA) and RS. Hereby, I will address the overlap between these terms and clarify the definition of RS used for this study.
 
+RA has been conceptualized in the literature as "an interactive decision aid that assists consumers in the initial screening of the alternatives that are available in 
+an online store" \citep{haubl2000consumer, xiao2007commerce}. They are pre-dominantly implemented in e-commerce, education, organizational knowledge management contexts \citep{xiao2007commerce}. In the e-commerce setting,  RAs are implemented in the intial product search phase at e-commerce websites, like Macy's or Amazon's laptop selection assistant shown in the figure \ref{fig:amazonRA}. The user is queried about their preferences in a conversational, filter/table style or some other  format, and then based on the stated preferences RA generates the "recommendations". One distinct feature of RA is that it recommends options which satisfy all the preferences stated by the user. If one option does not meet the preference requirements, it has zero chance of appearing in the recommended list \citep{haubl2000consumer}. Another distinct feature of RA is that they consider the focal user's preferences in "isolation" , which means other potentially relevant information, such as choice context, other characteristics of the user or the user group are left unused \citep{wang2008attributions}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{staticFiles/amazonLaptopHandpicked.PNG}
+    \caption{Amazon recommender agent for laptop selection.}
+    \label{fig:amazonRA}
+\end{figure}
 
+IDA on the other hand is a "web based decision support system which elicits users preferences, make search on their behalf and provide them with subsequent product list" \citep{maes1999agents}. They have pre-defined set of decision rules which may give users a feeling of restriction in expressing their preference while interacting with the system and dissatisfaction with the overall process \citep{wang2009interactive, silver1988user}.
 
+Recommender systems are tools which use information about the users, its preference, historical user-item interactions and contextual information \citep{adomavicius2005toward}. Context is referred to as "any information to describe the characteristics of the user or entity which is relevant to the interaction, e.g. a person, place, object, attributes, or the application itself" \citep{dey2001understanding}.  While RS is conceptually similar to IDA and RA there are differences between them.
 
+Firstly, RS covers all stages of users' interaction with the system. Whereas RA mostly focus on the initial phase of the interaction. Hence, RS can adapt to users' changing or evolving preferences and needs \citep{songWhenHowDiversify2019}. This broad scope allows RS to provide more comprehensive and satisfying user experience. For example, Netflix's RS regularly adapts its recommendation algorithms based on users viewing history, the genres they prefer and interaction with the platform over time.  
 
+Secondly, RS offer more dynamic decision rules when compared to IDA. While both systems use similar ways of eliciting user preferences, RS have more flexible and dynamic rules in doing so. RS allows users to go back to previous elicitation stages and change their preferences. Such flexibility enhances the relevance of provided recommendations and leads to higher engagement. For example, Spotify uses RS that dynamically adjusts its algorithm based on users' listening habits, discovered artists and changing moods \footnote{Here mood is not necessarily referring to user's personal mood, but to the mood of the songs}. 
 
+Thirdly, RS use more complex set of information to generate recommendations. Unlike RA which only considers the focal user's preferences, RS also utilizes the preference information of the user group it thinks the focal user belongs to. Also, unlike IDAs which pre-dominantly use dialogue like elicitation RS uses different combinations of elicitation methods. For example, in the same Spotify, one can use like dislike icons to state the preference for a given song, artist, genre. Also, they can generate recommendations based on sole item within a playlist. Such interactions often lead to more serendipitous recommendations and higher overall satisfaction \citep{kotkovSurveySerendipityRecommender2016}. All in all, for the scope of this study I refer to online systems which have: a) dynamic decision rules, b) elicit user preferences in all stages of users' interaction with the system, c) uses item features in recommendation generation as RS.
 
+\subsection{User control}
 
+User control is referred to as "the extend to which users have control over the recommendation generation" \citep{knijnenburgExplainingUserExperience2012}. Depending on the interaction history of the user with RS, two main stages of user control can be distinguished : 1) control in preference elicitation phase, 2) control after recommendation generation \citep{jannachUserControlRecommender2017}.
 
+First stage commonly consists of preference forms, interactive conversation and critiquing \citep{jannach2019explanations}. In the preference form, users are asked pre-defined questions about their search. The answers may come in form of selection from drop-down list, user input, or slider style input. Figure \ref{fig:preference} shows an example of this method. Users can express their preferences clearly and directly.  However, when the preference form is too long or too complex, users might disengage \citep{jannachUserControlRecommender2017}. Moreover, it might be difficult to interpret the underlying meaning of these preferences. For example, when users utilize slider based inputs, it might not be obvious to them what is the effect of having all sliders in the middle, far left or far right \citep{jannach2017user}. Another disadvantage of this method is when the preference of the user does not exist in the form at all.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{staticFiles/preferenceForm.png}
+    \caption{Preference form on movie and news RS. Sourced from from Jannach et. al \citeyearonly{jannach2017user}}
+    \label{fig:preference}
+\end{figure}
 
+Interactive conversation on the other hand, converts preference building process into a multi-stage dialogue where next steps are generated based on the replies to previous ones \citep{he2016interactive}. It ensures that users provide feedback more naturally and less intrusive. This method is especially used in so called "cold-start" events, where RS has no previous knowledge about the user \citep{guAddressingColdStartProblem2019} However, the drawback of this method is that the results are not immediately visible and preference updating only happens upon completion of the procedure. Also, if user wants to change their previous answers, they have to restart that stage again. Designing a good dialogue based systems is not possible without taking into account the trade-off between the dialogue relevance and the cognitive requirements of the procedure \citep{Gao_2021}. 
 
+In contrast to interactive conversation, when critiquing, users state their preferences directly on features of the products or on the products themselves as seen on figure \ref{fig:critiquing}. It is more straight-forward way of providing focused feedback. However, users may not always be able to articulate their preferences this way, as they might have to review and critique multiple items. Moreover, it might not always be clear how critiquing a particular recommendation affects the algorithm. For example, in the figure \ref{fig:critiquing} it might not be obvious to a user what the word "this" refers to in terms of algorithm change if she selected "See fewer stories like this".
 
+The second stage of user control entails functionalities which allow users to influence recommendations after they are generated. The previous approaches have user sorting, feature and weight based filtering and critiquing. \citep{jannach2017user, bostandjiev2012tasteweights, swearingen2001beyond, schafer2002meta, schaffer2015hypothetical}. 
 
+Considering the number of various tools available to achieve user control in different stages of users' interaction with RS, it is important to define a scope of user control for our study. I follow the requirements of user control from previous  studies \citep{jannach2017user}. User control must be easy to understand, have an immediate effect on recommendations and must not interfere with user interaction. Hence, in this study I will refer to critiquing and sorting as user control. 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{staticFiles/critiquingRS.PNG}
+    \caption{Critiquing on Google News. Sourced from Jannach et al. \citeyearonly{jannach2017user}}
+    \label{fig:critiquing}
+\end{figure}
 
+\subsection{Theoretical background and hypotheses development}
 
+It is essential to base this study in a theoretical framework. As previously mentioned, we use Technology Acceptance Model by Davis \citeyearonly{davis1985technology}. Currently there are two dominant technology acceptance models used in the literature: Unified Theory of Acceptance and Use of Technology (UTAUT) and Technology Acceptance Model (TAM) \citep{venkatesh2003utaut, davis1985technology}. Both models provide valuable insights in understanding the users' acceptance of information systems. In the following section we will briefly discuss both TAM and UTAUT and argue why we have ultimately selected TAM for our study. Then, hypotheses will be developed.
 
+\subsection{Models of technology acceptance}
 
+The continuous quest of understanding the users' acceptance of a certain technology is an ongoing challenge in management studies \citep{schwarz2007looking, williams2009contemporary}.  Rapidly increasing information systems implementations, their crucial role in modern business world and their under-utilization problems has made the issue of acceptance of a technology central \citep{lancelotmiltgenDeterminantsEnduserAcceptance2013}. Just during the last few decades increased interest of the research community in addressing this question has resulted in the development of two major theories and models of technology acceptance. 
 
+The Technology Acceptance Model (TAM), which was proposed by Davis \citeyearonly{davis1985technology}, is a widely accepted and influential model for understanding and predicting users' acceptance and adoption of information systems. It was derived from social-psychology based Theory of Reasoned Action and Theory of Reasoned behavior that have explained individuals behavioral intentions and actions. TAM simplifies and adapts these two models and presumes the mediating roles of "perceived ease of use" and "perceived usefulness" in explaining the relationship system characteristics and actual systems use \citep{marangunic2015technology}. 
+Perceived Usefulness (PU) - According to Davis, PU refers to "the degree to which a user believes that using a particular technology will enhance their job performance or provide benefits" \citep{davis1985technology}. The construct of PU is detrimental in TAM as it directly influences users' intentions to adopt and use the technology. Empirical evidence has suggested that users will likely to adopt a system "if they perceive it useful and capable of improving their performance" \citep{davis1985technology}
 
+Perceived Ease of Use (PE) - It represents "the degree to which a user believes that using this specific technology will be easy to use" \citep{davis1985technology}. That is, it captures the user's perception of the easiness of the system's use. It not only directly impacts user's intentions to adopt a technology, but it also has an indirect effect to those intentions through PU, i.e. users may perceive easier to use systems more useful.  
 
+Because of its simplicity and versatility after introduction TAM has been used with a number of extensions and modifications to better suit specific research context and include relevant constructs \citep{amoako2004extension, burton2006mediationextension, featherman2003predictingextension}. Subsequently, those modifications have led to scholars building upon on TAM. TAM2 \citep{venkateshDeterminantsPerceivedEase2000} and TAM3 \citep{venkateshTechnologyAcceptanceModel2008}, UTAUT \citep{venkatesh2003utaut} have been introduced. Detailed review of TAM can be found in the study of Marangunic \citeyearonly{marangunic2015technology}.
 
+UTAUT is another model introduced by Venkatesh which is more complex and integrative model. It is a synthesis of eight established models including TAM \citep{venkatesh2003utaut}. UTAUT considers four main constructs - performance expectancy, effort expectancy, social influence and facilitating conditions as main determinants of behavioral intentions and usage behavior. The definitions of performance expectations and effort expectancy are heavily influenced by Tam's PE and PU. Social influence refers to the extent to which a user perceives that important others believe they should use a specific technology. Facilitating conditions is a degree to which a user believes that an organizational and technical infrastructure exists to support the use of a technology. UTAUT also entails four moderators - age, gender, experience and voluntariness as moderators. Like TAM, UTAUT also has been extensively used in various research context with different technologies, from communication \citep{wu2007empirical}, specialized business systems \citep{kijsanayotin2009factors} to general purpose technologies \citep{abu2010internet}. For more comprehensive review, refer to the work of Williams \citeyearonly{williams2015unified}. 
 
+TAM was chosen as a theoretical framework for our study. TAM is a more suitable model than UTAUT for the current study, because it focuses on the cognitive and affective aspects of user acceptance that are most relevant and measurable in this context. TAM is also a simpler and more parsimonious model than UTAUT, which makes it easier to operationalize and measure in an online experiment environment. TAM requires only two main factors to be manipulated and measured: perceived usefulness and perceived ease-of-use. Both these factors can be altered by changing the level of user control over the RS. UTAUT, on the other hand, involves four main factors. These factors are more complex and may not be easily varied or measured in an online experiment. For example, social influence may depend on the presence and feedback of other users, which is not available in an online experimental setting , as participation is simultaneous. Facilitating conditions may depend on the availability and quality of technical support, which may not be necessarily relevant or consistent given online nature of the experimental setting.
 
+\subsubsection{Hypothesis development}
 
 
+Personalization is proven to be one of the key elements enhancing user satisfaction with RS. Numerous studies have emphasized the significance of personalization in delivering tailored recommendations that better reflect to users' needs, ultimately resulting in increased satisfaction \citep{bostandjiev2012tasteweights, hijikata2012relation, knijnenburgExplainingUserExperience2012, songWhenHowDiversify2019}. The underlying thought is that personalized recommendations better reflect on individual preferences, thereby streamlining decision-making processes \citep{adomavicius2005toward}. A consistent finding in research is that end-users exhibit greater satisfaction with information systems when they regard these systems as more useful \citep{mahmood2000variables, venkatesh2003utaut}. As outlined in the Technology Acceptance Model (TAM), perceived usefulness is an important factor in determining an individual's intention to adopt a technology and, as a result, its acceptance \citep{davis1985technology}. Systems perceived as more useful are thought to be better equipped to address users' needs and expectations, resulting in increased satisfaction and acceptance levels \citep{venkateshTechnologyAcceptanceModel2008}.
 
+User control is recognized as an essential mechanism for achieving personalization in RS \citep{jannach2017user}. By enabling users the ability to influence recommendation processes, RS can suit individual preferences better, hence producing more tailored and relevant suggestions. The relationship between personalization, perceived usefulness, and user control can be elucidated by examining how user control enhances personalized experiences. When users are afforded greater control in RS, they can refine the system to better align with their preferences and requirements \citep{chen2014designing}. Considering the associations between personalization, perceived usefulness, and user control, I am positing the following hypothesis:
 
+\textbf{H1}:  \textit{Higher degree of user control in RS leads to higher perceived usefulness of  RS}. 
 
+User control represents a an important component in modern recommender systems, as it empowers end-users to influence the recommendation generation process and provide feedback on suggested items \citep{pu2012evaluating}. Such control mechanisms include setting preferences, employing preference filters, and providing explicit and implicit feedback on recommended items. A main concern regarding the incorporation of user control within recommender systems is the transition from passive recommendation consumption to active system engagement \citep{knijnenburg2011each}. This shift demands that users make decisions and supply input, including specifying preferences and implementing preference filters. Such supplementary steps might prove time-consuming and may not fully align with users' expectations for seamless system interactions \citep{xiao2007commerce}. While increased user control may yield more personalized and precise recommendations as a result of fine tuned preference profiles, it simultaneously requires users to take additional steps, potentially undermining the system's ease of use. Additionally, while providing feedback contributes to the refinement of the recommendation algorithm, users may exhibit reluctance or an inability to consistently invest time and effort into assessing recommendations and delivering feedback to the system \citep{herlocker2000explaining}. This additional step also imposes cognitive demands, as users must evaluate the recommendation's relevance, determine suitable feedback, and articulate their thoughts \citep{knijnenburgExplainingUserExperience2012}. Hence I derive the following hypothesis:
 
+\textbf{H2}: \textit{Higher degree of user control will lead to reduction of ease of use of RS}. 
 
+As the Information Systems (IS) domain expanded, scholars have turned their focus to the role of other factors in improving user adoption and continued use of innovative technologies. Users have been found to intend to  use specific IT when they believed they could control the way that technology behaves \citep{teo2019students}.  Having the ability to navigate potential hazards and uncertainties associated with engagement with unfamiliar technologies are crucial \citep{gefen2003trust}. Besides controlling the process, controlling the content that software generates has been associated with increased usage in IT systems \citep{lee2006empirical}.  Within this context, the interplay between user control algorithm-driven  frameworks, such as recommendation systems, has emerged as a focal point of interest.
 
+Recommendation systems represent IT systems that harness algorithms to provide personalized content, merchandise, or services to users, drawing on their preferences, historical data, and additional contextual factors \citep{portugal2018use}. As these systems become increasingly ubiquitous and permeate diverse facets of everyday life, it is essential for both researchers and practitioners to comprehend the elements that shape user intention to utilize such systems.
 
+Scholars have concluded that users demonstrated a higher propensity to adopt algorithms when granted even a slight control over the algorithm's operations \citep{dietvorstEtAl18}. In view of these insights, I advance the subsequent hypothesis:
 
+\textbf{H3}: \textit{H3: User control leads to higher behavioral intention (BI) to use RS.}
 
+TAM also proposes that perceived ease of use and perceived usefulness predict behavioral intention to use a specific technology. Moreover, empirical evidence also shows that, perceived ease of use also has not only direct effect on intention to use, but also through perceived usefulness \citep{davisPerceivedUsefulnessPerceived1989}. Hence, in this light I presume that the same would be true in RS: 
 
+\textbf{H4}: \textit{H4: Higher perceived usefulness leads to higher intentions to use RS.}
 
+\textbf{H5}: \textit{H5: Higher perceived ease of use leads to higher intentions to use RS.}
 
+\textbf{H6}: \textit{H6: Higher perceived ease of use leads to higher perceived usefulness of RS.}
 
+Figure \ref{tam} summarizes the theoretical model and hypotheses in this study.
+\begin{figure}[ht]
+\centering
+    \begin{tikzpicture}[node distance=2cm, auto, 
+                    latent/.style={rectangle, draw, align=center, scale=1.3},
+                    every label/.style={scale=1.3},
+                    every edge/.style={scale=1.3},
+                    ]
+      % Latent variables
+      \node[latent] (percontrol) {User\\Control};
+      \node[latent] (pease) [below right=1.5cm and 3cm of percontrol] {Perceived\\ease of use};
+      \node[latent] (puseful) [above right=1.5cm and 3cm of percontrol] {Perceived\\usefulness};
+      \node[latent] (bi) [right=9cm of percontrol] {Behavioral\\intention};
+    
+      % Paths with labels
+      \draw[-latex, line width=1pt] (percontrol) -- node[midway,above right, yshift=0.4cm] {H1} (puseful);
+      \draw[-latex, line width=1pt] (percontrol) -- node[midway,below right, yshift=0.4cm] {H2} (pease);
+      \draw[-latex, line width=1pt] (puseful) -- node[midway,above, yshift=0.2cm] {H4} (bi);
+      \draw[-latex, line width=1pt] (pease) -- node[midway,below] {H5} (bi);
+      \draw[-latex, line width=1pt] (pease) -- node[midway,below left] {H6} (puseful);
+    \draw[-latex, line width=1pt] (percontrol) -- (bi);
+      \node[above] at ($(percontrol)!.7!(bi)$) {H3};
+    
+\end{tikzpicture}
+  \caption{Model framework used in this paper. Sourced from Davis \citeyearonly{davisPerceivedUsefulnessPerceived1989}. H4, H5 and H6 are the original relationships in Davis' work.}
+  \label{tam}
+  \end{figure}
 
 
+\subsection{Methodology}
 
+To test these hypotheses I have conducted an online experiment with participants (hereafter users and participants are used interchangeably) residing in US recruited through Amazon MTurk. Experiment was hosted on a third party website and consisted of an information search task and a questionnaire. I found information search task suitable for this study firstly because information search tasks can represent real-world scenarios where consumers are deciding between various options and also it is where the application of recommender systems are at its highest. Secondly, such setting encourages users to interact with the recommender system, as active involvement is crucial to understand users' acceptance of such technology. Thirdly, an information search task provides an opportunity to directly measure the users' performance, such as the time taken to complete the task, the number of recommendations used, and the quality of the results obtained. Not only these metrics can be used to evaluate the effectiveness of the recommendations, but it also creates opportunity for us to tie users' performance to their remuneration. In previous studies, the experiments that entailed recommender systems have either used already existing mainstream recommender system where they asked participants to log in to those systems with their personal accounts, or used recommender systems with preference-elicitation phase which would require user to rate required number of items before proceeding with the experiment \citep{millecampControllingSpotifyRecommendations2018}. 
 
+One can argue that information search task may not be able to capture variety of possible use cases of recommender systems. Recommender systems are used in various domains, such as e-commerce, entertainment, social media, to count a few. Focusing only on an information search task may limit the study's generalizability to other contexts. I address this concern in two ways. Firstly, I use randomly generated data in a multidimensional and multiattribute setting. It makes the task be less dependent on any potential domain-specific knowledge making the findings more generalizable. Secondly, I only recruit participants from MTurk who have masters qualification as they are more adaptable to varying tasks and are less likely to be effected by the task context. 
 
+Another argument can be that, users might have varying expertise in performing online tasks and tying their remuneration to their performance might not give them enough intentions to perform well. By recruiting only participants with masters qualification and implementing two stage remuneration process I address both parts of this argument.
+Amazon uses complex criteria including the variety of the tasks users have previously participated in, the approval rate, the relative time-frame between participations to assign masters qualification to MTurkers (commonly used self-identification term by people participating in tasks on MTurk). I implement two stage remuneration process where for completion of the task participant is paid the base amount no matter their performance. Then, based on their performance they are being paid an additional amount up to the base amount as bonus, i.e. based on their performance they can get the double the base amount as overall payment \footnote{Also, if the task has optional bonus and the user is getting little fraction of the bonus, this is also flagged by Amazon's internal rating systems and it affects the user's master qualification directly.}. Hence, users are also eager to get higher bonuses.
 
+Ultimately, with the proliferation of online experiments and portals like MTurk and Profilic where one can run such experiments, brought attention of various AI or simple rule based bots, participants who would try to cheat in one way or another \citep{aguinis2020mturk}. To minimize such risks I have implemented IP based protection systems, which would block the same user participating again, or simultaneously participating in more than one experiment using different browsers \footnote{All IP based information has been deleted after the completion of the data collection process}. Also, users trying to use any custom made scripts were blocked and not paid. Only participants residing in the US were eligible for the study. All in all, I collected 400 usable observations between November 2022 and February 2023. The sample size was determined prior to the study and analysis was conducted only after the data gathering process ended.
 
+After participants finish the search task, they would proceed to the questionnaire stage. Their answers did not affect the amount of remuneration, but only those who filled the questionnaire and submitted the code they were given in the end to Mturk were considered entitled for payment.  The questionnaire consisted of 18 questions; three demographic, one attention check and fourteen questions to measure variables of interest with seven-point Likert scale measurement were used: from 1-strongly disagree to 7- strongly agree. Two questions were used to measure behavioral intention and four per each of the remaining variables: user control, perceived ease of use and perceived usefulness. The detailed description of the questions, measurement scales are available in the Appendix \ref{appendix:userControlExperimentQuestionnaire}. %\cite the appendix
 
+\subsection{Task details}
 
+In this section I will discuss the information search task in detail. As soon as participants enter the portal where the experiment is hosted, they are provided with instructions regarding what to expect and how to perform. If any part of the instructions was unclear to them, they could navigate back to that part and read it again. They were informed that they would have 10 minutes to perform the search task which would be followed by questionnaire. Only those who would fill the questionnaire would be eligible for payment. In the end, they would receive a "survey code" to provide to Mturk, which is the only way to signal about the completion of the experiment. 
 
+After participants went through the instructions they saw the main screen of the information search task. In this task users were presented with a choice task to select five options from the given choice set according to pre-defined ``user preferences" within 10 minutes. The choice set which was located on the left hand side of the screen and consisted of hundred randomly generated options with a feature vector $\vec f(F_1, F_2, F_3, F_4, F_5)$, where $ F_i \in U(0; 500)$. I decided the upper bound of the values in favor of 500 to increase the variance in the dimension to better reflect the real-world choice scenarios. Figure \ref{fig:experimentInterface} shows a randomly generated choice set inside a blue rectangle.
 
+\begin{figure}
+\begin{center}    \includegraphics[width=0.99\linewidth]{staticFiles/EDITEDexperimentScreenFULL.png}
+    \caption{Experimental interface: selected options are highlighted in green. Neither sorting or hiding feature is available for this participant. Coloured rectangles were added ex-post for identification purposes and were not par t of the interface. Blue rectangle corresponds to the choice set, orange to recommendations and green to final selection. }
+    \label{fig:experimentInterface}
+\end{center}
+\end{figure}
+
+For this search task, participants were asked to maximize the simple utility function  $U = F_1 + F_3 + F_5$. This type of utility function was selected for several reasons. First, this utility could be related to different choice settings in real world. For example, in vacation planning, travelers often consider multiple factors such as destination, accommodation, activities, budget, and climate. A pragmatic traveler might put a premium on the destination, activities, and budget while being more flexible on accommodation and climate. For instance, they might look for a trip to an exotic location with adventurous activities within their budget, even if it means staying in a more modest accommodation or traveling during the off-season. Another example could be related to music selection where user could be satisfied with three genres she likes, for example, rock and rap and orchestral classic music, only when the next song has all of them (And We Run by Within Temptation for example). And if we assume that the features $F_1 \dots F_5$ are inverse representations, it can also be applied to airfare choice, where customer would search for options which has the lowest price, flight duration and layovers.  Second, such explicit definition of utility allows to evaluate subjects performance by comparing the average $u$ over five chosen options with the accurate "ground truth" which one can calculate given the choice set (i.e., the average of top five options that maximize $u$). This is important as it allowed me to tie subject's remuneration to her performance and provide economic incentives for solving the task. Third, one can argue that we could select utility as a function of only two, or any other combination of three features, for example $U = F_1 + F_2 + F_4$. While I agree that this could be done, I have selected the utility function as it is to prevent two features of interest be besides each other. This would add some level of complexity to the task which would require the participant to gaze focus on non-neighbouring dimensions. Studies have previously concluded that eye movements happen in real-life choice scenarios between dimensions \citep{noguchi2018multialternative}.
+
+I also decided to round down the values $F_i$ to the nearest integer when presenting to reduce the cognitive capabilities required to perform the calculations. Although this may not fully mitigate the cognitive difficulties in performing the task, having recruited only participants with masters qualification certainly helps to neutralize it more \citep{aguinis2020mturk}.
+
+As depicted in the figure \ref{fig:experimentInterface}, alongside with the choice set, on the left hand side of the screen user is presented with ten "recommended options" that they can use to solve the task. Users could select and deselect options from either the choice set, or from the recommended options. Unlike the previous studies about recommender systems who have used readily available systems like Movielens \citep{movielens2018}, Spotify \citep{millecampControllingSpotifyRecommendations2018} that use collaborative filtering and other complex machine learning based algorithms the decision was made  to take a different approach. The main criteria was that simple in nature recommendation algorithm, which resulted in diverse recommendations, while being easy for users to understand and also to make changes to. The algorithm was made somewhat disconnected from user's preferences. It simply collected options that have high value in each of five option characteristics ($F_i$s). Given the attributes of the products, RS would assume by default that the user is interested in at least one of the attributes, as it is the case in many real world systems \citep{guAddressingColdStartProblem2019}. The algorithm presents participants with options possessing the highest values in each dimension, generally resulting in higher expected utility compared to the expected utility of the selection from the choice set. However, the algorithm will not supply users with a set of options that directly corresponds to the search task's genuine solution, as it neglects the necessary pairing across three dimensions mandated by the task. The design of such an algorithm mirrors real-life decision-making scenarios wherein the recommendation system lacks comprehensive information about the user's preferences and must make assumptions about preference weights across all dimensions \citep{scheinMethodsMetricsColdStart}.
+
+Another feature of the recommender system is that users are also presented with the control mechanism to interact with the RS aiming to improve recommendation set and thus simplifying her search task. Users can eliminate up to three features from algorithm's consideration. Removing four out of five features would have resulted in options corresponding to top 10 values in the remaining feature, which would eliminate the usefulness of recommendations to users. At the beginning, the recommender algorithm takes all five features into account. Based on how many features user has removed, the number of elements which corresponds to the top values in each included dimension changes. Here is the summary of how algorithm generates recommendations with different scenarios:
+
+\begin{enumerate}
+    \item  All features are present. In this case, options corresponding to the top two values per each feature are included into the final recommendation. There could exists cases in which one or more options correspond to top values in different features. I refer to this as the overlap event. In case of overlap, lets say for the second top value, algorithm will randomly decide which for which feature to "keep" that option and for the other feature(s) it will select the next order, which will be three. This process will continue until there are no overlaps and ten options are selected.
+    \item  Four features are present. In this case, algorithm will select top two values per each feature and solve any overlap events. Then, for the remaining two options, it will randomly decide for which feature(s) it should include the remaining two variables which will randomly be either third, or both third and fourth top value. Lastly, it will solve any overlap events.
+    \item  Three features are present. Similar to the case above, top three elements are selected per feature. Overlap events are solved. The remaining one option will be the fourth top element based on randomly selected feature of the three. lastly, it will solve any overlap events.
+    \item  Two features are present. Algorithm will select five options per each feature corresponding to the top five elements in each feature. Then, overlap events will be solved.
+\end{enumerate}
+
+
+The expected utility of ten recommendations could be calculated via $U_R = \sum_{r = 1}^{10}{U_r}$ where $U_R$ is the utility of the recommendations and $U_r$ is the utility of the single recommendation. The utility of a single recommendation could be calculated via $U_r = U_{F_1} + U_{F_3} + U_{F_5}$.
+
+Assume, there is a vector $X$ which has one hundred elements  where $X_i\sim U\left(0,1\right)$. If one orders this vector in ascending order, the expectation of the $kth$ order statistic is calculated as
+$$
+E\left(X_{\left(k\right)}\right)=\frac{n!}{\left(k-1\right)!\left(n-k\right)!}\int_{0}^{1}{x^k\left[1-x\right]^{n-k}dx}
+$$
+
+$$
+=\frac{\Gamma\left(n+1\right)}{\Gamma\left(k\right)\Gamma\left(n-k+1\right)}\int_{0}^{1}{x^k\left[1-x\right]^{n-k}}dx
+$$
+$$
+=\frac{\Gamma\left(n+1\right)}{\Gamma\left(k\right)\Gamma\left(n-k+1\right)}\cdot\frac{\Gamma\left(k+1\right)\Gamma\left(n-k+1\right)}{\Gamma\left(n+2\right)}\int_{0}^{1}\frac{\Gamma\left(n+2\right)}{\Gamma\left(k+1\right)\Gamma\left(n-k+1\right)}x^k\left[1-x\right]^{n-k}dx
+$$
+$$
+=\frac{\Gamma\left(n+1\right)}{\Gamma\left(k\right)\Gamma\left(n-k+1\right)}\cdot\frac{\Gamma\left(k+1\right)\Gamma\left(n-k+1\right)}{\Gamma\left(n+2\right)}
+$$
+$$
+=\ \frac{\Gamma\left(k+1\right)\ \Gamma\left(n+1\right)}{\Gamma\left(k\right)\ \Gamma\left(n+2\right)}\ =\ \ \frac{k}{n+1}
+$$
+where $k$ is the order of the element we are interested in, $n$ is the number of elements in the vector. Subsequently, in case $X_i\sim U\left(0,\theta\right)$ which is this case ($\theta = 500$), I use transformation end up with 
+
+$$
+E\left(X_{\left(k\right)}\right)\ =\ \theta\frac{k}{n+1}
+$$
+By applying this formula, I are able to calculate the mathematical expectation of each recommended option and as a result, entire recommendation set. The default recommendation set would have an expected utility of 894. If for example, user hides all useless features, $F_2$ and $F_4$, then the expected utility of the recommendation set would increase to 981 or by almost 10 percentage points. If the opposite happens, i.e. user hides all useful features, $F_1$, $F_3$ and $F_5$, then the expected utility of recommendation set would decrease significantly to 750 or by 16 percentage points from the default.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{staticFiles/ThreeFeaturesExpectationTop10SUMutility.png}
+    \caption{The expectation of the recommendations given different scenarios. Diamond symbols represent the features affecting the algorithm. Their positions are arbitrary. The special case where only 1 feature affects the algorithm is included for convenience.}
+    \label{fig:expectationGraph}
+\end{figure}
+
+An important aspect of this design is that depending on user behavior, I can actually measure the usefulness of recommendation system by measuring the change in overall return across all recommended options. Figure \ref{fig:expectationGraph} shows the expectation of the recommendations given the different scenarios. So, I would not only be able to study the differences in user behavior across experimental treatments, but I would also be able to study which part of performance differential is actually due to objective change in the quality of recommended options. Refer again to figure \ref{fig:experimentInterface} for additional details of the experimental interface.
+
+Modern search interfaces usually have tools to facilitate the smoother user experience alongside with recommendations. These may include sorting and filtering features which are not part of the recommender system per-se. However, they offer users help in finding what they are looking for. For this reason I have added a sorting feature as an additional characteristic. Users could sort options in increasing or decreasing order along each of five dimensions in both the choice set, or the recommended options table on the right-hand side. This potentially helps them to solve the task, maximize $U$, but does not change the recommendation set. Although this feature does directly make the recommendetations better, it makes it easier to solve the task and can be used in conjunction with the RS to complete the task faster. So, this can be seen as a feature which creates the control over the search task, but does not have an impact on recommendation generation \citep{jannachUserControlRecommender2017}. 
+
+Participants were randomly allocated to one of four treatments based on whether subjects have sorting and feature hiding capabilities. Users were remunerated with a fixed 2\$ and additional bonus up to 2\$ which was calculated as 
+
+$$R = 1 + \frac{U_u}{U_a}$$
+
+where $U_p$ is the performance of the user which is the average utility of the final selected 5 options by the user and $U_m$ is the maximum performance which is the average utility of 5 options which correspond to actual options with highest values of $U$. I performed 1000 simulations assuming participants would randomly select 5 options from a) default provided recommendations; b) recommendations as a result from hiding unnecessary columns (i.e. best case); c) recommendations as a result hiding necessary columns (i.e. worst case); d) choice sets without considering recommendations. Even in the worst case scenario (scenario d) average remuneration for approximately 15 minute experiment is around 3.2\$ which is greater than the Federal minimum hourly wage  of 7.25\$ per hour \footnote{Retrieved from https://www.dol.gov/general/topic/wages/minimumwage. Applicable as of March 2023}. Figure \ref{fig:averageRemuneration} compares the remuneration of the simulations and the actual participant remuneration in the experiment.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{staticFiles/AverageRemunerationWorstToBest.png}
+    \caption{Remuneration distribution in the simulations and the actual experiment}
+    \label{fig:averageRemuneration}
+\end{figure}
+
+
+
+
+\subsection{Results}
+
+\textbf{Descriptive results}
+
+I obtained 400 usable samples. Average respondent was a 42 year old male with a bachelor's degree. Considering the average age in the US being 38 and median age ranging between 31 to 45 \footnote{Retrieved from https://worldpopulationreview.com/state-rankings/median-age-by-state} I can state that the sample corresponds to the US population. 43\% of respondents were female while having 4 non-binary individuals. 52\% of respondents had bachelors degree and 10\% possessed also masters degree. The results show that the participant pool is both diverse in gender and education level and is not abnormal.
+
+Before proceeding to main results, it is important to assess the effectiveness of recommender system. I have previously showed their hypothetical effectiveness in the figure \ref{fig:expectationGraph}. Figure \ref{fig:actualRecommendationPerformance} shows the observed performances of the recommendations given different scenarios. The recommendations which were generated using only non-useful features as expected had the least utility while recommendations comprising of only useful features topped the remaining scenarios. Recall that there were four treatment groups. Participants who could alter recommendation generation on average scored higher the ones who could not. On the contrary, sorting was found not to improve the overall performance of participants. Table \ref{tab:rewardandcompletion} shows  descriptive  information about groups and their performances.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{staticFiles/ThreeFeaturesObservedTop10SUMutility.png}
+    \caption{The observed utilities of the recommendations given different scenarios. Diamond symbols represent the features affecting the algorithm. Their positions are arbitrary. Dashed line represents the average utility of participants in the search task}
+    \label{fig:actualRecommendationPerformance}
+\end{figure}
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{p{2cm}lllp{2cm}p{2.5cm}}
+\hline
+\textbf{Treatment group} & \textbf{Hiding} & \textbf{Sorting} & \textbf{Count} & \textbf{Mean bonus} & \textbf{Mean completion time} \\ \hline
+1                        & No               & No              & 100           & 1.78               & 257                          \\
+2                        & No              & Yes              & 100           & 1.74               & 260                          \\
+3                        & Yes               & No             & 99           & 1.81               & 239                          \\
+4                        & Yes              & Yes             & 101           & 1.81               & 246                          \\ \hline
+\end{tabular}
+\caption{Overview of treatment groups and reward and time spent (in seconds) on the search task}
+\label{tab:rewardandcompletion}
+\end{table}
+
+One advantage of having an external experiment setup was that it allowed me to measure all experiment related activity of the participants. They ranged from selection and deselection of particular option to sorting and hiding of particular features. From the final choice of the participants I identified which options were selected from the recommendation table and which ones were selected from the overall choice set. To test the effects of sorting and hiding I have conducted t-tests comparing treatment groups on three metrics: completion time of the search task, amount of performance based bonus and the share of the options which were chosen from the recommendation set.  Despite its statistical insignificance, by analyzing the share of the options selected from recommendations in the participant's submission it was concluded that that users who could change the way the recommendations are generated, were more likely to select the final options from the recommendations, when they could not sort. Also, participants who could hide finished the search task on average quicker than the other group. Sorting alone did not lead to increased performance among participants. However, the combination of sorting and hiding did have a positive and significant effect on user performance.
+Table \ref{tab:ttests} shows the results of the comparisons between different treatment groups.
+
+\clearpage
+\begin{sidewaystable}[ht]
+    \centering
+    \small
+    \begin{tabular*}{\textheight}{@{\extracolsep{\fill}} >{\raggedright\arraybackslash}p{1.1cm}>{\raggedright\arraybackslash}p{1.1cm}>{\centering\arraybackslash}l>{\footnotesize}l>{\footnotesize}l>{\footnotesize}l>{\footnotesize}l>{\footnotesize}l>{\footnotesize}l>{\footnotesize}l>{\footnotesize}l}
+    
+    \toprule
+    \multirow{2}{*}{Effect} & \multirow{2}{*}{Treatments} & \multicolumn{3}{c}{\parbox{2cm}{\centering Mean bonus}} & \multicolumn{3}{c}{\parbox{2.5cm}{\centering Mean completion time in seconds}} & \multicolumn{3}{c}{\parbox{3cm}{\centering Selection share from recommendations}} \\
+
+    \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+        &  & Effect size & t-stat & p-value & Effect size & t-stat & p-value & Effect size & t-stat & p-value \\ \midrule
+        Sorting & 2 vs 1 & -0.04 & -1.23 & 0.90 & 3 & 0.36 & 0.72 & -0.01 & -0.61 & 0.54 \\
+        Sorting & 4 vs 3 & -0.01 & -0.01 & 0.50 & 7 & 0.86 & 0.39 & -0.03 & -0.11 & 0.91 \\
+        Hiding & 3 vs 1 & 0.03 & 1.32 & 0.10 & -18 & -2.23 & 0.02 & 0.01 & 0.06 & 0.95 \\
+        Hiding & 4 vs 2 & 0.07 & 2.35 & 0.01 & -14 & -1.54 & 0.05 & -0.24 & -0.68 & 0.50 \\ \bottomrule
+    \end{tabular*}
+    \caption{Difference tests among treatment groups.}
+    \label{tab:ttests}
+\end{sidewaystable}
+\clearpage
+
+
+
+Another interesting activity to analyze was sorting and hiding activity users have performed. Although only two treatment groups could remove features from the recommendation algorithm or sort by them, 70\% of the time they removed "non-useful" features. Average participants used sorting feature 13 times until they made their final choice, approximately 80\% of the time sorting by "useful" features. Table  \ref{tab:eventsperfeature} shows further information the usage of sorting and hiding per feature.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{lllll}
+    \toprule
+        Feature & \multicolumn{2}{c}{Hidden} & \multicolumn{2}{c}{Sorted} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5}
+        & count & share & count & share \\ \midrule
+        F1 & 65 & 0.15 & 151 & 0.16 \\
+        F2 & 154 & 0.35 & 135 & 0.15 \\
+        F3 & 47 & 0.11 & 331 & 0.36 \\
+        F4 & 146 & 0.33 & 67 & 0.07 \\
+        F5 & 24 & 0.06 & 232 & 0.25 \\ \bottomrule
+    \end{tabular}
+    \caption{Sorting and hiding statistics per feature.}
+    \label{tab:eventsperfeature}
+\end{table}
+
+\textbf{Main results}
+
+To analyze the relationship defined by the research questions I have used Structural Equation Modeling. Factor loadings, Cronbach alphas are presented in table \ref{tab:factorloadings}. Although goodness of fit chi square test yields significant p-value, the big size of the sample justifies using other statistics to test for the goodness of fit \citep{schermelleh2003evaluating}. In the literature, for such cases, other goodness of fit measures were proposed \citep{schreiber2006reporting}. Two of them, Comparative Fit Index and Tucker-Lewis Index for the goodness of fit analysis both are at 0.97 which is considered a good fit \citep{schumacker2004beginner}. 75\% of the variation in BI is explained by the model and five out of six hypotheses are confirmed. The results of SEM are presented in the figure \ref{fig:mainresults_and_summary}. 
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{llll}
+\hline
+\textbf{Factor}             & \textbf{Item} & \textbf{Loading} & \textbf{Cronbach's alpha} \\ \hline
+\multirow{4}{*}{Perceived Usefulness} & PU1   & 0.97 & \multirow{4}{*}{0.98}  \\
+                             & PU2   & 0.97  \\
+                             & PU3   & 0.96  \\
+                             & PU4   & 0.97   \\ \hline
+\multirow{4}{*}{Perceived Ease of Use} & PE1   & 0.76 & \multirow{4}{*}{0.85} \\
+                             & PE2   & 0.79  \\
+                             & PE3   & 0.65  \\
+                             & PE4   & 0.90  \\ \hline
+\multirow{4}{*}{User Control} & UC1   & 0.91  & \multirow{4}{*}{0.92} \\
+                             & UC2   & 0.96  \\
+                             & UC3   & 0.90  \\
+                             & UC4   & 0.73  \\ \hline
+\multirow{2}{*}{Behavioral Intention} & BI1   & 0.98  & \multirow{2}{*}{0.98} \\
+                             & BI2   & 0.97  \\ \hline
+\end{tabular}
+\caption{Factor loading of items and Cronbach's alpha of the main factors. Refer to Appendix A for more information about factors and corresponding questions.}
+\label{tab:factorloadings}
+\end{table}
+
+All three hypotheses corresponding to original TAM model relationships were confirmed (H4, H5, H6). Users perceived easy to use RS to be more useful and intend to utilize them more.  Furthermore, perceived usefulness had a strong positive effect on behavioral intentions which suggest that users were more likely to adopt an RS if they find it useful in meeting their needs.
+
+Users found to perceive RS systems with user control to be more useful. One percentage point increase in user control led to almost half percentage point increase in perceived usefulness. Hence H1 was confirmed. This is not surprising as similar this result is in line with previous research which was conducted in specific domain settings \citep{bostandjiev2012tasteweights, millecampControllingSpotifyRecommendations2018}. 
+
+User control was also an important construct in directly explaining the behavioral intention to use an RS. For every  one percentage point increase in user control, participants showed more than half percentage point more intentions to use an RS. Hence, H3 was also confirmed. 
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, auto, 
+                        latent/.style={rectangle, draw, align=center, scale=1.3},
+                        every label/.style={scale=1.3},
+                        every edge/.style={scale=1.3}]
+      % Latent variables
+      \node[latent] (percontrol) {User\\Control};
+      \node[latent] (pease) [below right=1.5cm and 3cm of percontrol] {Perceived\\ease of use};
+      \node[latent] (puseful) [above right=1.5cm and 3cm of percontrol] {Perceived\\usefulness};
+      \node[latent] (bi) [right=9cm of percontrol] {Behavioral\\intention};
+    
+      % Paths with labels
+      \draw[-latex, line width=1pt] (percontrol) -- node[midway,above right, yshift=0.6cm] {0.32} (puseful);
+      \draw[-latex, line width=1pt] (percontrol) -- node[midway,below right, yshift=0.4cm] {0.14} (pease);
+      \draw[-latex, line width=1pt] (puseful) -- node[midway,above, yshift=0.2cm] {0.76} (bi);
+      \draw[-latex, line width=1pt] (pease) -- node[midway,below, yshift=-0.2cm] {0.11} (bi);
+      \draw[-latex, line width=1pt] (pease) -- node[midway,below left, yshift=-0.5cm] {0.40} (puseful);
+    \draw[-latex, line width=1pt] (percontrol) -- (bi);
+      \node[above] at ($(percontrol)!.7!(bi)$) {0.13};
+    \end{tikzpicture}
+    
+    \vspace{1cm} % Adjust the vertical space between figure B and table A as needed
+    
+    \begin{tabular}{lllll}
+    \toprule
+        Hypothesis & Expected sign & Effect size & t-stat & p-value \\
+    \midrule
+        H1 & + & 0.480 & 128.2 & 0.000 \\
+        H2 & - & 0.115 & 75.3 & 0.995 \\
+        H3 & + & 0.568 & 142.3 & 0.000 \\
+        H4 & + & 0.773 & 284.2 & 0.000 \\
+        H5 & + & 0.647 & 140.9 & 0.000 \\
+        H6 & + & 0.608 & 134.9 & 0.000 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Main results (above), summary of hypotheses and total effect sizes.}
+    \label{fig:mainresults_and_summary}
+\end{figure}
+
+
+However, contrary to my expectations, H2 was not confirmed. Participants did not perceive the RS with control to be less easy to use. This result needs further discussions. The theoretical foundations for H2 have been driven from established research stream that established connection between information overload and decision making of consumers \citep{jacoby1974brand, chenEffectsInformationOverload2009}. While increased information leads to better informed decisions, research has established trade-off between information richness and decision quality \citep{malhotra1982information, jacoby1974brand}. Also, information overload has been found to negatively affect acceptance of internet utilization \citep{shih2004extended}. 
+
+A potential explanation for such counter-intuitive outcome on the result of H2 testing is the type of control mechanisms employed in the experiment. Recall that, I have defined the scope of control mechanism as a mechanism which "has immediate effect on recommendations, is easily understandable and does not prevent the user from interacting with the system". Previous literature has mentioned number of user control mechanisms that can be employed. They range from simple critique based to more weight scale and visualization based complex control mechanisms \citep{jannach2017user, jinEffectsPersonalCharacteristics2018}. Considering the theoretical foundations of H2 one needs to further investigate this outcome. Recall that, users had ten minutes to solve the information search task and they were given two control mechanisms. Disentangling the effect of both control mechanisms on completion time is one possible avenue to pursue. One way of doing this is to look at completion time of the search task. T-tests were conducted where different groups were compared in terms of completion time. The results showed that the hiding allowed participants to finish their task earlier, while sorting did not lead to any significant reduction in completion time. These results lead to a conclusion that the critiquing (hiding) and sorting control mechanisms have different, rather than strictly contradicting effects on task completion time. On the one hand, the hiding mechanism showed a significant negative effect on task completion time, indicating that users who could hide items were able to complete the task more quickly and easily. This suggests that the hiding mechanism has effectively streamlined the decision making process for participants while allowing them to focus on more relevant options and eliminate unwanted or non-useful aspects of the algorithm. This might have had a positive impact on perceived ease of use. On the other hand, the sorting mechanism having an albeit insignificant but positive effect on task completion time implies that its impact on perceived ease of use is less clear-cut and may vary. While the effects of these two control mechanisms are not necessarily contradicting each other, they do highlight that the two control mechanisms have differing impacts on users' experiences. 
+
+Another explanation could be that engaging with control features helped participants to learn more about the recommender system's functionalities and underlying logic. Control mechanisms provided participants with ability to interact with the system and receive a feedback from it. Feedback in this context was altered recommendations. Such process could facilitate the learning process and help participants to develop a mental model of the system's functionality, thereby giving them a perception of increased ease of use \citep{norman2013design}. As participants became more familiar with a given system, they might have found it easier to navigate and interact with its features. This could have lead to a higher perceived ease of use, as users felt more confident and comfortable using the system \citep{venkateshDeterminantsPerceivedEase2000}. 
+
+\subsection{Implications}
+
+The growing speed of digitisation of our lives and growing AI presence means even more applications of recommender systems. As well made and diverse recommendations are crucial for the success of businesses and growing importance of human-AI interaction it is important to understand the challenges in implementation of control mechanisms \citep{songWhenHowDiversify2019, dietvorstEtAl18}. There are several important implications for system designers arising from this study.
+
+Firstly, system designers must take into account that, although user control might in some cases lead to users believing those systems are easier to use, the relationship between them are more complex and nuanced. Hence, they must not sacrifice simplicity of the systems by adding more control. They must be aware that choice context may have a big effect on users attitudes towards control mechanisms. Users who know exactly what they are looking for will feel more comfortable when given more granular control over the recommendation generation. Casual users on the other hand, might not want to have to do everything and rather leave that to algorithms. Real world applications of such approach could be a system which offers simple control to new users and gradually increases the complexity of control mechanisms as user becomes more proficient with the system. Also, more granular control will require a steeper learning curve for the users, and considering that algorithm alteration results are sometimes not immediately visible, it might take some time for users to understand the results of their actions. Another angle to look at this would be from decision paralysis perspective. When users face multitude of options to choose from, in terms of which control mechanism to use, they might feel confused and not to decide at all \citep{schwartz2004paradox}.
+
+Secondly, the fine trade off between the level of control and usefulness of the results must be taken into account as well. Studies have concluded that users appreciate serendipitous results now and then, but they are still sensitive to relevance of results to their preference profiles \citep{kotkovSurveySerendipityRecommender2016}. Having greater control over the recommendation generation might allow users to shift the  weights of their profiles in the system too much. This will result RS either generating very similar items to the ones user has consumed, or completely throw off the system \citep{mantovani2019meta}. Too much control might also enable hijacking of the algorithms, intentionally or unintentionally, leading to irrelevant items being suggested to users \citep{xing2013take}. 
+
+Thirdly, control is more useful when users have some understanding how it works. Although detailed explanation of complex control tools is not in the interest of either the business because it may reveal proprietary knowledge to competitors \citep{lubit2001tacit}, nor the users because they have limited abilities to understand complex systems \citep{kahneman1979interpretation} people generally use algorithmic tools more when they have some understanding in the underlying mechanisms \citep{guidotti2018survey}. Current experimental study was free of contextual factors for generalizability reasons. However, RS in real-world scenarios are contextualized which means, regardless of user control method, during the process consumer might reveal some sensitive information about themselves to the system. It can be anything from their political views, financial or social status, geographical information and etc. Too granular control makes managing user consent for system designers harder \citep{belanger2011privacy}. With various control options and granular settings, users might find it challenging to understand the extent of their data being collected and how it is used, potentially leading to privacy concerns. In those cases, it is important to inform users about how their data is gathered, how it affects recommendations and how one can change that. For example, Netflix gives basic understanding of its recommendation algorithm which is easy to understand to any user type, let it be novice or expert \citep{netflix_help_page}. Also, giving too granular feedback to recommendation algorithm may result in user leaving fine detailed digital footprint, which might make anonymization harder and open doors to various malicious attacks \citep{sweeney2002k}.
+
+\subsection{Summary, limitations and future directions}
+
+I have investigated the effect of user control on recommender systems' acceptance in a domain independent experimental setting. TAM was used as a theoretical framework. This study confirmed the original TAM model relationships, indicating that users perceive easy-to-use RS as more useful and intend to use them more. Also, usefulness had a strong positive effect on behavioral intentions to use an RS, suggesting that users were more likely use an RS if they found it useful in meeting their needs. Furthermore, user control has been found to be an essential construct in directly explaining behavioral intention to use an RS.
+
+However, contrary to expectations, participants did not perceive RS with control to be less easy to use. Possible explanations include the type of control mechanisms employed in the experiment and their varying impacts on users' experiences. The hiding mechanism showed a significant negative effect on task completion time, suggesting a positive impact on perceived ease of use, while the sorting mechanism's effect was more ambiguous. Engaging with control features may have helped participants learn more about the recommender system's functionalities and underlying logic, hence contributing to increased perceived ease of use.
+
+One limitation of the study is the usage of single utility function. I have provided the reasons granting me the certainty of using such approach. One way to address this limitation can be the introduction of randomly generated utility functions. For example, having utility defined as $U = F \cdot W$ where $W_{i,j} \sim U(-1,1)$. This would allow to capture more diverse preferences and reduce the differences between the experimental and real-world choice scenarios even further \citep{vesanen2007personalization}. Secondly, it would introduce preference trade-off between different features. It would make the choice setup more complex and hence further resemble actual choices we face on daily basis.
+
+Another limitation of the study arises from the fact that I have used two out of many control mechanisms. Future research may incorporate a broader range control mechanisms and study their effect both individually and in combination with each other to investigate the effect of user control on RS acceptance. By doing so one may identify the differences and between various control methods from the user's perspective and better understand the aspects that affect user acceptance by disentangling their effects. 
+
+The findings indicating the varying effects of control methods opens doors for the future research of recommender systems with dynamic control mechanisms. Dynamic user controls have the potential to provide superior decision support by presenting control options that align with users' current context or requirements. For instance, a travel booking website's recommender system could furnish users with more granular control options when searching for accommodations in popular tourist destinations with a multitude of choices to which user has previously been to, but more simplistic options in case of a first visit. Another example can be  music streaming platform that could extend different control ways depending on users' ongoing activities, such as providing streamlined controls for users listening to music while working and more intricate controls for users actively curating a playlist for a social gathering. Lastly, a streaming service's recommender system might present basic control options for users seeking a quick movie recommendation, while supplying more comprehensive options for users interested in delving into a specific genre or director's oeuvre. Balancing these aspects well might be crucial to increase sales and drive higher engagement.
+
+Recent technological progress in face of LLMs (large language models) creates another exciting opportunity for future research in the context of user control in recommender systems. LLM based agents that leverage billions of parameters and terabytes of human generated knowledge enable human-like natural language interactions between users and the system, and can easily become an instrumental technology in enhancing user control, increasing trust and satisfaction. Key benefits of incorporating LLMs in RS through conversational agents is their ability to understand human input better, take user input by offering a more intuitive and transparent way to express their preferences and requirements. They can also be used to give explanations for recommendations thus enhancing transparency.
+
+Considering the rapid technological developments of the recent years, we may state with confidence that user control in recommender systems is about to take a huge leap forward and open even more research directions. 
 
 
 
 \newpage
-\section{User control and recommender systems acceptance}\label{chapter:UserControlAndRS}
-
 
 %\bibliographystyle{chicago}
 
@@ -1355,6 +1740,12 @@ TALK ABOUT HOW DEMAND SIDE INFORMATION IS NOT ALWAYS ENOUGH AS PEOPLE'S PREFEREN
 \clearpage
 
 \appendix
+\section{}\label{appendix:Differential evolution}
+\textbf{Differential evolution}
+The Differential Evolution (DE) Algorithm is a heuristic-based optimization technique that is widely used in various scientific fields, including Economics. This algorithm is capable of exploring the search space of a problem to find the global optimum. Unlike traditional optimization techniques, the DE algorithm does not require gradient information, making it applicable to non-differentiable, non-linear, and multi-modal optimization problems.
+\citep{storn1997differential}
+
+
 \section{}\label{appendix:compromiseCalculation}
 
 \textbf{Comparison pair count calculation for the compromise effect}
@@ -1659,7 +2050,34 @@ where  $a$ is the mean distance between this object and all other objects in the
 \clearpage
 \newpage
 
-\section{}
+\section{}\label{appendix:userControlExperimentQuestionnaire}
+\clearpage
+\begin{sidewaystable}[!ht]
+    \centering
+    \small{
+    \begin{tabular}{|p{7cm}|l|p{2cm}|p{3cm}|p{3cm}|}
+    \hline
+        \textbf{Question} & \textbf{Variable} & \textbf{Construct} & \textbf{Answer scale} & \textbf{Adapted from} \\ \hline
+        Using this recommendation system improves my performance  during this task & Perceived usefulness & PU1 & 7 point Likert & Davis \citeyearonly{davisPerceivedUsefulnessPerceived1989}, \citep{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        Using this recommendation system increases my productivity in performing this task & Perceived usefulness & PU2 & 7 point Likert & Davis \citeyearonly{davisPerceivedUsefulnessPerceived1989}, Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000}\\ \hline
+        Using this recommendation system enhances my effectiveness in performing this task & Perceived usefulness & PU3 & 7 point Likert & Davis \citeyearonly{davisPerceivedUsefulnessPerceived1989},Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        I find the recommendation system to be useful in performing this task & Perceived usefulness & PU4 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        My interaction with the recommendation system is clear and understandable & Perceived ease of use & PE1 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000}\\ \hline
+        Interaction with the recommendation system does not require a lot of mental effort & Perceived ease of use & PE2 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        I find the recommendation system easy to use & Perceived ease of use & PE3 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        I find the recommendation system easy to do what I wanted it to do & Perceived ease of use & PE4 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        I have control over how the recommendations are generated & User control & UC1 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        I have resources necessary to control how the recommendations are generated & User control & UC2 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        I have knowledge necessary to control how the recommendations are generated & User control & UC3 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        Given the resources opportunity and the knowledge it takes to control how the recommendations are generated  it would be easy for me to do it & User control & UC4 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        Assuming I had access to this recommendation system I intend to use it for similar tasks & Behavioral intention & BI1 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+        Given I had access to the recommendation system  I predict that I would use it for similar tasks & Behavioral intention & BI2 & 7 point Likert & Venkatesh \citeyearonly{venkateshDeterminantsPerceivedEase2000} \\ \hline
+    \end{tabular}
+    }
+    \caption{Constructs}
+    \label{tab:questionnaire_items}
+\end{sidewaystable}
+
 
 \end{document}
 
