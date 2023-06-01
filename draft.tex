@@ -1758,15 +1758,15 @@ Differential Evolution is a population-based, stochastic search algorithm that g
 
 The algorithm operates as follows:
 
-1. Initialization: Generate an initial population of $NP$ candidate solutions randomly, each solution is a vector in the $D$-dimensional space.
+1. Initialization: Generate an initial population of $NP$ candidate solutions randomly, each solution is a vector in the $D$-dimensional space
     
     For $i = 1 $to $NP, j = 1$ to $D$:
     
-    $$X[i, j] = X_min[j] + rand(0, 1) * (X_max[j] - X_min[j])$$
+    $$X[i, j] = X_min[j] + rand(0, 1) * (X_max[j] - X_min[j]) .$$
     
 2. Mutation: For each individual vector $Xi (i=1, 2, ..., NP)$ in the current population, a mutant vector $V_i$ is generated according to:
 
-    $$V[i, j] = X[r1, j] + F * (X[r2, j] - X[r3, j])$$
+    $$V[i, j] = X[r1, j] + F * (X[r2, j] - X[r3, j]) .$$
 
     Here, $r1$, $r2$, and $r3$ are indices randomly chosen from the population, and they are distinct from each other and $i$. The real number $F \in [0,2]$ is the scaling factor which controls the amplification of the differential variation $X[r2, j] - X[r3, j]$.
 
@@ -1779,7 +1779,7 @@ The algorithm operates as follows:
         \begin{cases}
             V[i, j] & \text{if } \text{rand}(0,1) \leq \text{CR} \text{ or } j = j_{\text{rand}} \\
             X[i, j] & \text{otherwise}
-        \end{cases}
+        \end{cases} .
     $$
 
 Here, $rand(0,1)$ is a uniform random number in $[0,1], CR \in [0,1]$ is the crossover rate that controls the fraction of parameter values copied from the mutant vector, and $j_rand$ is a randomly chosen index from the $D$ dimensions.
@@ -1791,7 +1791,7 @@ Here, $rand(0,1)$ is a uniform random number in $[0,1], CR \in [0,1]$ is the cro
         \begin{cases}
             U[i, j] & \text{if } f(U[i, j]) \leq f(X[i, j]) \\
             X[i, j] & \text{otherwise}
-        \end{cases}
+        \end{cases} .
         $$
 
 Here, $f(.)$ denotes the objective function.
@@ -1883,7 +1883,7 @@ The damping factor,  $\lambda\in[0;1]$, affects the number of identified cluster
 
 A popular alternative method to identify clusters of comparable objects in data is the k-means algorithm \citep{lloyd82}. It divides a set of N objects of X into K distinct clusters $C_j$  which are described by the means $\mu_j$ of the samples within each cluster. Those means are commonly referred to as cluster centroids. The algorithm aims to select centroids that minimize the within cluster sum of squares, i.e
 
-$$\sum_{i=0}^{n}\min_{\mu_j\in C_j}\left(\left.\left|x_i-\mu_j\right|^2\right.\right)$$
+$$\sum_{i=0}^{n}\min_{\mu_j\in C_j}\left(\left.\left|x_i-\mu_j\right|^2\right.\right) .$$
 
 At its core, k-means is a computationally cheap algorithm. However, it has an important drawback, which is that it explicitly requires the number of clusters to be fixed ex-ante. Different number of clusters result into different clustering outcomes for a given data. This is a disadvantage compared to affinity propagation where the number of clusters is endogenously identified. To solve this problem, there are external measures we can use in order to judge the optimality of clustering outcomes for a given data. One such popular and computationally affordable measure is the silhouette score \citep{rousseeuw1987silhouettes}. The silhouette score is calculated for every object in the set as
 
